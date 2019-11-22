@@ -1,9 +1,13 @@
 package main
 
 import (
+	"fmt"
 	"io"
+	"log"
+	"os"
 	"text/template"
 
+	"github.com/joho/godotenv"
 	"github.com/labstack/echo"
 	"github.com/labstack/echo/middleware"
 	"github.com/nickelghost/cms/controllers"
@@ -25,6 +29,12 @@ func (t *Template) Render(
 }
 
 func main() {
+	// Load variables from .env
+	err := godotenv.Load()
+	// Check for errors and ignore if file not found
+	if err != nil && err.Error() != "open .env: no such file or directory" {
+		log.Fatal(err)
+	}
 	// Load view templates
 	t := &Template{
 		templates: template.Must(template.ParseGlob("views/*.html")),
@@ -39,6 +49,15 @@ func main() {
 	e.Use(middleware.Static("public"))
 	// Define routes
 	e.GET("/", controllers.Homepage)
+	// Define where to serve
+	port := os.Getenv("APP_PORT")
+	if port == "" {
+		log.Println(
+			"No APP_PORT env variable found. Using default port 3000...",
+		)
+		port = "3000"
+	}
+	connStr := fmt.Sprintf(":%s", port)
 	// Start the server
-	e.Logger.Fatal(e.Start(":3000"))
+	e.Logger.Fatal(e.Start(connStr))
 }
