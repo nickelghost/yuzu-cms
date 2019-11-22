@@ -7,5 +7,5 @@ import (
 )
 
 func Homepage(c echo.Context) error {
-	return c.String(http.StatusOK, "Homepage")
+	return c.Render(http.StatusOK, "homepage.html", nil)
 }
