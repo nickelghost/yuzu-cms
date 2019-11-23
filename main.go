@@ -51,7 +51,7 @@ func main() {
 	}
 	defer db.Close()
 	err = database.Migrate(db)
-	if err != nil {
+	if err != nil && err.Error() != "no change" {
 		log.Fatal(err)
 	}
 	// Load view templates
