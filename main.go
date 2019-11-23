@@ -7,44 +7,13 @@ import (
 	"os"
 	"text/template"
 
-	"github.com/nickelghost/cms/common"
-	"github.com/nickelghost/cms/models"
-
-	"github.com/jinzhu/gorm"
-	_ "github.com/jinzhu/gorm/dialects/postgres"
 	"github.com/joho/godotenv"
 	"github.com/labstack/echo"
 	"github.com/labstack/echo/middleware"
+	"github.com/nickelghost/cms/common"
 	"github.com/nickelghost/cms/controllers"
+	"github.com/nickelghost/cms/database"
 )
-
-func initDB(
-	host string,
-	port string,
-	user string,
-	password string,
-	db string,
-	ssl string,
-) (*gorm.DB, error) {
-	connStr := fmt.Sprintf(
-		"host=%s port=%s user=%s password=%s dbname=%s sslmode=%s",
-		host,
-		port,
-		user,
-		password,
-		db,
-		ssl,
-	)
-	conn, err := gorm.Open("postgres", connStr)
-	if err != nil {
-		return nil, err
-	}
-	return conn, nil
-}
-
-func migrate(db *gorm.DB) {
-	db.AutoMigrate(&models.Post{})
-}
 
 // Template is a struct required for rendering templating views
 type Template struct {
@@ -69,7 +38,7 @@ func main() {
 		log.Fatal(err)
 	}
 	// Get the database connection
-	db, err := initDB(
+	db, err := database.Init(
 		os.Getenv("DB_HOST"),
 		os.Getenv("DB_PORT"),
 		os.Getenv("DB_USER"),
@@ -81,7 +50,10 @@ func main() {
 		log.Fatal(err)
 	}
 	defer db.Close()
-	migrate(db)
+	err = database.Migrate(db)
+	if err != nil {
+		log.Fatal(err)
+	}
 	// Load view templates
 	t := &Template{
 		templates: template.Must(template.ParseGlob("views/*.html")),
