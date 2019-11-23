@@ -10,10 +10,11 @@ import (
 )
 
 type APIPostsIndexResponseItem struct {
-	ID        uint
-	Title     string
-	CreatedAt time.Time
-	UpdatedAt time.Time
+	ID             uint
+	Title          string
+	ContentPreview string
+	CreatedAt      time.Time
+	UpdatedAt      time.Time
 }
 
 func APIPostsIndex(c echo.Context) error {
@@ -22,16 +23,18 @@ func APIPostsIndex(c echo.Context) error {
 	db.Select([]string{
 		"id",
 		"title",
+		"content_preview",
 		"created_at",
 		"updated_at",
 	}).Find(&posts)
 	var res []APIPostsIndexResponseItem
 	for _, post := range posts {
 		resPost := APIPostsIndexResponseItem{
-			ID:        post.ID,
-			Title:     post.Title,
-			CreatedAt: post.CreatedAt,
-			UpdatedAt: post.UpdatedAt,
+			ID:             post.ID,
+			Title:          post.Title,
+			ContentPreview: post.ContentPreview,
+			CreatedAt:      post.CreatedAt,
+			UpdatedAt:      post.UpdatedAt,
 		}
 		res = append(res, resPost)
 	}
