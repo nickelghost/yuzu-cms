@@ -9,5 +9,10 @@
 <body>
     <h1>CMS</h1>
     <p>This is the homepage of the CMS</p>
+    <hr />
+    {{range $post := .posts}}
+      <h1>{{$post.Title}}</h1>
+      <p>{{$post.ContentPreview}}...</p>
+    {{end}}
 </body>
 </html>
