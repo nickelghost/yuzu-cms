@@ -1,9 +1,13 @@
 package models
 
-import "github.com/jinzhu/gorm"
+import (
+	"time"
+)
 
 type Post struct {
-	gorm.Model
-	Title   string
-	Content string
+	ID        uint `gorm:"primary_key"`
+	Title     string
+	Content   string
+	CreatedAt time.Time
+	UpdatedAt time.Time
 }
