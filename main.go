@@ -75,6 +75,7 @@ func main() {
 	e.Use(middleware.Static("public"))
 	// Define routes
 	e.GET("/", controllers.Homepage)
+	e.GET("/admin", controllers.Admin)
 	e.GET("/api/v1/posts", controllers.APIPostsIndex)
 	// Define where to serve
 	port := os.Getenv("APP_PORT")
