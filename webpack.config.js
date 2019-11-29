@@ -16,8 +16,8 @@ module.exports = {
 		mainFields: ['svelte', 'browser', 'module', 'main']
 	},
 	output: {
-		path: __dirname + '/public/js',
-		filename: 'admin.js'
+		path: __dirname + '/public/admin',
+		filename: 'index.js'
 	},
 	module: {
 		rules: [

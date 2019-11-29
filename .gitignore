@@ -1,5 +1,6 @@
 .env
 __debug_bin
 node_modules
-public/js/*
-!public/js/.gitkeep
+
+public/admin/index.js
+public/admin/index.js.map
