@@ -9,10 +9,11 @@ onMount(async () => {
 });
 </script>
 
-<h1>Posts</h1>
-
-<ul>
-  {#each posts as post}
-    <li>{post.title}</li>
-  {/each}
-</ul>
+<div>
+  <h1>Posts</h1>
+  <ul>
+    {#each posts as post}
+      <li>{post.title}</li>
+    {/each}
+  </ul>
+</div>
