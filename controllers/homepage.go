@@ -14,6 +14,7 @@ func Homepage(c echo.Context) error {
 	db.Select([]string{
 		"id",
 		"title",
+		"content",
 		"created_at",
 		"updated_at",
 	}).Find(&posts)

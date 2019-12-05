@@ -27,6 +27,9 @@
         {{range $post := .posts}}
           <div class="post">
             <h1>{{$post.Title}}</h1>
+            <div>
+              {{$post.GetHTMLContent}}
+            </div>
           </div>
         {{end}}
       </div>
