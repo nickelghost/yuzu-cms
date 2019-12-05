@@ -54,9 +54,15 @@ func main() {
 	if err != nil && err.Error() != "no change" {
 		log.Fatal(err)
 	}
+	theme := os.Getenv("APP_THEME")
+	if theme == "" {
+		theme = "default"
+	}
 	// Load view templates
 	t := &Template{
-		templates: template.Must(template.ParseGlob("views/*.html")),
+		templates: template.Must(template.ParseGlob(
+			fmt.Sprintf("views/%s/*.html", theme),
+		)),
 	}
 	// Init Echo
 	e := echo.New()
