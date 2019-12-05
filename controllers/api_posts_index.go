@@ -10,11 +10,11 @@ import (
 )
 
 type APIPostsIndexResponseItem struct {
-	ID             uint
-	Title          string
-	ContentPreview string
-	CreatedAt      time.Time
-	UpdatedAt      time.Time
+	ID             uint      `json:"id"`
+	Title          string    `json:"title"`
+	ContentPreview string    `json:"content_preview"`
+	CreatedAt      time.Time `json:"created_at"`
+	UpdatedAt      time.Time `json:"updated_at"`
 }
 
 func APIPostsIndex(c echo.Context) error {
