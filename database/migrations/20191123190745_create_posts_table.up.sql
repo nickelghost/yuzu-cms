@@ -2,9 +2,6 @@ CREATE TABLE posts(
   id SERIAL PRIMARY KEY,
   title TEXT NOT NULL,
   content TEXT NOT NULL,
-  content_preview TEXT GENERATED ALWAYS AS (
-    TRIM(SUBSTRING(content FROM 1 FOR 50))
-  ) STORED,
   created_at TIMESTAMP NOT NULL,
   updated_at TIMESTAMP NOT NULL
 );

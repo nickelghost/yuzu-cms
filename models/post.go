@@ -5,10 +5,9 @@ import (
 )
 
 type Post struct {
-	ID             uint `gorm:"primary_key"`
-	Title          string
-	Content        string
-	ContentPreview string
-	CreatedAt      time.Time
-	UpdatedAt      time.Time
+	ID        uint `gorm:"primary_key"`
+	Title     string
+	Content   string
+	CreatedAt time.Time
+	UpdatedAt time.Time
 }
