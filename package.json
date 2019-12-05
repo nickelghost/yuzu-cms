@@ -2,10 +2,8 @@
   "name": "cms",
   "description": "",
   "scripts": {
-    "admin-build": "npx cross-env NODE_ENV=production webpack",
-    "admin-watch": "npx webpack --watch",
-    "default-build": "sass resources/default/index.scss public/default/index.css --style=compressed",
-    "default-watch": "sass resources/default/index.scss public/default/index.css --watch"
+    "build": "npx cross-env NODE_ENV=production webpack",
+    "watch": "npx webpack --watch"
   },
   "dependencies": {
     "svelte": "^3.15.0"

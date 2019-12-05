@@ -1,0 +1,16 @@
+{
+  "name": "default",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "dependencies": {},
+  "devDependencies": {
+    "sass": "^1.23.7"
+  },
+  "scripts": {
+    "build": "npx sass resources/index.scss public/index.css --style=compressed",
+    "watch": "npx sass resources/index.scss public/index.css --watch"
+  },
+  "author": "",
+  "license": "ISC"
+}

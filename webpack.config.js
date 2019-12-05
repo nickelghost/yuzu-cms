@@ -6,7 +6,7 @@ const prod = mode === 'production';
 
 module.exports = {
 	entry: {
-		bundle: ['./resources/admin/index.js']
+		bundle: ['./resources/index.js']
 	},
 	resolve: {
 		alias: {
@@ -16,7 +16,7 @@ module.exports = {
 		mainFields: ['svelte', 'browser', 'module', 'main']
 	},
 	output: {
-		path: __dirname + '/public/admin',
+		path: __dirname + '/public',
 		filename: 'index.js'
 	},
 	module: {
@@ -43,7 +43,7 @@ module.exports = {
 	mode,
 	plugins: [
 		new MiniCssExtractPlugin({
-			filename: 'admin.css'
+			filename: 'index.css'
 		})
 	],
 	devtool: prod ? false: 'source-map'

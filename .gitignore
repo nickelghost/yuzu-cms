@@ -1,6 +1,6 @@
-.env
-__debug_bin
-node_modules
+/.env
+/__debug_bin
+/node_modules
 
-public/admin/index.js
-public/admin/index.js.map
+/public/*
+!/public/index.html

@@ -61,7 +61,7 @@ func main() {
 	// Load view templates
 	t := &Template{
 		templates: template.Must(template.ParseGlob(
-			fmt.Sprintf("views/%s/*.html", theme),
+			fmt.Sprintf("themes/%s/views/*.html", theme),
 		)),
 	}
 	// Init Echo
@@ -78,7 +78,11 @@ func main() {
 	// Add Echo middleware
 	e.Use(middleware.Logger())
 	e.Use(middleware.Recover())
-	e.Use(middleware.Static("public"))
+	e.Static("/admin", "public")
+	e.Static(
+		fmt.Sprintf("/%s", theme),
+		fmt.Sprintf("themes/%s/public", theme),
+	)
 	// Define routes
 	e.GET("/", controllers.Homepage)
 	e.GET("/api/v1/posts", controllers.APIPostsIndex)
