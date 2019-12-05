@@ -1,7 +1,6 @@
 package controllers
 
 import (
-	"log"
 	"net/http"
 	"time"
 
@@ -18,7 +17,6 @@ type APIPostsCreateRequest struct {
 type APIPostsCreateResponse struct {
 	ID        uint      `json:"id"`
 	Title     string    `json:"title"`
-	Content   string    `json:"content"`
 	CreatedAt time.Time `json:"created_at"`
 	UpdatedAt time.Time `json:"updated_at"`
 }
@@ -27,7 +25,6 @@ func APIPostsCreate(c echo.Context) error {
 	req := new(APIPostsCreateRequest)
 	err := c.Bind(req)
 	if err != nil {
-		log.Println("yup")
 		return err
 	}
 	db := c.(*common.CustomContext).DB
@@ -42,7 +39,6 @@ func APIPostsCreate(c echo.Context) error {
 	res := APIPostsCreateResponse{
 		ID:        post.ID,
 		Title:     post.Title,
-		Content:   post.Content,
 		CreatedAt: post.CreatedAt,
 		UpdatedAt: post.UpdatedAt,
 	}
