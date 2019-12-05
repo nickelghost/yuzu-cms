@@ -5,14 +5,33 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>CMS</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css">
+    <link rel="stylesheet" href="/default/index.css">
 </head>
 <body>
-    <h1>CMS</h1>
-    <p>This is the homepage of the CMS</p>
-    <hr />
-    {{range $post := .posts}}
-      <h1>{{$post.Title}}</h1>
-      <p>{{$post.ContentPreview}}...</p>
-    {{end}}
+  <div class="container">
+    <div class="nav">
+      <div class="nav-left">
+        <div class="nav-item">CMS</div>
+      </div>
+      <div class="nav-right">
+        <div class="nav-item">Posts</div>
+        <div class="nav-item">Categories</div>
+      </div>
+    </div>
+    <div class="main">
+      <div class="welcome">
+        <p>This is the homepage of the CMS</p>
+      </div>
+      <div class="posts">
+        {{range $post := .posts}}
+          <div class="post">
+            <h1>{{$post.Title}}</h1>
+            <p>{{$post.ContentPreview}}...</p>
+          </div>
+        {{end}}
+      </div>
+    </div>
+  </div>
 </body>
 </html>
