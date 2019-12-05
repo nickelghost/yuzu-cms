@@ -17,6 +17,7 @@ import routes from './routes';
 }
 .container {
   background-color: white;
+  display: flex;
   flex-grow: 1;
   max-width: 970px;
   padding: 0 12px;
