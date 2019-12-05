@@ -31,6 +31,7 @@ onMount(async () => {
 
 .textarea {
   flex-grow: 1;
+  resize: vertical;
 }
 </style>
 
