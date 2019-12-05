@@ -86,6 +86,7 @@ func main() {
 	// Define routes
 	e.GET("/", controllers.Homepage)
 	e.GET("/api/v1/posts", controllers.APIPostsIndex)
+	e.POST("/api/v1/posts", controllers.APIPostsCreate)
 	// Define where to serve
 	port := os.Getenv("APP_PORT")
 	if port == "" {
