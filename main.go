@@ -10,9 +10,9 @@ import (
 	"github.com/joho/godotenv"
 	"github.com/labstack/echo"
 	"github.com/labstack/echo/middleware"
-	"github.com/nickelghost/cms/common"
 	"github.com/nickelghost/cms/controllers"
 	"github.com/nickelghost/cms/database"
+	"github.com/nickelghost/cms/other"
 )
 
 // Template is a struct required for rendering templating views
@@ -71,7 +71,7 @@ func main() {
 	// Add custom context
 	e.Use(func(next echo.HandlerFunc) echo.HandlerFunc {
 		return func(c echo.Context) error {
-			cc := &common.CustomContext{Context: c, DB: db}
+			cc := &other.CustomContext{Context: c, DB: db}
 			return next(cc)
 		}
 	})
