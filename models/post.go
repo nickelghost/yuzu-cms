@@ -7,11 +7,11 @@ import (
 )
 
 type Post struct {
-	ID        uint `gorm:"primary_key"`
-	Title     string
-	Content   string
-	CreatedAt time.Time
-	UpdatedAt time.Time
+	ID        uint      `json:"id" gorm:"primary_key"`
+	Title     string    `json:"title"`
+	Content   string    `json:"content"`
+	CreatedAt time.Time `json:"created_at"`
+	UpdatedAt time.Time `json:"updated_at"`
 }
 
 func (p Post) GetHTMLContent() string {
