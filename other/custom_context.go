@@ -1,4 +1,4 @@
-package common
+package other
 
 import (
 	"github.com/jinzhu/gorm"

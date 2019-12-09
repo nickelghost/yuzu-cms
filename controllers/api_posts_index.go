@@ -5,8 +5,8 @@ import (
 	"time"
 
 	"github.com/labstack/echo"
-	"github.com/nickelghost/cms/common"
 	"github.com/nickelghost/cms/models"
+	"github.com/nickelghost/cms/other"
 )
 
 type APIPostsIndexResponseItem struct {
@@ -17,7 +17,7 @@ type APIPostsIndexResponseItem struct {
 }
 
 func APIPostsIndex(c echo.Context) error {
-	db := c.(*common.CustomContext).DB
+	db := c.(*other.CustomContext).DB
 	var posts []models.Post
 	db.Select([]string{
 		"id",

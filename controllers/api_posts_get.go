@@ -2,39 +2,31 @@ package controllers
 
 import (
 	"net/http"
-	"strconv"
-	"time"
 
+	sq "github.com/Masterminds/squirrel"
 	"github.com/labstack/echo"
-	"github.com/nickelghost/cms/common"
 	"github.com/nickelghost/cms/models"
+	"github.com/nickelghost/cms/other"
 )
 
-type APIPostsGetResponse struct {
-	ID        uint      `json:"id"`
-	Title     string    `json:"title"`
-	Content   string    `json:"content"`
-	CreatedAt time.Time `json:"created_at"`
-	UpdatedAt time.Time `json:"updated_at"`
-}
-
 func APIPostsGet(c echo.Context) error {
-	id, err := strconv.Atoi(c.Param("id"))
+	db := c.(*other.CustomContext).DB
+	sql, _, err := sq.Select(
+		"id", "title", "content", "created_at", "updated_at",
+	).From("posts").Where("id = $1").ToSql()
 	if err != nil {
 		return err
 	}
 	post := new(models.Post)
-	db := c.(*common.CustomContext).DB
-	err = db.Find(&post, id).Error
+	err = db.DB().QueryRow(sql, c.Param("id")).Scan(
+		&post.ID,
+		&post.Title,
+		&post.Content,
+		&post.CreatedAt,
+		&post.UpdatedAt,
+	)
 	if err != nil {
 		return err
 	}
-	res := APIPostsGetResponse{
-		ID:        post.ID,
-		Title:     post.Title,
-		Content:   post.Content,
-		CreatedAt: post.CreatedAt,
-		UpdatedAt: post.UpdatedAt,
-	}
-	return c.JSON(http.StatusOK, res)
+	return c.JSON(http.StatusOK, post)
 }

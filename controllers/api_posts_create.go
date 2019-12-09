@@ -5,8 +5,8 @@ import (
 	"time"
 
 	"github.com/labstack/echo"
-	"github.com/nickelghost/cms/common"
 	"github.com/nickelghost/cms/models"
+	"github.com/nickelghost/cms/other"
 )
 
 type APIPostsCreateRequest struct {
@@ -27,7 +27,7 @@ func APIPostsCreate(c echo.Context) error {
 	if err != nil {
 		return err
 	}
-	db := c.(*common.CustomContext).DB
+	db := c.(*other.CustomContext).DB
 	post := models.Post{
 		Title:   req.Title,
 		Content: req.Content,

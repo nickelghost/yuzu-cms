@@ -4,12 +4,12 @@ import (
 	"net/http"
 
 	"github.com/labstack/echo"
-	"github.com/nickelghost/cms/common"
 	"github.com/nickelghost/cms/models"
+	"github.com/nickelghost/cms/other"
 )
 
 func Homepage(c echo.Context) error {
-	db := c.(*common.CustomContext).DB
+	db := c.(*other.CustomContext).DB
 	var posts []models.Post
 	db.Select([]string{
 		"id",
