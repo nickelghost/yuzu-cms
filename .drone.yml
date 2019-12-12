@@ -6,7 +6,13 @@ steps:
 
 - name: test
   image: golang:1.13
+  environment:
+    DB_USER: postgres
+    DB_PASS: test
+    DB_SSL: disable
   commands:
+    - apk update && apk add --no-cache wait4ports
+    - wait4ports tcp://localhost:5432
     - sh scripts/test.sh
 
 - name: docker-build
@@ -89,6 +95,11 @@ services:
   volumes:
   - name: dockersock
     path: /var/run
+- name: database
+  image: postgres:12-alpine
+  environment:
+    POSTGRES_DB: cms
+    POSTGRES_PASSWORD: test
 
 volumes:
 - name: dockersock
