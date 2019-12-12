@@ -14,6 +14,7 @@ import (
 	_ "github.com/lib/pq"
 )
 
+// Init initializes the connection to our database
 func Init(
 	host string,
 	port string,
@@ -38,6 +39,7 @@ func Init(
 	return conn, nil
 }
 
+// Migrate runs all migrations against our database
 func Migrate(db *sql.DB) error {
 	driver, err := postgres.WithInstance(db, &postgres.Config{})
 	if err != nil {

@@ -9,6 +9,7 @@ import (
 	"github.com/nickelghost/cms/other"
 )
 
+// APIPostsIndex fetches all posts that were added
 func APIPostsIndex(c echo.Context) error {
 	db := c.(*other.CustomContext).DB
 	sql, _, err := sq.Select(

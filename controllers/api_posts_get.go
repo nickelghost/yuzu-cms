@@ -9,6 +9,7 @@ import (
 	"github.com/nickelghost/cms/other"
 )
 
+// APIPostsGet fetches a single post by its id
 func APIPostsGet(c echo.Context) error {
 	db := c.(*other.CustomContext).DB
 	sql, _, err := sq.Select(

@@ -10,13 +10,14 @@ import (
 	"github.com/nickelghost/cms/other"
 )
 
-type APIPostsCreateRequest struct {
+type requestAPIPostsCreate struct {
 	Title   string `json:"title"`
 	Content string `json:"content"`
 }
 
+// APIPostsCreate adds a new post for the website
 func APIPostsCreate(c echo.Context) error {
-	req := new(APIPostsCreateRequest)
+	req := new(requestAPIPostsCreate)
 	err := c.Bind(req)
 	if err != nil {
 		return err

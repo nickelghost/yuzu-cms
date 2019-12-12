@@ -9,6 +9,7 @@ import (
 	"github.com/nickelghost/cms/other"
 )
 
+// Homepage renders the index page
 func Homepage(c echo.Context) error {
 	db := c.(*other.CustomContext).DB
 	sql, _, err := sq.Select(
