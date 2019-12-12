@@ -13,6 +13,7 @@ steps:
   commands:
     - apk update && apk add --no-cache build-base wait4ports
     - wait4ports tcp://localhost:5432
+    - cp .env.example .env
     - sh scripts/test.sh
 
 - name: docker-build
