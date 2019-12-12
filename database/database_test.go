@@ -29,8 +29,8 @@ func TestInitMock(t *testing.T) {
 		os.Getenv("DB_HOST"),
 		os.Getenv("DB_PORT"),
 		os.Getenv("DB_USER"),
-		"wrongpassword",
-		os.Getenv("DB_NAME"),
+		os.Getenv("DB_PASS"),
+		"nonexistingdatabase",
 		os.Getenv("DB_SSL"),
 	)
 	if err == nil {
