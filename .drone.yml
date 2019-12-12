@@ -52,16 +52,6 @@ steps:
   - apk update && apk add --no-cache wait4ports
   - docker push cr.nickelghost.com/cms:ci-${CI_BUILD_NUMBER}
 
-- name: docker-test
-  image: docker:dind
-  volumes:
-  - name: dockersock
-    path: /var/run
-  - name: docker-config
-    path: /root/.docker
-  commands:
-  - docker run --rm cr.nickelghost.com/cms:ci-${CI_BUILD_NUMBER} sh scripts/test.sh
-
 - name: docker-deliver
   image: docker:dind
   when:
