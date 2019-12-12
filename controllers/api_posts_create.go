@@ -25,6 +25,9 @@ func APIPostsCreate(c echo.Context) error {
 	db := c.(*other.CustomContext).DB
 	post := models.Post{}
 	sql, err := database.GetSQL("api_posts_create")
+	if err != nil {
+		return err
+	}
 	err = db.QueryRow(
 		sql,
 		req.Title,
