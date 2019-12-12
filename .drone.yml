@@ -16,7 +16,7 @@ steps:
     - cp .env.example .env
     - sh scripts/test.sh
 
-- name: docker-build
+- name: build
   image: docker:dind
   volumes:
   - name: dockersock
@@ -28,7 +28,7 @@ steps:
   - wait4ports tcp://localhost:2376
   - docker build --no-cache . -t cr.nickelghost.com/cms:ci-${CI_BUILD_NUMBER}
 
-- name: docker-registry-login
+- name: registry-login
   image: docker:dind
   environment:
     REGISTRY_PASSWORD:
@@ -41,7 +41,7 @@ steps:
   commands:
   - docker login cr.nickelghost.com -u nickelghost -p $${REGISTRY_PASSWORD}
 
-- name: docker-push
+- name: push
   image: docker:dind
   volumes:
   - name: dockersock
@@ -52,7 +52,7 @@ steps:
   - apk update && apk add --no-cache wait4ports
   - docker push cr.nickelghost.com/cms:ci-${CI_BUILD_NUMBER}
 
-- name: docker-deliver
+- name: deliver
   image: docker:dind
   when:
     branch:
@@ -66,7 +66,7 @@ steps:
   - docker tag cr.nickelghost.com/cms:ci-${CI_BUILD_NUMBER} cr.nickelghost.com/cms:latest
   - docker push cr.nickelghost.com/cms:latest
 
-- name: docker-clean
+- name: clean
   image: docker:dind
   when:
     status:
