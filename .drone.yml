@@ -7,7 +7,7 @@ steps:
 - name: test
   image: golang:1.13
   commands:
-    - go test -v -cover
+    - sh scripts/test.sh
 
 - name: docker-build
   image: docker:dind
@@ -53,7 +53,7 @@ steps:
   - name: docker-config
     path: /root/.docker
   commands:
-  - docker run --rm cr.nickelghost.com/cms:ci-${CI_BUILD_NUMBER} go test -v -cover
+  - docker run --rm cr.nickelghost.com/cms:ci-${CI_BUILD_NUMBER} sh scripts/test.sh
 
 - name: docker-deliver
   image: docker:dind
