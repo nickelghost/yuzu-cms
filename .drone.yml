@@ -1,0 +1,97 @@
+kind: pipeline
+type: kubernetes
+name: default
+
+steps:
+
+- name: test
+  image: golang:1.13
+  commands:
+    - go test -v -cover
+
+- name: docker-build
+  image: docker:dind
+  volumes:
+  - name: dockersock
+    path: /var/run
+  - name: docker-config
+    path: /root/.docker
+  commands:
+  - apk update && apk add --no-cache wait4ports
+  - wait4ports tcp://localhost:2376
+  - docker build --no-cache . -t cr.nickelghost.com/cms:ci-${CI_BUILD_NUMBER}
+
+- name: docker-registry-login
+  image: docker:dind
+  environment:
+    REGISTRY_PASSWORD:
+      from_secret: registry_password
+  volumes:
+  - name: dockersock
+    path: /var/run
+  - name: docker-config
+    path: /root/.docker
+  commands:
+  - docker login cr.nickelghost.com -u nickelghost -p $${REGISTRY_PASSWORD}
+
+- name: docker-push
+  image: docker:dind
+  volumes:
+  - name: dockersock
+    path: /var/run
+  - name: docker-config
+    path: /root/.docker
+  commands:
+  - apk update && apk add --no-cache wait4ports
+  - docker push cr.nickelghost.com/cms:ci-${CI_BUILD_NUMBER}
+
+- name: docker-test
+  image: docker:dind
+  volumes:
+  - name: dockersock
+    path: /var/run
+  - name: docker-config
+    path: /root/.docker
+  commands:
+  - docker run --rm cr.nickelghost.com/cms:ci-${CI_BUILD_NUMBER} go test -v -cover
+
+- name: docker-deliver
+  image: docker:dind
+  when:
+    branch:
+    - master
+  volumes:
+  - name: dockersock
+    path: /var/run
+  - name: docker-config
+    path: /root/.docker
+  commands:
+  - docker tag cr.nickelghost.com/cms:ci-${CI_BUILD_NUMBER} cr.nickelghost.com/cms:latest
+  - docker push cr.nickelghost.com/cms:latest
+
+- name: docker-clean
+  image: docker:dind
+  when:
+    status:
+    - failure
+    - success
+  volumes:
+  - name: dockersock
+    path: /var/run
+  commands:
+  - docker rmi cr.nickelghost.com/cms:ci-${CI_BUILD_NUMBER} || true
+  - docker rmi cr.nickelghost.com/cms:latest || true
+
+services:
+- name: docker
+  image: docker:dind
+  privileged: true
+  volumes:
+  - name: dockersock
+    path: /var/run
+
+volumes:
+- name: dockersock
+  temp: {}
+- name: docker-config
+  temp: {}
