@@ -5,6 +5,7 @@ import (
 	"testing"
 
 	"github.com/joho/godotenv"
+	"github.com/kylelemons/godebug/diff"
 )
 
 func TestInit(t *testing.T) {
@@ -34,5 +35,31 @@ func TestInitMock(t *testing.T) {
 	)
 	if err == nil {
 		t.Errorf("Didn't return an error on wrong password")
+	}
+}
+
+func TestGetSQL(t *testing.T) {
+	filePath := "./queries/test_query.sql"
+	sqlString := "SELECT * FROM tests;\n"
+	f, _ := os.Create(filePath)
+	defer f.Close()
+	defer os.Remove(filePath)
+	f.Write([]byte(sqlString))
+	sql, err := GetSQL("test_query")
+	if err != nil {
+		t.Errorf("GetSQL threw an error:\n%s", err.Error())
+	}
+	if sql != sqlString {
+		t.Errorf(
+			"Did not get the correct SQL:\n%v",
+			diff.Diff(sql, sqlString),
+		)
+	}
+}
+
+func TestGetSQLMock(t *testing.T) {
+	_, err := GetSQL("file_that_doesnt_exist")
+	if err == nil {
+		t.Error("Didn't throw error on non existing file")
 	}
 }
