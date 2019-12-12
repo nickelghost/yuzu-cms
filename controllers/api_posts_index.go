@@ -2,38 +2,38 @@ package controllers
 
 import (
 	"net/http"
-	"time"
 
+	sq "github.com/Masterminds/squirrel"
 	"github.com/labstack/echo"
 	"github.com/nickelghost/cms/models"
 	"github.com/nickelghost/cms/other"
 )
 
-type APIPostsIndexResponseItem struct {
-	ID        uint      `json:"id"`
-	Title     string    `json:"title"`
-	CreatedAt time.Time `json:"created_at"`
-	UpdatedAt time.Time `json:"updated_at"`
-}
-
 func APIPostsIndex(c echo.Context) error {
 	db := c.(*other.CustomContext).DB
-	var posts []models.Post
-	db.Select([]string{
-		"id",
-		"title",
-		"created_at",
-		"updated_at",
-	}).Find(&posts)
-	var res []APIPostsIndexResponseItem
-	for _, post := range posts {
-		resPost := APIPostsIndexResponseItem{
-			ID:        post.ID,
-			Title:     post.Title,
-			CreatedAt: post.CreatedAt,
-			UpdatedAt: post.UpdatedAt,
-		}
-		res = append(res, resPost)
+	sql, _, err := sq.Select(
+		"id", "title", "created_at", "updated_at",
+	).From("posts").ToSql()
+	if err != nil {
+		return err
 	}
-	return c.JSON(http.StatusOK, res)
+	rows, err := db.Query(sql)
+	if err != nil {
+		return err
+	}
+	var posts []models.Post
+	for rows.Next() {
+		post := models.Post{}
+		err := rows.Scan(
+			&post.ID,
+			&post.Title,
+			&post.CreatedAt,
+			&post.UpdatedAt,
+		)
+		if err != nil {
+			return err
+		}
+		posts = append(posts, post)
+	}
+	return c.JSON(http.StatusOK, posts)
 }

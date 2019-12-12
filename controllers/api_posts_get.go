@@ -18,7 +18,7 @@ func APIPostsGet(c echo.Context) error {
 		return err
 	}
 	post := new(models.Post)
-	err = db.DB().QueryRow(sql, c.Param("id")).Scan(
+	err = db.QueryRow(sql, c.Param("id")).Scan(
 		&post.ID,
 		&post.Title,
 		&post.Content,

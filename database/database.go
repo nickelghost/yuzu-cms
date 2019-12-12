@@ -1,13 +1,16 @@
 package database
 
 import (
+	"database/sql"
 	"fmt"
 
 	"github.com/golang-migrate/migrate/v4"
 	"github.com/golang-migrate/migrate/v4/database/postgres"
+
+	// Driver for migrations from sql files
 	_ "github.com/golang-migrate/migrate/v4/source/file"
-	"github.com/jinzhu/gorm"
-	_ "github.com/jinzhu/gorm/dialects/postgres"
+
+	// PostgreSQL driver
 	_ "github.com/lib/pq"
 )
 
@@ -18,7 +21,7 @@ func Init(
 	password string,
 	db string,
 	ssl string,
-) (*gorm.DB, error) {
+) (*sql.DB, error) {
 	connStr := fmt.Sprintf(
 		"host=%s port=%s user=%s password=%s dbname=%s sslmode=%s",
 		host,
@@ -28,15 +31,15 @@ func Init(
 		db,
 		ssl,
 	)
-	conn, err := gorm.Open("postgres", connStr)
+	conn, err := sql.Open("postgres", connStr)
 	if err != nil {
 		return nil, err
 	}
 	return conn, nil
 }
 
-func Migrate(db *gorm.DB) error {
-	driver, err := postgres.WithInstance(db.DB(), &postgres.Config{})
+func Migrate(db *sql.DB) error {
+	driver, err := postgres.WithInstance(db, &postgres.Config{})
 	if err != nil {
 		return err
 	}

@@ -1,11 +1,12 @@
 package other
 
 import (
-	"github.com/jinzhu/gorm"
+	"database/sql"
+
 	"github.com/labstack/echo"
 )
 
 type CustomContext struct {
 	echo.Context
-	DB *gorm.DB
+	DB *sql.DB
 }
