@@ -11,7 +11,7 @@ steps:
     DB_PASS: test
     DB_SSL: disable
   commands:
-    - apk update && apk add --no-cache wait4ports
+    - apk update && apk add --no-cache build-base wait4ports
     - wait4ports tcp://localhost:5432
     - sh scripts/test.sh
 
