@@ -4,8 +4,8 @@ import (
 	"net/http"
 	"time"
 
-	sq "github.com/Masterminds/squirrel"
 	"github.com/labstack/echo"
+	"github.com/nickelghost/cms/database"
 	"github.com/nickelghost/cms/models"
 	"github.com/nickelghost/cms/other"
 )
@@ -24,13 +24,7 @@ func APIPostsCreate(c echo.Context) error {
 	}
 	db := c.(*other.CustomContext).DB
 	post := models.Post{}
-	sql, _, err := sq.
-		Insert("posts").
-		Columns("title", "content", "created_at", "updated_at").
-		Values("$1", "$2", "$3", "$4").
-		Suffix("RETURNING id, title, content, created_at, updated_at").
-		PlaceholderFormat(sq.Dollar).
-		ToSql()
+	sql, err := database.GetSQL("api_posts_create")
 	err = db.QueryRow(
 		sql,
 		req.Title,

@@ -3,8 +3,8 @@ package controllers
 import (
 	"net/http"
 
-	sq "github.com/Masterminds/squirrel"
 	"github.com/labstack/echo"
+	"github.com/nickelghost/cms/database"
 	"github.com/nickelghost/cms/models"
 	"github.com/nickelghost/cms/other"
 )
@@ -12,13 +12,7 @@ import (
 // Homepage renders the index page
 func Homepage(c echo.Context) error {
 	db := c.(*other.CustomContext).DB
-	sql, _, err := sq.Select(
-		"id",
-		"title",
-		"content",
-		"created_at",
-		"updated_at",
-	).From("posts").ToSql()
+	sql, err := database.GetSQL("homepage")
 	if err != nil {
 		return err
 	}
