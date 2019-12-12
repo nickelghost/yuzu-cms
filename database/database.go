@@ -36,6 +36,10 @@ func Init(
 	if err != nil {
 		return nil, err
 	}
+	err = conn.Ping()
+	if err != nil {
+		return nil, err
+	}
 	return conn, nil
 }
 
