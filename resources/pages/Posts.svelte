@@ -1,6 +1,12 @@
 <script>
 import { onMount } from 'svelte';
 import { push } from 'svelte-spa-router';
+import format from 'date-fns/format';
+
+function displayDate(dateString) {
+  const date = new Date(dateString);
+  return format(date, 'do MMM yyyy HH:mm')
+}
 
 let posts = [];
 
@@ -41,8 +47,8 @@ onMount(async () => {
       <tr on:click={() => push(`/posts/${post.id}`)}>
         <td>{post.id}</td>
         <td>{post.title}</td>
-        <td>{post.created_at}</td>
-        <td>{post.updated_at}</td>
+        <td>{displayDate(post.created_at)}</td>
+        <td>{displayDate(post.updated_at)}</td>
       </tr>
     {/each}
   </table>
