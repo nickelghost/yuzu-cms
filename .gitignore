@@ -1,6 +1,7 @@
 /.env
 /__debug_bin
 /node_modules
+/bin
 
 /public/*
 !/public/index.html
