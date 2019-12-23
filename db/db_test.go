@@ -1,4 +1,4 @@
-package database
+package db
 
 import (
 	"os"
@@ -10,7 +10,7 @@ import (
 
 func TestInit(t *testing.T) {
 	godotenv.Load("../.env")
-	_, err := Init(
+	err := Init(
 		os.Getenv("DB_HOST"),
 		os.Getenv("DB_PORT"),
 		os.Getenv("DB_USER"),
@@ -25,7 +25,7 @@ func TestInit(t *testing.T) {
 
 func TestInitMock(t *testing.T) {
 	godotenv.Load("../.env")
-	_, err := Init(
+	err := Init(
 		os.Getenv("DB_HOST"),
 		os.Getenv("DB_PORT"),
 		os.Getenv("DB_USER"),

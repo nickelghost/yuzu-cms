@@ -1,13 +1,12 @@
-package controllers
+package handlers
 
 import (
 	"net/http"
 	"time"
 
 	"github.com/labstack/echo"
-	"github.com/nickelghost/cms/database"
+	"github.com/nickelghost/cms/db"
 	"github.com/nickelghost/cms/models"
-	"github.com/nickelghost/cms/other"
 )
 
 // APIPostsIndexResponseItem represents an array item for the response
@@ -20,12 +19,11 @@ type APIPostsIndexResponseItem struct {
 
 // APIPostsIndex fetches all posts that were added
 func APIPostsIndex(c echo.Context) error {
-	db := c.(*other.CustomContext).DB
-	sql, err := database.GetSQL("api_posts_index")
+	sql, err := db.GetSQL("api_posts_index")
 	if err != nil {
 		return err
 	}
-	rows, err := db.Query(sql)
+	rows, err := db.Conn.Query(sql)
 	if err != nil {
 		return err
 	}

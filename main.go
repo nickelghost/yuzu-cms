@@ -10,9 +10,8 @@ import (
 	"github.com/joho/godotenv"
 	"github.com/labstack/echo"
 	"github.com/labstack/echo/middleware"
-	"github.com/nickelghost/cms/controllers"
-	"github.com/nickelghost/cms/database"
-	"github.com/nickelghost/cms/other"
+	"github.com/nickelghost/cms/db"
+	"github.com/nickelghost/cms/handlers"
 )
 
 // Template is a struct required for rendering templating views
@@ -38,7 +37,7 @@ func main() {
 		log.Fatal(err)
 	}
 	// Get the database connection
-	db, err := database.Init(
+	err = db.Init(
 		os.Getenv("DB_HOST"),
 		os.Getenv("DB_PORT"),
 		os.Getenv("DB_USER"),
@@ -46,11 +45,11 @@ func main() {
 		os.Getenv("DB_NAME"),
 		os.Getenv("DB_SSL"),
 	)
+	defer db.Conn.Close()
 	if err != nil {
 		log.Fatal(err)
 	}
-	defer db.Close()
-	err = database.Migrate(db)
+	err = db.Migrate()
 	if err != nil && err.Error() != "no change" {
 		log.Fatal(err)
 	}
@@ -68,13 +67,6 @@ func main() {
 	e := echo.New()
 	// Set our template renderer as the renderer for Echo
 	e.Renderer = t
-	// Add custom context
-	e.Use(func(next echo.HandlerFunc) echo.HandlerFunc {
-		return func(c echo.Context) error {
-			cc := &other.CustomContext{Context: c, DB: db}
-			return next(cc)
-		}
-	})
 	// Add Echo middleware
 	e.Use(middleware.Logger())
 	e.Use(middleware.Recover())
@@ -84,10 +76,10 @@ func main() {
 		fmt.Sprintf("themes/%s/public", theme),
 	)
 	// Define routes
-	e.GET("/", controllers.Homepage)
-	e.GET("/api/v1/posts", controllers.APIPostsIndex)
-	e.GET("/api/v1/posts/:id", controllers.APIPostsGet)
-	e.POST("/api/v1/posts", controllers.APIPostsCreate)
+	e.GET("/", handlers.Homepage)
+	e.GET("/api/v1/posts", handlers.APIPostsIndex)
+	e.GET("/api/v1/posts/:id", handlers.APIPostsGet)
+	e.POST("/api/v1/posts", handlers.APIPostsCreate)
 	// Define where to serve
 	port := os.Getenv("APP_PORT")
 	if port == "" {

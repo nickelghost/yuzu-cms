@@ -1,22 +1,20 @@
-package controllers
+package handlers
 
 import (
 	"net/http"
 
 	"github.com/labstack/echo"
-	"github.com/nickelghost/cms/database"
+	"github.com/nickelghost/cms/db"
 	"github.com/nickelghost/cms/models"
-	"github.com/nickelghost/cms/other"
 )
 
 // Homepage renders the index page
 func Homepage(c echo.Context) error {
-	db := c.(*other.CustomContext).DB
-	sql, err := database.GetSQL("homepage")
+	sql, err := db.GetSQL("homepage")
 	if err != nil {
 		return err
 	}
-	rows, err := db.Query(sql)
+	rows, err := db.Conn.Query(sql)
 	if err != nil {
 		return err
 	}

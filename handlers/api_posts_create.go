@@ -1,4 +1,4 @@
-package controllers
+package handlers
 
 import (
 	"net/http"
@@ -6,9 +6,8 @@ import (
 
 	"github.com/go-playground/validator/v10"
 	"github.com/labstack/echo"
-	"github.com/nickelghost/cms/database"
+	"github.com/nickelghost/cms/db"
 	"github.com/nickelghost/cms/models"
-	"github.com/nickelghost/cms/other"
 )
 
 type requestAPIPostsCreate struct {
@@ -27,13 +26,12 @@ func APIPostsCreate(c echo.Context) error {
 	if err != nil {
 		return err
 	}
-	db := c.(*other.CustomContext).DB
 	post := models.Post{}
-	sql, err := database.GetSQL("api_posts_create")
+	sql, err := db.GetSQL("api_posts_create")
 	if err != nil {
 		return err
 	}
-	err = db.QueryRow(
+	err = db.Conn.QueryRow(
 		sql,
 		req.Title,
 		req.Content,
