@@ -1,18 +1,24 @@
 <script>
-import { onMount } from 'svelte';
-import MarkdownIt from 'markdown-it';
 export let params = {}
-
-const md = new MarkdownIt();
+import { onMount } from 'svelte';
+import Editor from '../components/Editor.svelte';
 
 let post = {};
-
-$: contentHTML = md.render(post.content || '');
+let newContent = "";
 
 onMount(async () => {
   const res = await fetch(`/api/v1/posts/${params.id}`);
   post = await res.json();
+  newContent = post.content;
 });
+
+function newContentUpdate(e) {
+  newContent = e.detail.content;
+}
+
+function savePost() {
+  console.log(newContent);
+}
 </script>
 
 <style>
@@ -21,32 +27,23 @@ onMount(async () => {
   flex-direction: column;
   flex-grow: 1;
 }
-.editor {
-  display: flex;
-  flex-grow: 1;
-}
-.markdown, .preview {
-  flex: 1 1 0px;
-  padding: 8px;
-}
-.markdown {
+.top-bar {
   display: flex;
 }
-.textarea {
+
+.top-bar-spacer {
   flex-grow: 1;
-  min-height: 100%;
-  resize: vertical;
 }
 </style>
 
 <div class="post-page">
-  <h1>{post.title}</h1>
-  <div class="editor">
-    <div class="markdown">
-      <textarea class="textarea" bind:value={post.content}></textarea>
-    </div>
-    <div class="preview">
-      {@html contentHTML}
-    </div>
+  <div class="top-bar">
+    <h1>{post.title}</h1>
+    <div class="top-bar-spacer"></div>
+    <button on:click={savePost}>Save</button>
   </div>
+  <Editor
+    content={post.content}
+    on:change={newContentUpdate}
+  />
 </div>
