@@ -7,7 +7,6 @@ import (
 
 	"github.com/labstack/echo"
 	"github.com/nickelghost/cms/db"
-	"github.com/nickelghost/cms/models"
 )
 
 // APIPostsIndexResponseItem represents an array item for the response
@@ -30,21 +29,15 @@ func APIPostsIndex(c echo.Context) error {
 	}
 	var res []APIPostsIndexResponseItem
 	for rows.Next() {
-		post := models.Post{}
+		resItem := APIPostsIndexResponseItem{}
 		err := rows.Scan(
-			&post.ID,
-			&post.Title,
-			&post.CreatedAt,
-			&post.UpdatedAt,
+			&resItem.ID,
+			&resItem.Title,
+			&resItem.CreatedAt,
+			&resItem.UpdatedAt,
 		)
 		if err != nil {
 			return err
-		}
-		resItem := APIPostsIndexResponseItem{
-			ID:        post.ID,
-			Title:     post.Title,
-			CreatedAt: post.CreatedAt,
-			UpdatedAt: post.UpdatedAt,
 		}
 		res = append(res, resItem)
 	}
