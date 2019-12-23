@@ -16,8 +16,24 @@ function newContentUpdate(e) {
   newContent = e.detail.content;
 }
 
-function savePost() {
-  console.log(newContent);
+async function savePost() {
+  const req = {
+    title: post.title,
+    content: newContent,
+  };
+  const res = await fetch(
+    `/api/v1/posts/${post.id}`,
+    {
+      method: 'PUT',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(req),
+    },
+  );
+  if (res.ok) {
+    alert("Post updated");
+  } else {
+    alert("Could not update");
+  }
 }
 </script>
 
