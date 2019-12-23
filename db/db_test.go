@@ -56,10 +56,3 @@ func TestGetSQL(t *testing.T) {
 		)
 	}
 }
-
-func TestGetSQLMock(t *testing.T) {
-	_, err := GetSQL("file_that_doesnt_exist")
-	if err == nil {
-		t.Error("Didn't throw error on non existing file")
-	}
-}
