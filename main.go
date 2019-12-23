@@ -80,6 +80,7 @@ func main() {
 	e.GET("/api/v1/posts", handlers.APIPostsIndex)
 	e.GET("/api/v1/posts/:id", handlers.APIPostsGet)
 	e.POST("/api/v1/posts", handlers.APIPostsCreate)
+	e.PUT("/api/v1/posts/:id", handlers.APIPostsUpdate)
 	// Define where to serve
 	port := os.Getenv("APP_PORT")
 	if port == "" {
