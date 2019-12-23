@@ -5,6 +5,7 @@ import (
 	"net/http"
 	"time"
 
+	"github.com/go-playground/validator/v10"
 	"github.com/labstack/echo"
 	"github.com/nickelghost/cms/db"
 )
@@ -28,6 +29,10 @@ type APIPostsUpdateResponse struct {
 func APIPostsUpdate(c echo.Context) error {
 	req := new(APIPostsUpdateRequest)
 	err := c.Bind(req)
+	if err != nil {
+		return err
+	}
+	err = validator.New().Struct(req)
 	if err != nil {
 		return err
 	}
