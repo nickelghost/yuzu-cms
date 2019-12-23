@@ -3,11 +3,20 @@ package handlers
 import (
 	"io/ioutil"
 	"net/http"
+	"time"
 
 	"github.com/labstack/echo"
 	"github.com/nickelghost/cms/db"
-	"github.com/nickelghost/cms/models"
 )
+
+// APIPostsGetResponse represents a response of a requested post
+type APIPostsGetResponse struct {
+	ID        uint      `json:"id"`
+	Title     string    `json:"title"`
+	Content   string    `json:"content"`
+	CreatedAt time.Time `json:"created_at"`
+	UpdatedAt time.Time `json:"updated_at"`
+}
 
 // APIPostsGet fetches a single post by its id
 func APIPostsGet(c echo.Context) error {
@@ -15,16 +24,16 @@ func APIPostsGet(c echo.Context) error {
 	if err != nil {
 		return err
 	}
-	post := new(models.Post)
+	res := new(APIPostsGetResponse)
 	err = db.Conn.QueryRow(string(sql), c.Param("id")).Scan(
-		&post.ID,
-		&post.Title,
-		&post.Content,
-		&post.CreatedAt,
-		&post.UpdatedAt,
+		&res.ID,
+		&res.Title,
+		&res.Content,
+		&res.CreatedAt,
+		&res.UpdatedAt,
 	)
 	if err != nil {
 		return err
 	}
-	return c.JSON(http.StatusOK, post)
+	return c.JSON(http.StatusOK, res)
 }
