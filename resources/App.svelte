@@ -7,6 +7,7 @@ import routes from './routes';
 <style>
 .main {
   display: flex;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   min-height: 100vh;
 }
 .container-wrapper {
