@@ -4,6 +4,7 @@ import (
 	"net/http"
 	"time"
 
+	"github.com/go-playground/validator/v10"
 	"github.com/labstack/echo"
 	"github.com/nickelghost/cms/database"
 	"github.com/nickelghost/cms/models"
@@ -11,14 +12,18 @@ import (
 )
 
 type requestAPIPostsCreate struct {
-	Title   string `json:"title"`
-	Content string `json:"content"`
+	Title   string `json:"title" validate:"required"`
+	Content string `json:"content" validate:"min=10"`
 }
 
 // APIPostsCreate adds a new post for the website
 func APIPostsCreate(c echo.Context) error {
 	req := new(requestAPIPostsCreate)
 	err := c.Bind(req)
+	if err != nil {
+		return err
+	}
+	err = validator.New().Struct(req)
 	if err != nil {
 		return err
 	}
