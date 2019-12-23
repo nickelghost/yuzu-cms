@@ -1,6 +1,7 @@
 package handlers
 
 import (
+	"io/ioutil"
 	"net/http"
 
 	"github.com/labstack/echo"
@@ -10,11 +11,11 @@ import (
 
 // Homepage renders the index page
 func Homepage(c echo.Context) error {
-	sql, err := db.GetSQL("homepage")
+	sql, err := ioutil.ReadFile("queries/homepage.sql")
 	if err != nil {
 		return err
 	}
-	rows, err := db.Conn.Query(sql)
+	rows, err := db.Conn.Query(string(sql))
 	if err != nil {
 		return err
 	}

@@ -1,6 +1,7 @@
 package handlers
 
 import (
+	"io/ioutil"
 	"net/http"
 
 	"github.com/labstack/echo"
@@ -10,12 +11,12 @@ import (
 
 // APIPostsGet fetches a single post by its id
 func APIPostsGet(c echo.Context) error {
-	sql, err := db.GetSQL("api_posts_get")
+	sql, err := ioutil.ReadFile("queries/api_posts_get.sql")
 	if err != nil {
 		return err
 	}
 	post := new(models.Post)
-	err = db.Conn.QueryRow(sql, c.Param("id")).Scan(
+	err = db.Conn.QueryRow(string(sql), c.Param("id")).Scan(
 		&post.ID,
 		&post.Title,
 		&post.Content,

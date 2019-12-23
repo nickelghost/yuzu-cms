@@ -3,9 +3,6 @@ package db
 import (
 	"database/sql"
 	"fmt"
-	"io/ioutil"
-	"path/filepath"
-	"runtime"
 
 	"github.com/golang-migrate/migrate/v4"
 	"github.com/golang-migrate/migrate/v4/database/postgres"
@@ -69,20 +66,4 @@ func Migrate() error {
 		return err
 	}
 	return nil
-}
-
-// GetSQL returns SQL from a file
-func GetSQL(fileName string) (string, error) {
-	_, b, _, _ := runtime.Caller(0)
-	basepath := filepath.Dir(b)
-	content, err := ioutil.ReadFile(fmt.Sprintf(
-		"%s/queries/%s.sql",
-		basepath,
-		fileName,
-	))
-	if err != nil {
-		return "", err
-	}
-	contentString := string(content)
-	return contentString, nil
 }

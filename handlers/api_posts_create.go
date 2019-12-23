@@ -1,6 +1,7 @@
 package handlers
 
 import (
+	"io/ioutil"
 	"net/http"
 	"time"
 
@@ -27,12 +28,12 @@ func APIPostsCreate(c echo.Context) error {
 		return err
 	}
 	post := models.Post{}
-	sql, err := db.GetSQL("api_posts_create")
+	sql, err := ioutil.ReadFile("queries/api_posts_create.sql")
 	if err != nil {
 		return err
 	}
 	err = db.Conn.QueryRow(
-		sql,
+		string(sql),
 		req.Title,
 		req.Content,
 		time.Now(),

@@ -1,6 +1,7 @@
 package handlers
 
 import (
+	"io/ioutil"
 	"net/http"
 	"time"
 
@@ -19,11 +20,11 @@ type APIPostsIndexResponseItem struct {
 
 // APIPostsIndex fetches all posts that were added
 func APIPostsIndex(c echo.Context) error {
-	sql, err := db.GetSQL("api_posts_index")
+	sql, err := ioutil.ReadFile("queries/api_posts_index.sql")
 	if err != nil {
 		return err
 	}
-	rows, err := db.Conn.Query(sql)
+	rows, err := db.Conn.Query(string(sql))
 	if err != nil {
 		return err
 	}
