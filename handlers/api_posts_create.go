@@ -3,7 +3,6 @@ package handlers
 import (
 	"io/ioutil"
 	"net/http"
-	"time"
 
 	"github.com/go-playground/validator/v10"
 	"github.com/labstack/echo"
@@ -36,8 +35,6 @@ func APIPostsCreate(c echo.Context) error {
 		string(sql),
 		req.Title,
 		req.Content,
-		time.Now(),
-		time.Now(),
 	).Scan(
 		&post.ID,
 		&post.Title,
