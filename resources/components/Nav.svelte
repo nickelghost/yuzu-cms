@@ -1,45 +1,27 @@
 <style>
 .nav {
   background-color: #3a243b;
+  box-sizing: border-box;
   color: white;
   display: flex;
   flex-direction: column;
-  padding: 12px;
+  padding: 0 12px;
   width: 260px;
 }
-.menu-label {
-  color: white;
+.spacer {
+  flex-grow: 1;
 }
-.menu-list a {
-  color: white;
-}
-.menu-list a:hover {
-  color: black;
+a {
+  color: inherit;
+  text-decoration: none;
 }
 </style>
 
-<aside class="nav">
-  <div class="menu">
-    <p class="menu-label">
-      Yuzu Admin
-    </p>
-    <ul class="menu-list">
-      <li><a href="/admin/#/">Home</a></li>
-      <li><a href="/admin/#/pages">Pages</a></li>
-    </ul>
-    <p class="menu-label">
-      Posts
-    </p>
-    <ul class="menu-list">
-      <li><a href="/admin/#/posts/new">New</a></li>
-      <li><a href="/admin/#/posts">List</a></li>
-    </ul>
-    <p class="menu-label">
-      Exit
-    </p>
-    <ul class="menu-list">
-      <li><a href="/">Homepage</a></li>
-      <li><a href="#">Log out</a></li>
-    </ul>
-  </div>
-</aside>
+<div class="nav">
+  <h1>Admin</h1>
+  <p><a href="/admin/#/">Home</a></p>
+  <p><a href="/admin/#/posts">Posts</a></p>
+  <p><a href="/admin/#/pages">Pages</a></p>
+  <div class="spacer"></div>
+  <p><a href="/">Website</a></p>
+</div>

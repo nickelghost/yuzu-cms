@@ -7,16 +7,29 @@ import routes from './routes';
 <style>
 .main {
   display: flex;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   min-height: 100vh;
 }
-.container {
+.container-wrapper {
+  background-color: lightgray;
   display: flex;
+  justify-content: space-around;
+  flex-grow: 1;
+}
+.container {
+  background-color: white;
+  display: flex;
+  flex-grow: 1;
+  max-width: 970px;
+  padding: 0 12px;
 }
 </style>
 
 <div class="main">
   <Nav/>
-  <div class="container is-fluid">
-    <Router {routes}/>
+  <div class="container-wrapper">
+    <div class="container">
+      <Router {routes}/>
+    </div>
   </div>
 </div>
