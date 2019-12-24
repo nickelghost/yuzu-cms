@@ -1,5 +1,5 @@
 <script>
-export let content;
+export let content = "";
 import MarkdownIt from 'markdown-it';
 import { createEventDispatcher } from 'svelte';
 

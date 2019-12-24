@@ -36,6 +36,7 @@ onMount(async () => {
 
 <div class="posts-page">
   <h1>Posts</h1>
+  <button on:click={() => push('/posts/new')}>New</button>
   <table class="table">
     <tr>
       <th>ID</th>
