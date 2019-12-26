@@ -17,6 +17,12 @@ onMount(async () => {
 </script>
 
 <style>
+.top-bar {
+  display: flex;
+}
+.spacer {
+  flex-grow: 1;
+}
 .table td {
   text-align: center;
 }
@@ -29,8 +35,11 @@ onMount(async () => {
 }
 </style>
 
-<h1>Posts</h1>
-<button on:click={() => push('/posts/new')}>New</button>
+<div class="top-bar">
+  <h1>Posts</h1>
+  <div class="spacer"/>
+  <button on:click={() => push('/posts/new')}>New</button>
+</div>
 <table class="table">
   <tr>
     <th>ID</th>
