@@ -26,7 +26,7 @@ async function createPost() {
 </script>
 
 <TopBar title="Create a new post">
-  <Button label="Save" on:click={createPost}></Button>
+  <Button label="Save" color="green" on:click={createPost}></Button>
 </TopBar>
 <Content>
   <h3>Title</h3>

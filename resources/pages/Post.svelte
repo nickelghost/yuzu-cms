@@ -83,7 +83,7 @@ async function savePost() {
 
 <TopBar title={title}>
   <Button label="Change title" on:click={openTitleModal}></Button>
-  <Button label="Save" on:click={savePost}></Button>
+  <Button label="Save" color="green" on:click={savePost}></Button>
 </TopBar>
 <Content>
   <Editor bind:content={content}/>

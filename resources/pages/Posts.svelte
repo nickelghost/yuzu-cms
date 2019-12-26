@@ -37,7 +37,7 @@ onMount(async () => {
 </style>
 
 <TopBar title="Posts">
-  <Button on:click={() => push('/posts/new')} label="New"></Button>
+  <Button on:click={() => push('/posts/new')} color="blue" label="New"></Button>
 </TopBar>
 <Content>
   <table class="table">
