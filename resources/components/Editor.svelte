@@ -26,7 +26,7 @@ $: contentHTML = md.render(content || '');
   padding: 0 12px;
 }
 .spacer {
-  width: 24px;
+  width: 12px;
 }
 </style>
 
