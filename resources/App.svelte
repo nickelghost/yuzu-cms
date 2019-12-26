@@ -6,6 +6,7 @@ import routes from './routes';
 
 <style>
 .main {
+  color: #333;
   display: flex;
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   min-height: 100vh;
