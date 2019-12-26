@@ -3,26 +3,20 @@ export let params = {}
 import { onMount } from 'svelte';
 import Editor from '../components/Editor.svelte';
 
-let post = {};
-let newContent = "";
+let title = "";
+let content = "";
 
 onMount(async () => {
   const res = await fetch(`/api/v1/posts/${params.id}`);
-  post = await res.json();
-  newContent = post.content;
+  const post = await res.json();
+  title = post.title;
+  content = post.content;
 });
 
-function newContentUpdate(e) {
-  newContent = e.detail.content;
-}
-
 async function savePost() {
-  const req = {
-    title: post.title,
-    content: newContent,
-  };
+  const req = { title, content };
   const res = await fetch(
-    `/api/v1/posts/${post.id}`,
+    `/api/v1/posts/${params.id}`,
     {
       method: 'PUT',
       headers: { 'Content-Type': 'application/json' },
@@ -54,12 +48,9 @@ async function savePost() {
 
 <div class="post-page">
   <div class="top-bar">
-    <h1>{post.title}</h1>
+    <h1>{title}</h1>
     <div class="top-bar-spacer"></div>
     <button on:click={savePost}>Save</button>
   </div>
-  <Editor
-    content={post.content}
-    on:change={newContentUpdate}
-  />
+  <Editor bind:content={content}/>
 </div>

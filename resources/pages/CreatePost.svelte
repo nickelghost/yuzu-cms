@@ -4,14 +4,6 @@ import Editor from '../components/Editor.svelte';
 let title = "";
 let content = "";
 
-function titleUpdate(e) {
-  title = e.target.value;
-}
-
-function contentUpdate(e) {
-  content = e.detail.content;
-}
-
 async function createPost() {
   const req = { title, content };
   const res = await fetch(
@@ -46,8 +38,8 @@ async function createPost() {
 
 <div class="create-post-page">
   <div class="top-bar">
-    <input class="title-input" name="title" on:change={titleUpdate} />
+    <input class="title-input" name="title" bind:value={title} />
     <button on:click={createPost}>Create</button>
   </div>
-  <Editor on:change={contentUpdate}/>
+  <Editor bind:content={content}/>
 </div>

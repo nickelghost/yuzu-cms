@@ -1,16 +1,10 @@
 <script>
 export let content = "";
 import MarkdownIt from 'markdown-it';
-import { createEventDispatcher } from 'svelte';
 
 const md = new MarkdownIt();
-const dispatch = createEventDispatcher();
 
 $: contentHTML = md.render(content || '');
-
-function dispatchChange() {
-  dispatch('change', { content });
-}
 </script>
 
 <style>
@@ -34,11 +28,7 @@ function dispatchChange() {
 
 <div class="editor">
   <div class="markdown">
-    <textarea
-      class="textarea"
-      bind:value={content}
-      on:change={dispatchChange}
-    ></textarea>
+    <textarea class="textarea" bind:value={content}/>
   </div>
   <div class="preview">
     {@html contentHTML}
