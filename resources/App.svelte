@@ -10,26 +10,17 @@ import routes from './routes';
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   min-height: 100vh;
 }
-.container-wrapper {
-  background-color: lightgray;
-  display: flex;
-  justify-content: space-around;
-  flex-grow: 1;
-}
 .container {
-  background-color: white;
   display: flex;
+  flex-direction: column;
   flex-grow: 1;
-  max-width: 970px;
-  padding: 0 12px;
+  padding: 0 16px;
 }
 </style>
 
 <div class="main">
   <Nav/>
-  <div class="container-wrapper">
-    <div class="container">
-      <Router {routes}/>
-    </div>
+  <div class="container">
+    <Router {routes}/>
   </div>
 </div>

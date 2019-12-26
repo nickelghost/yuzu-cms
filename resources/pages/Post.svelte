@@ -32,25 +32,17 @@ async function savePost() {
 </script>
 
 <style>
-.post-page {
-  display: flex;
-  flex-direction: column;
-  flex-grow: 1;
-}
 .top-bar {
   display: flex;
 }
-
 .top-bar-spacer {
   flex-grow: 1;
 }
 </style>
 
-<div class="post-page">
-  <div class="top-bar">
-    <h1>{title}</h1>
-    <div class="top-bar-spacer"></div>
-    <button on:click={savePost}>Save</button>
-  </div>
-  <Editor bind:content={content}/>
+<div class="top-bar">
+  <h1>{title}</h1>
+  <div class="top-bar-spacer"></div>
+  <button on:click={savePost}>Save</button>
 </div>
+<Editor bind:content={content}/>

@@ -17,11 +17,6 @@ onMount(async () => {
 </script>
 
 <style>
-.posts-page {
-  display: flex;
-  flex-grow: 1;
-  flex-direction: column;
-}
 .table td {
   text-align: center;
 }
@@ -34,23 +29,21 @@ onMount(async () => {
 }
 </style>
 
-<div class="posts-page">
-  <h1>Posts</h1>
-  <button on:click={() => push('/posts/new')}>New</button>
-  <table class="table">
-    <tr>
-      <th>ID</th>
-      <th>Title</th>
-      <th>Created At</th>
-      <th>Updated at</th>
+<h1>Posts</h1>
+<button on:click={() => push('/posts/new')}>New</button>
+<table class="table">
+  <tr>
+    <th>ID</th>
+    <th>Title</th>
+    <th>Created At</th>
+    <th>Updated at</th>
+  </tr>
+  {#each posts as post}
+    <tr on:click={() => push(`/posts/${post.id}`)}>
+      <td>{post.id}</td>
+      <td>{post.title}</td>
+      <td>{displayDate(post.created_at)}</td>
+      <td>{displayDate(post.updated_at)}</td>
     </tr>
-    {#each posts as post}
-      <tr on:click={() => push(`/posts/${post.id}`)}>
-        <td>{post.id}</td>
-        <td>{post.title}</td>
-        <td>{displayDate(post.created_at)}</td>
-        <td>{displayDate(post.updated_at)}</td>
-      </tr>
-    {/each}
-  </table>
-</div>
+  {/each}
+</table>
