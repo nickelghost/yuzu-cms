@@ -3,6 +3,8 @@ import { onMount } from 'svelte';
 import { push } from 'svelte-spa-router';
 import format from 'date-fns/format';
 
+import TopBar from '../components/TopBar.svelte';
+
 function displayDate(dateString) {
   const date = new Date(dateString);
   return format(date, 'do MMM yyyy HH:mm')
@@ -17,12 +19,6 @@ onMount(async () => {
 </script>
 
 <style>
-.top-bar {
-  display: flex;
-}
-.spacer {
-  flex-grow: 1;
-}
 .table td {
   text-align: center;
 }
@@ -35,11 +31,9 @@ onMount(async () => {
 }
 </style>
 
-<div class="top-bar">
-  <h2>Posts</h2>
-  <div class="spacer"/>
+<TopBar title="Posts">
   <button on:click={() => push('/posts/new')}>New</button>
-</div>
+</TopBar>
 <table class="table">
   <tr>
     <th>ID</th>
