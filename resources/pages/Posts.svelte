@@ -21,14 +21,17 @@ onMount(async () => {
 </script>
 
 <style>
-.table td {
+.table {
+  border-spacing: 0;
+  border-collapse: collapse;
+  width: 100%;
+}
+.table th, .table td {
   text-align: center;
+  padding: 16px 0;
 }
-.table tr {
-  height: 30px;
-}
-.table tr:hover {
-  background-color: lightgray;
+.table tr:hover:not(:first-child) {
+  background-color: whitesmoke;
   cursor: pointer;
 }
 </style>
@@ -41,7 +44,7 @@ onMount(async () => {
     <tr>
       <th>ID</th>
       <th>Title</th>
-      <th>Created At</th>
+      <th>Created at</th>
       <th>Updated at</th>
     </tr>
     {#each posts as post}
