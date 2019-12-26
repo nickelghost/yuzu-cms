@@ -1,6 +1,10 @@
 <script>
 export let params = {}
 import { onMount } from 'svelte';
+
+import TopBar from '../components/TopBar.svelte';
+import Button from '../components/Button.svelte';
+import Content from '../components/Content.svelte';
 import Editor from '../components/Editor.svelte';
 
 let title = "";
@@ -31,18 +35,9 @@ async function savePost() {
 }
 </script>
 
-<style>
-.top-bar {
-  display: flex;
-}
-.top-bar-spacer {
-  flex-grow: 1;
-}
-</style>
-
-<div class="top-bar">
-  <h2>{title}</h2>
-  <div class="top-bar-spacer"></div>
-  <button on:click={savePost}>Save</button>
-</div>
-<Editor bind:content={content}/>
+<TopBar title={title}>
+  <Button label="Save" on:click={savePost}></Button>
+</TopBar>
+<Content>
+  <Editor bind:content={content}/>
+</Content>
