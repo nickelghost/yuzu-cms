@@ -13,24 +13,25 @@ $: contentHTML = md.render(content || '');
   flex-grow: 1;
 }
 .markdown, .preview {
+  border: 2px solid lightgrey;
+  border-radius: 8px;
   flex: 1 1 0px;
-  padding: 8px;
 }
 .markdown {
   display: flex;
+  resize: none;
+  padding: 12px;
 }
-.textarea {
-  flex-grow: 1;
-  min-height: 100%;
-  resize: vertical;
+.preview {
+  padding: 0 12px;
+}
+.spacer {
+  width: 24px;
 }
 </style>
 
 <div class="editor">
-  <div class="markdown">
-    <textarea class="textarea" bind:value={content}/>
-  </div>
-  <div class="preview">
-    {@html contentHTML}
-  </div>
+  <textarea class="markdown" bind:value={content}></textarea>
+  <div class="spacer"></div>
+  <div class="preview">{@html contentHTML}</div>
 </div>
