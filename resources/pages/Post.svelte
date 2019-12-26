@@ -41,7 +41,7 @@ async function savePost() {
 </style>
 
 <div class="top-bar">
-  <h1>{title}</h1>
+  <h2>{title}</h2>
   <div class="top-bar-spacer"></div>
   <button on:click={savePost}>Save</button>
 </div>

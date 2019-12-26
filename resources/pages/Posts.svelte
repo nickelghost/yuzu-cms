@@ -36,7 +36,7 @@ onMount(async () => {
 </style>
 
 <div class="top-bar">
-  <h1>Posts</h1>
+  <h2>Posts</h2>
   <div class="spacer"/>
   <button on:click={() => push('/posts/new')}>New</button>
 </div>
