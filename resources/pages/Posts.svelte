@@ -5,6 +5,7 @@ import format from 'date-fns/format';
 
 import TopBar from '../components/TopBar.svelte';
 import Content from '../components/Content.svelte';
+import Button from '../components/Button.svelte';
 
 function displayDate(dateString) {
   const date = new Date(dateString);
@@ -33,7 +34,7 @@ onMount(async () => {
 </style>
 
 <TopBar title="Posts">
-  <button on:click={() => push('/posts/new')}>New</button>
+  <Button on:click={() => push('/posts/new')} label="New"></Button>
 </TopBar>
 <Content>
   <table class="table">
