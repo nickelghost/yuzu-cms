@@ -2,6 +2,7 @@
 .nav {
   background: rgb(78,0,121);
   background: linear-gradient(90deg, rgba(78,0,121,1) 0%, rgba(156,0,200,1) 100%);
+  box-shadow: 0 0 10px grey;
   box-sizing: border-box;
   color: white;
   display: flex;
