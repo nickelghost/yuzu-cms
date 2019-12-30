@@ -14,6 +14,7 @@ type APIPostsGetResponse struct {
 	ID        uint      `json:"id"`
 	Title     string    `json:"title"`
 	Content   string    `json:"content"`
+	IsDraft   bool      `json:"is_draft"`
 	CreatedAt time.Time `json:"created_at"`
 	UpdatedAt time.Time `json:"updated_at"`
 }
@@ -29,6 +30,7 @@ func APIPostsGet(c echo.Context) error {
 		&res.ID,
 		&res.Title,
 		&res.Content,
+		&res.IsDraft,
 		&res.CreatedAt,
 		&res.UpdatedAt,
 	)
