@@ -28,8 +28,8 @@ function updateTitle() {
   newTitle = "";
 }
 
-async function savePost() {
-  const req = { title, content };
+async function savePost({ is_draft = false }) {
+  const req = { title, content, is_draft };
   const res = await fetch(
     `/api/v1/posts/${params.id}`,
     {
@@ -83,7 +83,8 @@ async function savePost() {
 
 <TopBar title={title}>
   <Button label="Change title" on:click={openTitleModal}></Button>
-  <Button label="Save" color="green" on:click={savePost}></Button>
+  <Button label="Draft" color="yellow" on:click={() => savePost({ is_draft: true })}></Button>
+  <Button label="Publish" color="green" on:click={() => savePost({ is_draft: false })}></Button>
 </TopBar>
 <Content>
   <Editor bind:content={content}/>
