@@ -27,7 +27,7 @@ func APIPostsIndex(c echo.Context) error {
 	if err != nil {
 		return err
 	}
-	var res []APIPostsIndexResponseItem
+	res := make([]APIPostsIndexResponseItem, 0)
 	for rows.Next() {
 		resItem := APIPostsIndexResponseItem{}
 		err := rows.Scan(
