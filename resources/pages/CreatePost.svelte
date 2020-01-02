@@ -7,7 +7,6 @@ import Editor from '../components/Editor.svelte';
 let title = "";
 let content = "";
 
-async function createPostAsDraft() { createPost({ is_draft: true }) }
 async function createPost({
   is_draft = false,
 }) {
@@ -29,8 +28,8 @@ async function createPost({
 </script>
 
 <TopBar title="Create a new post">
-  <Button label="Draft" color="yellow" on:click={createPostAsDraft}></Button>
-  <Button label="Save" color="green" on:click={createPost}></Button>
+  <Button label="Draft" color="yellow" on:click={() => createPost({ is_draft: true })}></Button>
+  <Button label="Save" color="green" on:click={() => createPost()}></Button>
 </TopBar>
 <Content>
   <h3>Title</h3>
