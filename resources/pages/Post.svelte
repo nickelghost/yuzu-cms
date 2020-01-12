@@ -10,6 +10,7 @@ import Modal from '../components/Modal.svelte';
 
 let title = "";
 let content = "";
+let is_draft = false;
 let isTitleModalOpen = false;
 let newTitle = "";
 
@@ -18,6 +19,7 @@ onMount(async () => {
   const post = await res.json();
   title = post.title;
   content = post.content;
+  is_draft = post.is_draft;
 });
 
 function openTitleModal() { isTitleModalOpen = true; }
@@ -28,8 +30,11 @@ function updateTitle() {
   newTitle = "";
 }
 
-async function savePost() {
-  const req = { title, content };
+
+function onClickDraft() { savePost({ is_draft: true }); }
+function onClickPublish() { savePost(); }
+async function savePost({ is_draft = false } = {}) {
+  const req = { title, content, is_draft };
   const res = await fetch(
     `/api/v1/posts/${params.id}`,
     {
@@ -81,9 +86,10 @@ async function savePost() {
   </div>
 </Modal>
 
-<TopBar title={title}>
+<TopBar title={title + (is_draft ? ' (draft)' : '')}>
   <Button label="Change title" on:click={openTitleModal}></Button>
-  <Button label="Save" color="green" on:click={savePost}></Button>
+  <Button label="Draft" color="yellow" on:click={onClickDraft}></Button>
+  <Button label="Publish" color="green" on:click={onClickPublish}></Button>
 </TopBar>
 <Content>
   <Editor bind:content={content}/>

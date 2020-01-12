@@ -7,8 +7,12 @@ import Editor from '../components/Editor.svelte';
 let title = "";
 let content = "";
 
-async function createPost() {
-  const req = { title, content };
+function onClickDraft() { createPost({ is_draft: true }); }
+function onClickPublish() { createPost(); }
+async function createPost({
+  is_draft = false,
+} = {}) {
+  const req = { title, content, is_draft };
   const res = await fetch(
     '/api/v1/posts',
     {
@@ -26,7 +30,8 @@ async function createPost() {
 </script>
 
 <TopBar title="Create a new post">
-  <Button label="Save" color="green" on:click={createPost}></Button>
+  <Button label="Draft" color="yellow" on:click={onClickDraft}></Button>
+  <Button label="Publish" color="green" on:click={onClickPublish}></Button>
 </TopBar>
 <Content>
   <h3>Title</h3>

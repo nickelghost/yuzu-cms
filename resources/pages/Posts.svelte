@@ -44,6 +44,7 @@ onMount(async () => {
     <tr>
       <th>ID</th>
       <th>Title</th>
+      <th>Draft</th>
       <th>Created at</th>
       <th>Updated at</th>
     </tr>
@@ -51,6 +52,7 @@ onMount(async () => {
       <tr on:click={() => push(`/posts/${post.id}`)}>
         <td>{post.id}</td>
         <td>{post.title}</td>
+        <td>{post.is_draft ? 'Yes' : 'No'}</td>
         <td>{displayDate(post.created_at)}</td>
         <td>{displayDate(post.updated_at)}</td>
       </tr>

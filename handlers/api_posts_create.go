@@ -14,6 +14,7 @@ import (
 type APIPostsCreateRequest struct {
 	Title   string `json:"title" validate:"required"`
 	Content string `json:"content" validate:"min=10"`
+	IsDraft bool   `json:"is_draft"`
 }
 
 // APIPostsCreateResponse represents a response of a created post
@@ -21,6 +22,7 @@ type APIPostsCreateResponse struct {
 	ID        uint      `json:"id"`
 	Title     string    `json:"title"`
 	Content   string    `json:"content"`
+	IsDraft   bool      `json:"is_draft"`
 	CreatedAt time.Time `json:"created_at"`
 	UpdatedAt time.Time `json:"updated_at"`
 }
@@ -45,10 +47,12 @@ func APIPostsCreate(c echo.Context) error {
 		string(sql),
 		req.Title,
 		req.Content,
+		req.IsDraft,
 	).Scan(
 		&res.ID,
 		&res.Title,
 		&res.Content,
+		&res.IsDraft,
 		&res.CreatedAt,
 		&res.UpdatedAt,
 	)

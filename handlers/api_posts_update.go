@@ -14,6 +14,7 @@ import (
 type APIPostsUpdateRequest struct {
 	Title   string `json:"title" validate:"required"`
 	Content string `json:"content" validate:"min=10"`
+	IsDraft bool   `json:"is_draft"`
 }
 
 // APIPostsUpdateResponse represents a response of an updated post
@@ -21,6 +22,7 @@ type APIPostsUpdateResponse struct {
 	ID        uint      `json:"id"`
 	Title     string    `json:"title"`
 	Content   string    `json:"content"`
+	IsDraft   bool      `json:"is_draft"`
 	CreatedAt time.Time `json:"created_at"`
 	UpdatedAt time.Time `json:"updated_at"`
 }
@@ -46,10 +48,12 @@ func APIPostsUpdate(c echo.Context) error {
 		c.Param("id"),
 		req.Title,
 		req.Content,
+		req.IsDraft,
 	).Scan(
 		&res.ID,
 		&res.Title,
 		&res.Content,
+		&res.IsDraft,
 		&res.CreatedAt,
 		&res.UpdatedAt,
 	)

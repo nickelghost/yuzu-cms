@@ -13,6 +13,7 @@ import (
 type APIPostsIndexResponseItem struct {
 	ID        uint      `json:"id"`
 	Title     string    `json:"title"`
+	IsDraft   bool      `json:"is_draft"`
 	CreatedAt time.Time `json:"created_at"`
 	UpdatedAt time.Time `json:"updated_at"`
 }
@@ -33,6 +34,7 @@ func APIPostsIndex(c echo.Context) error {
 		err := rows.Scan(
 			&resItem.ID,
 			&resItem.Title,
+			&resItem.IsDraft,
 			&resItem.CreatedAt,
 			&resItem.UpdatedAt,
 		)
