@@ -4,7 +4,7 @@ export let value;
 
 <style>
 .input {
-  border: 2px solid lightgrey;
+  border: 1px solid lightgrey;
   border-radius: 8px;
   padding: 8px;
 }

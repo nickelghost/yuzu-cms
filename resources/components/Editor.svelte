@@ -13,7 +13,7 @@ $: contentHTML = md.render(content || '');
   flex-grow: 1;
 }
 .markdown, .preview {
-  border: 2px solid lightgrey;
+  border: 1px solid lightgrey;
   border-radius: 8px;
   flex: 1 1 0px;
 }
