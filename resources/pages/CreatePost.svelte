@@ -8,7 +8,7 @@ let title = "";
 let content = "";
 
 function onClickDraft() { createPost({ is_draft: true }); }
-function onClickSave() { createPost(); }
+function onClickPublish() { createPost(); }
 async function createPost({
   is_draft = false,
 } = {}) {
@@ -31,7 +31,7 @@ async function createPost({
 
 <TopBar title="Create a new post">
   <Button label="Draft" color="yellow" on:click={onClickDraft}></Button>
-  <Button label="Save" color="green" on:click={onClickSave}></Button>
+  <Button label="Publish" color="green" on:click={onClickPublish}></Button>
 </TopBar>
 <Content>
   <h3>Title</h3>
