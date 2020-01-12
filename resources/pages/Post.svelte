@@ -7,6 +7,7 @@ import Button from '../components/Button.svelte';
 import Content from '../components/Content.svelte';
 import Editor from '../components/Editor.svelte';
 import Modal from '../components/Modal.svelte';
+import Input from '../components/Input.svelte';
 
 let title = "";
 let content = "";
@@ -62,6 +63,8 @@ async function savePost({ is_draft = false } = {}) {
   margin-bottom: 8px;
 }
 .title-modal-input {
+  display: flex;
+  flex-direction: column;
   margin-bottom: 16px;
 }
 .title-modal-buttons {
@@ -77,7 +80,9 @@ async function savePost({ is_draft = false } = {}) {
     <label class="title-modal-label">
       Enter the new title:
     </label>
-    <input class="title-modal-input" bind:value={newTitle}>
+    <div class="title-modal-input">
+      <Input bind:value={newTitle}></Input>
+    </div>
     <div class="title-modal-buttons">
       <Button label="Cancel" on:click={closeTitleModal}></Button>
       <div class="spacer"></div>
