@@ -13,16 +13,23 @@ $: contentHTML = md.render(content || '');
   flex-grow: 1;
 }
 .markdown, .preview {
-  border: 1px solid lightgrey;
-  border-radius: 8px;
-  flex: 1 1 0px;
-}
-.markdown {
   display: flex;
+  flex: 1 1 0px;
+  flex-direction: column;
+}
+.label {
+  font-size: 1.5rem;
+  margin-bottom: 8px;
+}
+.markdown-input, .preview-content {
+  border: 1px solid #ececec;
+  flex-grow: 1;
+}
+.markdown-input {
   resize: none;
   padding: 12px;
 }
-.preview {
+.preview-content {
   padding: 0 12px;
 }
 .spacer {
@@ -31,7 +38,13 @@ $: contentHTML = md.render(content || '');
 </style>
 
 <div class="editor">
-  <textarea class="markdown" bind:value={content}></textarea>
+  <label class="markdown">
+    <span class="label">Content</span>
+    <textarea class="markdown-input" bind:value={content}></textarea>
+  </label>
   <div class="spacer"></div>
-  <div class="preview">{@html contentHTML}</div>
+  <label class="preview">
+    <span class="label">Content Preview</span>
+    <div class="preview-content">{@html contentHTML}</div>
+  </label>
 </div>
