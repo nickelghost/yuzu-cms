@@ -1,3 +1,7 @@
+<script>
+import { link, location } from 'svelte-spa-router';
+</script>
+
 <style>
 a {
   color: inherit;
@@ -44,23 +48,48 @@ a {
 <aside class="nav">
   <h1 class="heading">Yuzu</h1>
   <nav class="links">
-    <a class="link" href="/admin/#/">
+    <a
+      class="link"
+      class:link-selected={$location === '/'}
+      use:link
+      href="/"
+    >
       Home
     </a>
-    <a class="link link-selected" href="/admin/#/posts">
+    <a
+      class="link"
+      class:link-selected={$location === '/posts'}
+      use:link
+      href="/posts"
+    >
       Posts
     </a>
-    <a class="link" href="/admin/#/posts/new">
+    <a
+      class="link"
+      class:link-selected={$location === '/posts/new'}
+      use:link
+      href="/posts/new"
+    >
       <div class="link-sub">
         New
       </div>
     </a>
-    <a class="link" href="/admin/#/posts?draft=true">
+    <a
+      class="link"
+      class:link-selected={$location === '/posts?draft=true'}
+      use:link
+      href="/posts?draft=true"
+    >
       <div class="link-sub">
         Drafts
       </div>
     </a>
-    <a class="link" href="/admin/#/pages">
+    <a
+      class="link"
+      class:link-selected={$location === '/pages'}
+      use:link
+      href="/pages"
+    >
       Pages
     </a>
     <a class="link link-bottom" href="/">
