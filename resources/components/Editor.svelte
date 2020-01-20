@@ -26,8 +26,9 @@ $: contentHTML = md.render(content || '');
   flex-grow: 1;
 }
 .markdown-input {
-  resize: none;
+  font-family: 'Fira Code', monospace;
   padding: 12px;
+  resize: none;
 }
 .preview-content {
   padding: 0 12px;
