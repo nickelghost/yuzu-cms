@@ -8,7 +8,7 @@ import routes from './routes';
 .main {
   color: #333;
   display: flex;
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  font-family: Quicksand, sans-serif;
   min-height: 100vh;
 }
 .container {
