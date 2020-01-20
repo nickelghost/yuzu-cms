@@ -1,5 +1,6 @@
 <script>
-import { link, location } from 'svelte-spa-router';
+import { link, location, querystring } from 'svelte-spa-router';
+import { parse as parseQS } from 'qs';
 </script>
 
 <style>
@@ -58,7 +59,9 @@ a {
     </a>
     <a
       class="link"
-      class:link-selected={$location === '/posts'}
+      class:link-selected={
+        $location === '/posts' && parseQS($querystring).draft != 'true'
+      }
       use:link
       href="/posts"
     >
@@ -76,7 +79,9 @@ a {
     </a>
     <a
       class="link"
-      class:link-selected={$location === '/posts?draft=true'}
+      class:link-selected={
+        $location === '/posts' && parseQS($querystring).draft == 'true'
+      }
       use:link
       href="/posts?draft=true"
     >
