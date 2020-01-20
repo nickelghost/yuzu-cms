@@ -3,7 +3,7 @@
   display: flex;
   flex-direction: column;
   flex-grow: 1;
-  padding: 12px 24px;
+  padding: 24px;
 }
 </style>
 
