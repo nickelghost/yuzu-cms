@@ -36,8 +36,8 @@ a {
   border-left: 1px solid white;
   padding-left: 8px;
 }
-.spacer {
-  flex-grow: 1;
+.link-bottom {
+  margin-top: auto;
 }
 </style>
 
@@ -63,8 +63,7 @@ a {
     <a class="link" href="/admin/#/pages">
       Pages
     </a>
-    <div class="spacer"></div>
-    <a class="link" href="/">
+    <a class="link link-bottom" href="/">
       Website
     </a>
   </nav>
