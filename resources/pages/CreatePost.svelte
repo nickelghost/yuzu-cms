@@ -30,8 +30,15 @@ async function createPost({
 }
 </script>
 
+<style>
+.top-bar-spacer {
+  width: 8px;
+}
+</style>
+
 <TopBar title="Create a new post">
   <Button label="Draft" color="yellow" on:click={onClickDraft}></Button>
+  <div class="top-bar-spacer"></div>
   <Button label="Publish" color="green" on:click={onClickPublish}></Button>
 </TopBar>
 <Content>
