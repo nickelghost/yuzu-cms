@@ -31,6 +31,7 @@ $: contentHTML = md.render(content || '');
   resize: none;
 }
 .preview-content {
+  font-family: Roboto, sans-serif;
   padding: 0 12px;
 }
 .spacer {
