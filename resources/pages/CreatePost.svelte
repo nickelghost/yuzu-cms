@@ -34,6 +34,15 @@ async function createPost({
 .top-bar-spacer {
   width: 8px;
 }
+.title-section {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 24px;
+}
+.label {
+  font-size: 1.5rem;
+  margin-bottom: 8px;
+}
 </style>
 
 <TopBar title="Create a new post">
@@ -42,8 +51,9 @@ async function createPost({
   <Button label="Publish" color="green" on:click={onClickPublish}></Button>
 </TopBar>
 <Content>
-  <h3>Title</h3>
-  <Input name="title" bind:value={title} />
-  <h3>Content</h3>
+  <label class="title-section">
+    <span class="label">Title</span>
+    <Input name="title" bind:value={title}></Input>
+  </label>
   <Editor bind:content={content}/>
 </Content>
