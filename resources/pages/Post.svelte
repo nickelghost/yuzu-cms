@@ -5,7 +5,6 @@ import { onMount } from 'svelte';
 import TopBar from '../components/TopBar.svelte';
 import Editor from '../components/Editor.svelte';
 import Modal from '../components/Modal.svelte';
-import Input from '../components/Input.svelte';
 
 let title = "";
 let content = "";
@@ -77,7 +76,7 @@ async function savePost({ is_draft = false } = {}) {
   <div class="title-modal">
     <label class="title-modal-field">
       <span class="title-modal-label">Enter the new title:</span>
-      <Input bind:value={newTitle}></Input>
+      <input class="input" bind:value={newTitle}>
     </label>
     <div class="title-modal-buttons">
       <button class="button" on:click={closeTitleModal}>Cancel</button>

@@ -15,14 +15,18 @@ import routes from './routes';
   flex-grow: 1;
   padding: 24px;
 }
+:global(.top-bar-spacer) {
+  width: 8px;
+}
 :global(.button) {
   background-color: white;
   border: 1px solid #ececec;
   cursor: pointer;
   padding: 12px 24px;
 }
-:global(.top-bar-spacer) {
-  width: 8px;
+:global(.input) {
+  border: 1px solid #ececec;
+  padding: 8px;
 }
 .main {
   color: #474747;

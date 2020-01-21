@@ -1,7 +1,6 @@
 <script>
 import TopBar from '../components/TopBar.svelte';
 import Editor from '../components/Editor.svelte';
-import Input from '../components/Input.svelte';
 
 let title = "";
 let content = "";
@@ -48,7 +47,7 @@ async function createPost({
 <main class="content">
   <label class="title-section">
     <span class="label">Title</span>
-    <Input name="title" bind:value={title}></Input>
+    <input class="input" name="title" bind:value={title}>
   </label>
   <Editor bind:content={content}/>
 </main>
