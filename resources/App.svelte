@@ -5,6 +5,16 @@ import routes from './routes';
 </script>
 
 <style>
+:global(a) {
+  color: inherit;
+  text-decoration: none;
+}
+:global(.content) {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+  padding: 24px;
+}
 .main {
   color: #474747;
   display: flex;

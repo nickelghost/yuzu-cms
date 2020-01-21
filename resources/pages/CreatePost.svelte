@@ -1,7 +1,6 @@
 <script>
 import TopBar from '../components/TopBar.svelte';
 import Button from '../components/Button.svelte';
-import Content from '../components/Content.svelte';
 import Editor from '../components/Editor.svelte';
 import Input from '../components/Input.svelte';
 
@@ -50,10 +49,10 @@ async function createPost({
   <div class="top-bar-spacer"></div>
   <Button label="Publish" color="green" on:click={onClickPublish}></Button>
 </TopBar>
-<Content>
+<main class="content">
   <label class="title-section">
     <span class="label">Title</span>
     <Input name="title" bind:value={title}></Input>
   </label>
   <Editor bind:content={content}/>
-</Content>
+</main>

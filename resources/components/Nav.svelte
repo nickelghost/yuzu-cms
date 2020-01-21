@@ -4,10 +4,6 @@ import { parse as parseQS } from 'qs';
 </script>
 
 <style>
-a {
-  color: inherit;
-  text-decoration: none;
-}
 .nav {
   background: linear-gradient(90deg, #515093 0%, rgb(90, 111, 180) 100%);
   background-color: #515093;

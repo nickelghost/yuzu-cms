@@ -4,7 +4,6 @@ import { onMount } from 'svelte';
 
 import TopBar from '../components/TopBar.svelte';
 import Button from '../components/Button.svelte';
-import Content from '../components/Content.svelte';
 import Editor from '../components/Editor.svelte';
 import Modal from '../components/Modal.svelte';
 import Input from '../components/Input.svelte';
@@ -96,6 +95,6 @@ async function savePost({ is_draft = false } = {}) {
   <Button label="Draft" color="yellow" on:click={onClickDraft}></Button>
   <Button label="Publish" color="green" on:click={onClickPublish}></Button>
 </TopBar>
-<Content>
+<div class="content">
   <Editor bind:content={content}/>
-</Content>
+</div>
