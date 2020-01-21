@@ -5,3 +5,4 @@
 
 /public/*
 !/public/index.html
+!/public/global.css

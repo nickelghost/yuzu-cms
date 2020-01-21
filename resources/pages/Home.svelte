@@ -1,9 +1,8 @@
 <script>
 import TopBar from '../components/TopBar.svelte';
-import Content from '../components/Content.svelte';
 </script>
 
 <TopBar title="Admin Panel"></TopBar>
-<Content>
+<main class="content">
   <p>Welcome!</p>
-</Content>
+</main>

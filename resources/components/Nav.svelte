@@ -1,65 +1,100 @@
+<script>
+import { link, location, querystring } from 'svelte-spa-router';
+import { parse as parseQS } from 'qs';
+</script>
+
 <style>
 .nav {
-  background: rgb(78,0,121);
-  background: linear-gradient(90deg, rgba(78,0,121,1) 0%, rgba(156,0,200,1) 100%);
-  box-sizing: border-box;
+  background: linear-gradient(90deg, #515093 0%, rgb(90, 111, 180) 100%);
+  background-color: #515093;
   color: white;
   display: flex;
   flex-direction: column;
-  width: 260px;
+  width: 200px;
 }
 .heading {
+  font-weight: normal;
+  margin: 24px 0;
   text-align: center;
 }
-.nav-button {
-  font-size: 1.125rem;
-  display: inline-block;
-  padding: 12px 24px;
-}
-.nav-button-underline {
-  background-color: white;
-  height: 2px;
-  margin-top: 4px;
-  visibility: hidden;
-  width: 100%;
-}
-.nav-link:hover .nav-button-underline {
-  visibility: visible;
-}
-.spacer {
+.links {
+  display: flex;
+  flex-direction: column;
   flex-grow: 1;
 }
-a {
-  color: inherit;
-  text-decoration: none;
+.link {
+  font-size: 1.125rem;
+  display: inline-block;
+  padding: 11px 24px;
+}
+.link:hover {
+  background: rgba(255, 255, 255, 20%);
+}
+.link-selected {
+  background: rgba(255, 255, 255, 10%);
+}
+.link-sub {
+  border-left: 1px solid white;
+  padding-left: 8px;
+}
+.link-bottom {
+  margin-top: auto;
 }
 </style>
 
 <aside class="nav">
   <h1 class="heading">Yuzu</h1>
-  <a class="nav-link" href="/admin/#/">
-    <div class="nav-button">
+  <nav class="links">
+    <a
+      class="link"
+      class:link-selected={$location === '/'}
+      use:link
+      href="/"
+    >
       Home
-      <div class="nav-button-underline" />
-    </div>
-  </a>
-  <a class="nav-link" href="/admin/#/posts">
-    <div class="nav-button">
+    </a>
+    <a
+      class="link"
+      class:link-selected={
+        $location === '/posts' && parseQS($querystring).draft != 'true'
+      }
+      use:link
+      href="/posts"
+    >
       Posts
-      <div class="nav-button-underline" />
-    </div>
-  </a>
-  <a class="nav-link" href="/admin/#/pages">
-    <div class="nav-button">
+    </a>
+    <a
+      class="link"
+      class:link-selected={$location === '/posts/new'}
+      use:link
+      href="/posts/new"
+    >
+      <div class="link-sub">
+        New
+      </div>
+    </a>
+    <a
+      class="link"
+      class:link-selected={
+        $location === '/posts' && parseQS($querystring).draft == 'true'
+      }
+      use:link
+      href="/posts?draft=true"
+    >
+      <div class="link-sub">
+        Drafts
+      </div>
+    </a>
+    <a
+      class="link"
+      class:link-selected={$location === '/pages'}
+      use:link
+      href="/pages"
+    >
       Pages
-      <div class="nav-button-underline" />
-    </div>
-  </a>
-  <div class="spacer"></div>
-  <a class="nav-link" href="/">
-    <div class="nav-button">
+    </a>
+    <a class="link link-bottom" href="/">
       Website
-      <div class="nav-button-underline" />
-    </div>
-  </a>
+    </a>
+  </nav>
 </aside>

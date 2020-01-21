@@ -1,9 +1,6 @@
 <script>
 import TopBar from '../components/TopBar.svelte';
-import Button from '../components/Button.svelte';
-import Content from '../components/Content.svelte';
 import Editor from '../components/Editor.svelte';
-import Input from '../components/Input.svelte';
 
 let title = "";
 let content = "";
@@ -30,13 +27,27 @@ async function createPost({
 }
 </script>
 
+<style>
+.title-section {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 24px;
+}
+.label {
+  font-size: 1.5rem;
+  margin-bottom: 8px;
+}
+</style>
+
 <TopBar title="Create a new post">
-  <Button label="Draft" color="yellow" on:click={onClickDraft}></Button>
-  <Button label="Publish" color="green" on:click={onClickPublish}></Button>
+  <button class="button" on:click={onClickDraft}>Draft</button>
+  <div class="top-bar-spacer"></div>
+  <button class="button" on:click={onClickPublish}>Publish</button>
 </TopBar>
-<Content>
-  <h3>Title</h3>
-  <Input name="title" bind:value={title} />
-  <h3>Content</h3>
+<main class="content">
+  <label class="title-section">
+    <span class="label">Title</span>
+    <input class="input" name="title" bind:value={title}>
+  </label>
   <Editor bind:content={content}/>
-</Content>
+</main>

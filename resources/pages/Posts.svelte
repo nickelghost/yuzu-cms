@@ -4,8 +4,6 @@ import { push } from 'svelte-spa-router';
 import format from 'date-fns/format';
 
 import TopBar from '../components/TopBar.svelte';
-import Content from '../components/Content.svelte';
-import Button from '../components/Button.svelte';
 
 function displayDate(dateString) {
   const date = new Date(dateString);
@@ -37,9 +35,9 @@ onMount(async () => {
 </style>
 
 <TopBar title="Posts">
-  <Button on:click={() => push('/posts/new')} color="blue" label="New"></Button>
+  <button class="button" on:click={() => push('/posts/new')}>New</button>
 </TopBar>
-<Content>
+<div class="content">
   <table class="table">
     <tr>
       <th>ID</th>
@@ -58,4 +56,4 @@ onMount(async () => {
       </tr>
     {/each}
   </table>
-</Content>
+</div>

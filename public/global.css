@@ -1,0 +1,23 @@
+a {
+  color: inherit;
+  text-decoration: none;
+}
+.content {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+  padding: 24px;
+}
+.top-bar-spacer {
+  width: 8px;
+}
+.button {
+  background-color: white;
+  border: 1px solid #ececec;
+  cursor: pointer;
+  padding: 12px 24px;
+}
+.input {
+  border: 1px solid #ececec;
+  padding: 8px;
+}

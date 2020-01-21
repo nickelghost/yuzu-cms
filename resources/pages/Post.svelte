@@ -3,11 +3,8 @@ export let params = {}
 import { onMount } from 'svelte';
 
 import TopBar from '../components/TopBar.svelte';
-import Button from '../components/Button.svelte';
-import Content from '../components/Content.svelte';
 import Editor from '../components/Editor.svelte';
 import Modal from '../components/Modal.svelte';
-import Input from '../components/Input.svelte';
 
 let title = "";
 let content = "";
@@ -58,14 +55,14 @@ async function savePost({ is_draft = false } = {}) {
   flex-direction: column;
   width: 480px;
 }
-.title-modal-label {
-  font-size: 1.125rem;
-  margin-bottom: 8px;
-}
-.title-modal-input {
+.title-modal-field {
   display: flex;
   flex-direction: column;
   margin-bottom: 16px;
+}
+.title-modal-label {
+  font-size: 1.125rem;
+  margin-bottom: 8px;
 }
 .title-modal-buttons {
   display: flex;
@@ -77,25 +74,25 @@ async function savePost({ is_draft = false } = {}) {
 
 <Modal bind:isOpen={isTitleModalOpen}>
   <div class="title-modal">
-    <label class="title-modal-label">
-      Enter the new title:
+    <label class="title-modal-field">
+      <span class="title-modal-label">Enter the new title:</span>
+      <input class="input" bind:value={newTitle}>
     </label>
-    <div class="title-modal-input">
-      <Input bind:value={newTitle}></Input>
-    </div>
     <div class="title-modal-buttons">
-      <Button label="Cancel" on:click={closeTitleModal}></Button>
+      <button class="button" on:click={closeTitleModal}>Cancel</button>
       <div class="spacer"></div>
-      <Button label="Change" on:click={updateTitle}></Button>
+      <button class="button" on:click={updateTitle}>Change</button>
     </div>
   </div>
 </Modal>
 
 <TopBar title={title + (is_draft ? ' (draft)' : '')}>
-  <Button label="Change title" on:click={openTitleModal}></Button>
-  <Button label="Draft" color="yellow" on:click={onClickDraft}></Button>
-  <Button label="Publish" color="green" on:click={onClickPublish}></Button>
+  <button class="button" on:click={openTitleModal}>Change title</button>
+  <div class="top-bar-spacer"></div>
+  <button class="button" on:click={onClickDraft}>Draft</button>
+  <div class="top-bar-spacer"></div>
+  <button class="button" on:click={onClickPublish}>Publish</button>
 </TopBar>
-<Content>
+<div class="content">
   <Editor bind:content={content}/>
-</Content>
+</div>
