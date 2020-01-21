@@ -5,29 +5,6 @@ import routes from './routes';
 </script>
 
 <style>
-:global(a) {
-  color: inherit;
-  text-decoration: none;
-}
-:global(.content) {
-  display: flex;
-  flex-direction: column;
-  flex-grow: 1;
-  padding: 24px;
-}
-:global(.top-bar-spacer) {
-  width: 8px;
-}
-:global(.button) {
-  background-color: white;
-  border: 1px solid #ececec;
-  cursor: pointer;
-  padding: 12px 24px;
-}
-:global(.input) {
-  border: 1px solid #ececec;
-  padding: 8px;
-}
 .main {
   color: #474747;
   display: flex;
