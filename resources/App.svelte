@@ -15,6 +15,12 @@ import routes from './routes';
   flex-grow: 1;
   padding: 24px;
 }
+:global(.button) {
+  background-color: white;
+  border: 1px solid #ececec;
+  cursor: pointer;
+  padding: 12px 24px;
+}
 .main {
   color: #474747;
   display: flex;

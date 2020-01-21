@@ -3,7 +3,6 @@ export let params = {}
 import { onMount } from 'svelte';
 
 import TopBar from '../components/TopBar.svelte';
-import Button from '../components/Button.svelte';
 import Editor from '../components/Editor.svelte';
 import Modal from '../components/Modal.svelte';
 import Input from '../components/Input.svelte';
@@ -83,17 +82,17 @@ async function savePost({ is_draft = false } = {}) {
       <Input bind:value={newTitle}></Input>
     </div>
     <div class="title-modal-buttons">
-      <Button label="Cancel" on:click={closeTitleModal}></Button>
+      <button class="button" on:click={closeTitleModal}>Cancel</button>
       <div class="spacer"></div>
-      <Button label="Change" on:click={updateTitle}></Button>
+      <button class="button" on:click={updateTitle}>Change</button>
     </div>
   </div>
 </Modal>
 
 <TopBar title={title + (is_draft ? ' (draft)' : '')}>
-  <Button label="Change title" on:click={openTitleModal}></Button>
-  <Button label="Draft" color="yellow" on:click={onClickDraft}></Button>
-  <Button label="Publish" color="green" on:click={onClickPublish}></Button>
+  <button class="button" on:click={openTitleModal}>Change title</button>
+  <button class="button" on:click={onClickDraft}>Draft</button>
+  <button class="button" on:click={onClickPublish}>Publish</button>
 </TopBar>
 <div class="content">
   <Editor bind:content={content}/>

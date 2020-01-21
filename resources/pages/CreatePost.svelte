@@ -1,6 +1,5 @@
 <script>
 import TopBar from '../components/TopBar.svelte';
-import Button from '../components/Button.svelte';
 import Editor from '../components/Editor.svelte';
 import Input from '../components/Input.svelte';
 
@@ -45,9 +44,9 @@ async function createPost({
 </style>
 
 <TopBar title="Create a new post">
-  <Button label="Draft" color="yellow" on:click={onClickDraft}></Button>
+  <button class="button" on:click={onClickDraft}>Draft</button>
   <div class="top-bar-spacer"></div>
-  <Button label="Publish" color="green" on:click={onClickPublish}></Button>
+  <button class="button" on:click={onClickPublish}>Publish</button>
 </TopBar>
 <main class="content">
   <label class="title-section">
