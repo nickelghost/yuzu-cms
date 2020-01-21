@@ -21,6 +21,9 @@ import routes from './routes';
   cursor: pointer;
   padding: 12px 24px;
 }
+:global(.top-bar-spacer) {
+  width: 8px;
+}
 .main {
   color: #474747;
   display: flex;

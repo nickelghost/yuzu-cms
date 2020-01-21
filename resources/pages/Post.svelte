@@ -89,7 +89,9 @@ async function savePost({ is_draft = false } = {}) {
 
 <TopBar title={title + (is_draft ? ' (draft)' : '')}>
   <button class="button" on:click={openTitleModal}>Change title</button>
+  <div class="top-bar-spacer"></div>
   <button class="button" on:click={onClickDraft}>Draft</button>
+  <div class="top-bar-spacer"></div>
   <button class="button" on:click={onClickPublish}>Publish</button>
 </TopBar>
 <div class="content">

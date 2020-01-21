@@ -29,9 +29,6 @@ async function createPost({
 </script>
 
 <style>
-.top-bar-spacer {
-  width: 8px;
-}
 .title-section {
   display: flex;
   flex-direction: column;
