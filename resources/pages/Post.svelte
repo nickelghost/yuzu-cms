@@ -56,14 +56,14 @@ async function savePost({ is_draft = false } = {}) {
   flex-direction: column;
   width: 480px;
 }
-.title-modal-label {
-  font-size: 1.125rem;
-  margin-bottom: 8px;
-}
-.title-modal-input {
+.title-modal-field {
   display: flex;
   flex-direction: column;
   margin-bottom: 16px;
+}
+.title-modal-label {
+  font-size: 1.125rem;
+  margin-bottom: 8px;
 }
 .title-modal-buttons {
   display: flex;
@@ -75,12 +75,10 @@ async function savePost({ is_draft = false } = {}) {
 
 <Modal bind:isOpen={isTitleModalOpen}>
   <div class="title-modal">
-    <label class="title-modal-label">
-      Enter the new title:
-    </label>
-    <div class="title-modal-input">
+    <label class="title-modal-field">
+      <span class="title-modal-label">Enter the new title:</span>
       <Input bind:value={newTitle}></Input>
-    </div>
+    </label>
     <div class="title-modal-buttons">
       <button class="button" on:click={closeTitleModal}>Cancel</button>
       <div class="spacer"></div>
