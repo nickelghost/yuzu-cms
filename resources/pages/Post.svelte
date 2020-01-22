@@ -91,7 +91,9 @@
     <div class="title-modal-buttons">
       <button class="button" on:click="{closeTitleModal}">Cancel</button>
       <div class="spacer"></div>
-      <button class="button" on:click="{updateTitle}">Change</button>
+      <button class="button button-primary" on:click="{updateTitle}">
+        Change
+      </button>
     </div>
   </div>
 </Modal>
@@ -101,7 +103,9 @@
   <div class="top-bar-spacer"></div>
   <button class="button" on:click="{onClickDraft}">Draft</button>
   <div class="top-bar-spacer"></div>
-  <button class="button" on:click="{onClickPublish}">Publish</button>
+  <button class="button button-primary" on:click="{onClickPublish}">
+    Publish
+  </button>
 </TopBar>
 <div class="content">
   <Editor bind:content="{content}"></Editor>

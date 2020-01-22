@@ -45,7 +45,7 @@
 </style>
 
 <TopBar title="Posts">
-  <button class="button" on:click="{redirectToNew}">
+  <button class="button button-primary" on:click="{redirectToNew}">
     New
   </button>
 </TopBar>

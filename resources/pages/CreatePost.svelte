@@ -43,7 +43,9 @@
 <TopBar title="Create a new post">
   <button class="button" on:click="{onClickDraft}">Draft</button>
   <div class="top-bar-spacer"></div>
-  <button class="button" on:click="{onClickPublish}">Publish</button>
+  <button class="button button-primary" on:click="{onClickPublish}">
+    Publish
+  </button>
 </TopBar>
 <main class="content">
   <label class="title-section">
