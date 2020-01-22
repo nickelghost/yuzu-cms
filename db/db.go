@@ -14,10 +14,7 @@ import (
 	_ "github.com/lib/pq"
 )
 
-// Conn represents the connection to the database
-var Conn *sql.DB
-
-// Init initializes the connection to our database
+// Init initializes the connection to our database and tests it
 func Init(
 	host string,
 	port string,
@@ -25,7 +22,7 @@ func Init(
 	password string,
 	name string,
 	ssl string,
-) error {
+) (*sql.DB, error) {
 	connStr := fmt.Sprintf(
 		"host=%s port=%s user=%s password=%s dbname=%s sslmode=%s",
 		host,
@@ -36,25 +33,25 @@ func Init(
 		ssl,
 	)
 	var err error
-	Conn, err = sql.Open("postgres", connStr)
+	conn, err := sql.Open("postgres", connStr)
 	if err != nil {
-		return err
+		return nil, err
 	}
-	err = Conn.Ping()
+	err = conn.Ping()
 	if err != nil {
-		return err
+		return nil, err
 	}
-	return nil
+	return conn, nil
 }
 
 // Migrate runs all migrations against our database
-func Migrate() error {
-	driver, err := postgres.WithInstance(Conn, &postgres.Config{})
+func Migrate(conn *sql.DB, path string) error {
+	driver, err := postgres.WithInstance(conn, &postgres.Config{})
 	if err != nil {
 		return err
 	}
 	m, err := migrate.NewWithDatabaseInstance(
-		"file://migrations",
+		"file://"+path,
 		"postgres",
 		driver,
 	)
