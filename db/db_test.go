@@ -33,6 +33,6 @@ func TestInitMock(t *testing.T) {
 		os.Getenv("DB_SSL"),
 	)
 	if err == nil {
-		t.Errorf("Didn't return an error on wrong password")
+		t.Errorf("Didn't return an error on wrong database")
 	}
 }
