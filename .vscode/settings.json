@@ -1,0 +1,10 @@
+{
+  "files.associations": {
+    "*.svelte": "html"
+  },
+  "eslint.validate": [
+    "javascript",
+    "javascriptreact",
+    "html"
+  ]
+}
