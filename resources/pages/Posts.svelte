@@ -20,9 +20,6 @@
   function redirectToNew() {
     push('/posts/new');
   }
-  function redirectToPost(id) {
-    push(`/posts/${id}`);
-  }
 </script>
 
 <style>
@@ -59,7 +56,7 @@
       <th>Updated at</th>
     </tr>
     {#each posts as post}
-    <tr on:click="{redirectToPost}">
+    <tr on:click="{() => push(`/posts/${post.id}`)}">
       <td>{post.id}</td>
       <td>{post.title}</td>
       <td>{post.is_draft ? 'Yes' : 'No'}</td>
