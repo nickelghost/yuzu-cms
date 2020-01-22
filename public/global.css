@@ -17,6 +17,11 @@ a {
   cursor: pointer;
   padding: 12px 24px;
 }
+.button-primary {
+  color: white;
+  border: none;
+  background-color: rgb(90, 111, 180);
+}
 .input {
   border: 1px solid #ececec;
   padding: 8px;
