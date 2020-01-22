@@ -2,5 +2,9 @@
 /__debug_bin
 /node_modules
 
+/cover.out
+/cover.html
+
 /public/*
 !/public/index.html
+!/public/global.css
