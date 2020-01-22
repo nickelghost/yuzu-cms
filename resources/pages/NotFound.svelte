@@ -1,5 +1,5 @@
 <script>
-import TopBar from '../components/TopBar.svelte';
+  import TopBar from '../components/TopBar.svelte';
 </script>
 
 <TopBar title="404"></TopBar>

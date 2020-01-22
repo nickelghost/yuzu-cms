@@ -1,24 +1,26 @@
 <script>
-export let title;
+  export let title;
 </script>
 
 <style>
-.top-bar {
-  align-items: center;
-  background: #fafafa;
-  display: flex;
-  height: 56px;
-  padding: 0 24px;
-}
-.title {
-  font-size: 1.75rem;
-  font-weight: normal;
-  margin: 0;
-}
-.right {
-  display: flex;
-  margin-left: auto;
-}
+  .top-bar {
+    align-items: center;
+    background: #fafafa;
+    display: flex;
+    height: 56px;
+    padding: 0 24px;
+  }
+
+  .title {
+    font-size: 1.75rem;
+    font-weight: normal;
+    margin: 0;
+  }
+
+  .right {
+    display: flex;
+    margin-left: auto;
+  }
 </style>
 
 <div class="top-bar">
