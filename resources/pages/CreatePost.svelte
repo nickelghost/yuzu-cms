@@ -2,11 +2,9 @@
 import TopBar from '../components/TopBar.svelte';
 import Editor from '../components/Editor.svelte';
 
-let title = "";
-let content = "";
+let title = '';
+let content = '';
 
-function onClickDraft() { createPost({ is_draft: true }); }
-function onClickPublish() { createPost(); }
 async function createPost({
   is_draft = false,
 } = {}) {
@@ -17,14 +15,17 @@ async function createPost({
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(req),
-    }
+    },
   );
   if (res.ok) {
     alert('Post created');
   } else {
-    alert('Error creating post')
+    alert('Error creating post');
   }
 }
+
+function onClickDraft() { createPost({ is_draft: true }); }
+function onClickPublish() { createPost(); }
 </script>
 
 <style>

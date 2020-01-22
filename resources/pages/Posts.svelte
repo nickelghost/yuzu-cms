@@ -7,7 +7,7 @@ import TopBar from '../components/TopBar.svelte';
 
 function displayDate(dateString) {
   const date = new Date(dateString);
-  return format(date, 'do MMM yyyy HH:mm')
+  return format(date, 'do MMM yyyy HH:mm');
 }
 
 let posts = [];

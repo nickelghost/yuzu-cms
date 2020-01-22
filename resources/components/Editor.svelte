@@ -1,6 +1,7 @@
 <script>
-export let content = "";
 import MarkdownIt from 'markdown-it';
+
+export let content = '';
 
 const md = new MarkdownIt();
 
