@@ -7,7 +7,6 @@ import (
 
 	"github.com/go-playground/validator/v10"
 	"github.com/labstack/echo"
-	"github.com/nickelghost/cms/db"
 )
 
 // APIPostsUpdateRequest represents a request for updating a post
@@ -28,7 +27,7 @@ type APIPostsUpdateResponse struct {
 }
 
 // APIPostsUpdate updates a post over JSON
-func APIPostsUpdate(c echo.Context) error {
+func (hs Handlers) APIPostsUpdate(c echo.Context) error {
 	req := new(APIPostsUpdateRequest)
 	err := c.Bind(req)
 	if err != nil {
@@ -43,7 +42,7 @@ func APIPostsUpdate(c echo.Context) error {
 		return err
 	}
 	res := new(APIPostsUpdateResponse)
-	err = db.Conn.QueryRow(
+	err = hs.DB.QueryRow(
 		string(sql),
 		c.Param("id"),
 		req.Title,

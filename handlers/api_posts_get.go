@@ -6,7 +6,6 @@ import (
 	"time"
 
 	"github.com/labstack/echo"
-	"github.com/nickelghost/cms/db"
 )
 
 // APIPostsGetResponse represents a response of a requested post
@@ -20,13 +19,13 @@ type APIPostsGetResponse struct {
 }
 
 // APIPostsGet fetches a single post by its id
-func APIPostsGet(c echo.Context) error {
+func (hs Handlers) APIPostsGet(c echo.Context) error {
 	sql, err := ioutil.ReadFile("queries/api_posts_get.sql")
 	if err != nil {
 		return err
 	}
 	res := new(APIPostsGetResponse)
-	err = db.Conn.QueryRow(string(sql), c.Param("id")).Scan(
+	err = hs.DB.QueryRow(string(sql), c.Param("id")).Scan(
 		&res.ID,
 		&res.Title,
 		&res.Content,

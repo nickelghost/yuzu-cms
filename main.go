@@ -37,7 +37,7 @@ func main() {
 		log.Fatal(err)
 	}
 	// Get the database connection
-	err = db.Init(
+	dbConn, err := db.Init(
 		os.Getenv("DB_HOST"),
 		os.Getenv("DB_PORT"),
 		os.Getenv("DB_USER"),
@@ -45,11 +45,11 @@ func main() {
 		os.Getenv("DB_NAME"),
 		os.Getenv("DB_SSL"),
 	)
-	defer db.Conn.Close()
+	defer dbConn.Close()
 	if err != nil {
 		log.Fatal(err)
 	}
-	err = db.Migrate()
+	err = db.Migrate(dbConn, "migrations")
 	if err != nil && err.Error() != "no change" {
 		log.Fatal(err)
 	}
@@ -75,12 +75,14 @@ func main() {
 		fmt.Sprintf("/%s", theme),
 		fmt.Sprintf("themes/%s/public", theme),
 	)
+	// Init the handlers object
+	hs := handlers.Handlers{DB: dbConn}
 	// Define routes
-	e.GET("/", handlers.Homepage)
-	e.GET("/api/v1/posts", handlers.APIPostsIndex)
-	e.GET("/api/v1/posts/:id", handlers.APIPostsGet)
-	e.POST("/api/v1/posts", handlers.APIPostsCreate)
-	e.PUT("/api/v1/posts/:id", handlers.APIPostsUpdate)
+	e.GET("/", hs.Homepage)
+	e.GET("/api/v1/posts", hs.APIPostsIndex)
+	e.GET("/api/v1/posts/:id", hs.APIPostsGet)
+	e.POST("/api/v1/posts", hs.APIPostsCreate)
+	e.PUT("/api/v1/posts/:id", hs.APIPostsUpdate)
 	// Define where to serve
 	port := os.Getenv("APP_PORT")
 	if port == "" {

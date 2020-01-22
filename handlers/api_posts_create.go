@@ -7,7 +7,6 @@ import (
 
 	"github.com/go-playground/validator/v10"
 	"github.com/labstack/echo"
-	"github.com/nickelghost/cms/db"
 )
 
 // APIPostsCreateRequest represents a request for creating a post
@@ -28,7 +27,7 @@ type APIPostsCreateResponse struct {
 }
 
 // APIPostsCreate adds a new post for the website
-func APIPostsCreate(c echo.Context) error {
+func (hs Handlers) APIPostsCreate(c echo.Context) error {
 	req := new(APIPostsCreateRequest)
 	err := c.Bind(req)
 	if err != nil {
@@ -43,7 +42,7 @@ func APIPostsCreate(c echo.Context) error {
 		return err
 	}
 	res := new(APIPostsCreateResponse)
-	err = db.Conn.QueryRow(
+	err = hs.DB.QueryRow(
 		string(sql),
 		req.Title,
 		req.Content,
