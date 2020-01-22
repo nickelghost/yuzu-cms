@@ -6,7 +6,6 @@ import (
 	"time"
 
 	"github.com/labstack/echo"
-	"github.com/nickelghost/cms/db"
 )
 
 // APIPostsIndexResponseItem represents an array item for the response
@@ -19,12 +18,12 @@ type APIPostsIndexResponseItem struct {
 }
 
 // APIPostsIndex fetches all posts that were added
-func APIPostsIndex(c echo.Context) error {
+func (hs Handlers) APIPostsIndex(c echo.Context) error {
 	sql, err := ioutil.ReadFile("queries/api_posts_index.sql")
 	if err != nil {
 		return err
 	}
-	rows, err := db.Conn.Query(string(sql))
+	rows, err := hs.DB.Query(string(sql))
 	if err != nil {
 		return err
 	}

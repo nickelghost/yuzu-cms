@@ -5,17 +5,16 @@ import (
 	"net/http"
 
 	"github.com/labstack/echo"
-	"github.com/nickelghost/cms/db"
 	"github.com/nickelghost/cms/models"
 )
 
 // Homepage renders the index page
-func Homepage(c echo.Context) error {
+func (hs Handlers) Homepage(c echo.Context) error {
 	sql, err := ioutil.ReadFile("queries/homepage.sql")
 	if err != nil {
 		return err
 	}
-	rows, err := db.Conn.Query(string(sql))
+	rows, err := hs.DB.Query(string(sql))
 	if err != nil {
 		return err
 	}
