@@ -6,5 +6,6 @@
     "javascript",
     "javascriptreact",
     "html"
-  ]
+  ],
+  "editor.formatOnSave": true
 }

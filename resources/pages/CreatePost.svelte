@@ -1,54 +1,54 @@
 <script>
-import TopBar from '../components/TopBar.svelte';
-import Editor from '../components/Editor.svelte';
+  import TopBar from '../components/TopBar.svelte';
+  import Editor from '../components/Editor.svelte';
 
-let title = '';
-let content = '';
+  let title = '';
+  let content = '';
 
-async function createPost({
-  is_draft = false,
-} = {}) {
-  const req = { title, content, is_draft };
-  const res = await fetch(
-    '/api/v1/posts',
-    {
+  async function createPost({ is_draft = false } = {}) {
+    const req = { title, content, is_draft };
+    const res = await fetch('/api/v1/posts', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(req),
-    },
-  );
-  if (res.ok) {
-    alert('Post created');
-  } else {
-    alert('Error creating post');
+    });
+    if (res.ok) {
+      alert('Post created');
+    } else {
+      alert('Error creating post');
+    }
   }
-}
 
-function onClickDraft() { createPost({ is_draft: true }); }
-function onClickPublish() { createPost(); }
+  function onClickDraft() {
+    createPost({ is_draft: true });
+  }
+  function onClickPublish() {
+    createPost();
+  }
 </script>
 
 <style>
-.title-section {
-  display: flex;
-  flex-direction: column;
-  margin-bottom: 24px;
-}
-.label {
-  font-size: 1.5rem;
-  margin-bottom: 8px;
-}
+  .title-section {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 24px;
+  }
+
+  .label {
+    font-size: 1.5rem;
+    margin-bottom: 8px;
+  }
 </style>
 
 <TopBar title="Create a new post">
-  <button class="button" on:click={onClickDraft}>Draft</button>
+  <button class="button" on:click="{onClickDraft}">Draft</button>
   <div class="top-bar-spacer"></div>
-  <button class="button" on:click={onClickPublish}>Publish</button>
+  <button class="button" on:click="{onClickPublish}">Publish</button>
 </TopBar>
 <main class="content">
   <label class="title-section">
     <span class="label">Title</span>
-    <input class="input" name="title" bind:value={title}>
+    <input class="input" name="title" bind:value="{title}" />
   </label>
-  <Editor bind:content={content}/>
+  <Editor bind:content="{content}"></Editor>
 </main>

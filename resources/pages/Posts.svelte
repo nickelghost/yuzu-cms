@@ -1,41 +1,53 @@
 <script>
-import { onMount } from 'svelte';
-import { push } from 'svelte-spa-router';
-import format from 'date-fns/format';
+  import { onMount } from 'svelte';
+  import { push } from 'svelte-spa-router';
+  import format from 'date-fns/format';
 
-import TopBar from '../components/TopBar.svelte';
+  import TopBar from '../components/TopBar.svelte';
 
-function displayDate(dateString) {
-  const date = new Date(dateString);
-  return format(date, 'do MMM yyyy HH:mm');
-}
+  let posts = [];
 
-let posts = [];
+  onMount(async () => {
+    const res = await fetch('/api/v1/posts');
+    posts = await res.json();
+  });
 
-onMount(async () => {
-  const res = await fetch('/api/v1/posts');
-  posts = await res.json();
-});
+  function displayDate(dateString) {
+    const date = new Date(dateString);
+    return format(date, 'do MMM yyyy HH:mm');
+  }
+
+  function redirectToNew() {
+    push('/posts/new');
+  }
+  function redirectToPost(id) {
+    push(`/posts/${id}`);
+  }
 </script>
 
 <style>
-.table {
-  border-spacing: 0;
-  border-collapse: collapse;
-  width: 100%;
-}
-.table th, .table td {
-  text-align: center;
-  padding: 16px 0;
-}
-.table tr:hover:not(:first-child) {
-  background-color: whitesmoke;
-  cursor: pointer;
-}
+  .table {
+    border-spacing: 0;
+    border-collapse: collapse;
+    width: 100%;
+  }
+
+  .table th,
+  .table td {
+    text-align: center;
+    padding: 16px 0;
+  }
+
+  .table tr:hover:not(:first-child) {
+    background-color: whitesmoke;
+    cursor: pointer;
+  }
 </style>
 
 <TopBar title="Posts">
-  <button class="button" on:click={() => push('/posts/new')}>New</button>
+  <button class="button" on:click="{redirectToNew}">
+    New
+  </button>
 </TopBar>
 <div class="content">
   <table class="table">
@@ -47,13 +59,13 @@ onMount(async () => {
       <th>Updated at</th>
     </tr>
     {#each posts as post}
-      <tr on:click={() => push(`/posts/${post.id}`)}>
-        <td>{post.id}</td>
-        <td>{post.title}</td>
-        <td>{post.is_draft ? 'Yes' : 'No'}</td>
-        <td>{displayDate(post.created_at)}</td>
-        <td>{displayDate(post.updated_at)}</td>
-      </tr>
+    <tr on:click="{redirectToPost}">
+      <td>{post.id}</td>
+      <td>{post.title}</td>
+      <td>{post.is_draft ? 'Yes' : 'No'}</td>
+      <td>{displayDate(post.created_at)}</td>
+      <td>{displayDate(post.updated_at)}</td>
+    </tr>
     {/each}
   </table>
 </div>
