@@ -7,6 +7,7 @@ import (
 	"os"
 	"text/template"
 
+	"github.com/golang-migrate/migrate/v4"
 	"github.com/joho/godotenv"
 	"github.com/labstack/echo"
 	"github.com/labstack/echo/middleware"
@@ -50,7 +51,7 @@ func main() {
 		log.Fatal(err)
 	}
 	err = db.Migrate(dbConn, "migrations")
-	if err != nil && err.Error() != "no change" {
+	if err != nil && err != migrate.ErrNoChange {
 		log.Fatal(err)
 	}
 	theme := os.Getenv("APP_THEME")

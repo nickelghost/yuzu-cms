@@ -4,6 +4,8 @@ import (
 	"os"
 	"testing"
 
+	"github.com/golang-migrate/migrate/v4"
+
 	"github.com/joho/godotenv"
 )
 
@@ -41,6 +43,7 @@ func TestInitMock(t *testing.T) {
 }
 
 func TestMigrate(t *testing.T) {
+	// TODO: Separate cases of when the DB is migrated and when isn't migrated
 	godotenv.Load("../.env")
 	conn, _ := Init(
 		os.Getenv("DB_HOST"),
@@ -51,7 +54,7 @@ func TestMigrate(t *testing.T) {
 		os.Getenv("DB_SSL"),
 	)
 	err := Migrate(conn, "../migrations")
-	if err != nil && err.Error() != "no change" {
+	if err != nil && err != migrate.ErrNoChange {
 		t.Errorf("Couldn't run migrations:\n%s", err)
 	}
 }
