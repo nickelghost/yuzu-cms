@@ -1,9 +1,13 @@
 <script>
   import TopBar from '../components/TopBar.svelte';
   import Editor from '../components/Editor.svelte';
+  import Notification from '../components/Notification.svelte';
 
   let title = '';
   let content = '';
+
+  let notificationMessage = '';
+  let notificationColor = '';
 
   async function createPost({ is_draft = false } = {}) {
     const req = { title, content, is_draft };
@@ -13,9 +17,11 @@
       body: JSON.stringify(req),
     });
     if (res.ok) {
-      alert('Post created');
+      notificationMessage = 'Post created';
+      notificationColor = 'green';
     } else {
-      alert('Error creating post');
+      notificationMessage = 'Could not create post';
+      notificationColor = 'red';
     }
   }
 
@@ -39,6 +45,11 @@
     margin-bottom: 8px;
   }
 </style>
+
+<Notification
+  bind:message="{notificationMessage}"
+  color="{notificationColor}"
+></Notification>
 
 <TopBar title="Create a new post">
   <button class="button" on:click="{onClickDraft}">Draft</button>

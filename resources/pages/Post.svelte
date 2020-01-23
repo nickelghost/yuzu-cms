@@ -4,14 +4,19 @@
   import TopBar from '../components/TopBar.svelte';
   import Editor from '../components/Editor.svelte';
   import Modal from '../components/Modal.svelte';
+  import Notification from '../components/Notification.svelte';
 
   export let params = {};
 
   let title = '';
   let content = '';
   let isDraft = false;
+
   let isTitleModalOpen = false;
   let newTitle = '';
+
+  let notificationMessage = '';
+  let notificationColor = '';
 
   onMount(async () => {
     const res = await fetch(`/api/v1/posts/${params.id}`);
@@ -42,9 +47,11 @@
       body: JSON.stringify(req),
     });
     if (res.ok) {
-      alert('Post updated');
+      notificationMessage = 'Post updated';
+      notificationColor = 'green';
     } else {
-      alert('Could not update');
+      notificationMessage = 'Could not update post';
+      notificationColor = 'red';
     }
   }
   function onClickDraft() {
@@ -81,6 +88,11 @@
     flex-grow: 1;
   }
 </style>
+
+<Notification
+  bind:message="{notificationMessage}"
+  color="{notificationColor}"
+></Notification>
 
 <Modal bind:isOpen="{isTitleModalOpen}">
   <div class="title-modal">
