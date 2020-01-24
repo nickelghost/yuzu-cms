@@ -11,8 +11,8 @@ import (
 	"github.com/joho/godotenv"
 	"github.com/labstack/echo"
 	"github.com/labstack/echo/middleware"
-	"github.com/nickelghost/cms/db"
-	"github.com/nickelghost/cms/handlers"
+	"github.com/nickelghost/yuzu-cms/db"
+	"github.com/nickelghost/yuzu-cms/handlers"
 )
 
 // Template is a struct required for rendering templating views
