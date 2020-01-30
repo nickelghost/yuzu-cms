@@ -1,7 +1,6 @@
 package handlers
 
 import (
-	"io/ioutil"
 	"net/http"
 	"time"
 
@@ -37,13 +36,9 @@ func (hs Handlers) APIPostsUpdate(c echo.Context) error {
 	if err != nil {
 		return err
 	}
-	sql, err := ioutil.ReadFile("queries/api_posts_update.sql")
-	if err != nil {
-		return err
-	}
 	res := new(APIPostsUpdateResponse)
 	err = hs.DB.QueryRow(
-		string(sql),
+		hs.SQL["api_posts_update.sql"],
 		c.Param("id"),
 		req.Title,
 		req.Content,

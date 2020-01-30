@@ -1,7 +1,6 @@
 package handlers
 
 import (
-	"io/ioutil"
 	"net/http"
 	"time"
 
@@ -20,12 +19,8 @@ type APIPostsGetResponse struct {
 
 // APIPostsGet fetches a single post by its id
 func (hs Handlers) APIPostsGet(c echo.Context) error {
-	sql, err := ioutil.ReadFile("queries/api_posts_get.sql")
-	if err != nil {
-		return err
-	}
-	res := new(APIPostsGetResponse)
-	err = hs.DB.QueryRow(string(sql), c.Param("id")).Scan(
+	res := APIPostsGetResponse{}
+	err := hs.DB.QueryRow(hs.SQL["api_posts_get.sql"], c.Param("id")).Scan(
 		&res.ID,
 		&res.Title,
 		&res.Content,

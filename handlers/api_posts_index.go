@@ -1,7 +1,6 @@
 package handlers
 
 import (
-	"io/ioutil"
 	"net/http"
 	"time"
 
@@ -19,11 +18,7 @@ type APIPostsIndexResponseItem struct {
 
 // APIPostsIndex fetches all posts that were added
 func (hs Handlers) APIPostsIndex(c echo.Context) error {
-	sql, err := ioutil.ReadFile("queries/api_posts_index.sql")
-	if err != nil {
-		return err
-	}
-	rows, err := hs.DB.Query(string(sql))
+	rows, err := hs.DB.Query(hs.SQL["api_posts_index.sql"])
 	if err != nil {
 		return err
 	}

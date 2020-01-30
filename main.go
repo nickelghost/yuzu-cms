@@ -3,8 +3,10 @@ package main
 import (
 	"fmt"
 	"io"
+	"io/ioutil"
 	"log"
 	"os"
+	"path/filepath"
 	"text/template"
 
 	"github.com/golang-migrate/migrate/v4"
@@ -28,6 +30,27 @@ func (t *Template) Render(
 	c echo.Context,
 ) error {
 	return t.templates.ExecuteTemplate(w, name, data)
+}
+
+// GetSQL reads SQL files in a given location and returns a map with .sql file
+// names and their content
+func GetSQL(root string) map[string]string {
+	sqlFiles := make(map[string]string)
+	err := filepath.Walk(root, func(path string, info os.FileInfo, err error) error {
+		if filepath.Ext(path) == ".sql" {
+			sql, err := ioutil.ReadFile(path)
+			if err != nil {
+				return err
+			}
+			sqlFiles[info.Name()] = string(sql)
+			return nil
+		}
+		return nil
+	})
+	if err != nil {
+		log.Fatalf("Reading SQL files failed:\n%s", err)
+	}
+	return sqlFiles
 }
 
 func main() {
@@ -77,7 +100,7 @@ func main() {
 		fmt.Sprintf("themes/%s/public", theme),
 	)
 	// Init the handlers object
-	hs := handlers.Handlers{DB: dbConn}
+	hs := handlers.Handlers{DB: dbConn, SQL: GetSQL("queries/")}
 	// Define routes
 	e.GET("/", hs.Homepage)
 	e.GET("/api/v1/posts", hs.APIPostsIndex)
