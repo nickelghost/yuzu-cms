@@ -5,10 +5,14 @@
 
   import TopBar from '../components/TopBar.svelte';
 
+  import { jwt } from '../stores';
+
   let posts = [];
 
   onMount(async () => {
-    const res = await fetch('/api/v1/posts');
+    const res = await fetch('/api/v1/posts', {
+      headers: { Authorization: `Bearer ${$jwt}` },
+    });
     posts = await res.json();
   });
 

@@ -1,6 +1,12 @@
 <script>
   import { link, location, querystring } from 'svelte-spa-router';
   import { parse as parseQS } from 'qs';
+  import { jwt } from '../stores';
+
+  function logOut() {
+    localStorage.removeItem('jwt');
+    jwt.set('');
+  }
 </script>
 
 <style>
@@ -26,6 +32,7 @@
   }
 
   .link {
+    cursor: pointer;
     font-size: 1.125rem;
     display: inline-block;
     padding: 11px 24px;
@@ -91,6 +98,9 @@
     >
       Pages
     </a>
+    <button class="button-reset link" on:click="{logOut}">
+      Log out
+    </button>
     <a class="link link-bottom" href="/">
       Website
     </a>

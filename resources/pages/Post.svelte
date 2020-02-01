@@ -6,6 +6,8 @@
   import Modal from '../components/Modal.svelte';
   import Notification from '../components/Notification.svelte';
 
+  import { jwt } from '../stores';
+
   export let params = {};
 
   let title = '';
@@ -19,7 +21,9 @@
   let notificationColor = '';
 
   onMount(async () => {
-    const res = await fetch(`/api/v1/posts/${params.id}`);
+    const res = await fetch(`/api/v1/posts/${params.id}`, {
+      headers: { Authorization: `Bearer ${$jwt}` },
+    });
     const post = await res.json();
     title = post.title;
     content = post.content;
@@ -43,7 +47,10 @@
     const req = { title, content, is_draft };
     const res = await fetch(`/api/v1/posts/${params.id}`, {
       method: 'PUT',
-      headers: { 'Content-Type': 'application/json' },
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${$jwt}`,
+      },
       body: JSON.stringify(req),
     });
     if (res.ok) {
