@@ -22,6 +22,13 @@ a {
   border: none;
   background-color: rgb(90, 111, 180);
 }
+/* Used for overriding default button tag styles */
+.button-reset {
+  background: transparent;
+  border: none;
+  color: inherit;
+  text-align: unset;
+}
 .input {
   border: 1px solid #ececec;
   padding: 8px;

@@ -98,9 +98,9 @@
     >
       Pages
     </a>
-    <div class="link" on:click="{logOut}">
+    <button class="button-reset link" on:click="{logOut}">
       Log out
-    </div>
+    </button>
     <a class="link link-bottom" href="/">
       Website
     </a>
