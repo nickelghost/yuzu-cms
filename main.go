@@ -103,7 +103,7 @@ func main() {
 	hs := handlers.Handlers{DB: dbConn, SQL: GetSQL("queries/")}
 	// Public routes
 	e.GET("/", hs.Homepage)
-	e.GET("/api/v1/login", hs.APILogin)
+	e.POST("/api/v1/login", hs.APILogin)
 	// Auth-only v1 API routes
 	v1auth := e.Group("/api/v1")
 	v1auth.Use(middleware.JWT([]byte(os.Getenv("APP_SECRET"))))
