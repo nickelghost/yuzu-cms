@@ -6,7 +6,6 @@ import (
 
 	"github.com/dgrijalva/jwt-go"
 	"github.com/labstack/echo"
-	"github.com/labstack/gommon/log"
 	"golang.org/x/crypto/bcrypt"
 )
 
@@ -24,7 +23,6 @@ func (hs *Handlers) APILogin(c echo.Context) error {
 	if req.User != os.Getenv("APP_USER_NAME") {
 		return c.String(http.StatusUnauthorized, "invalid credentials")
 	}
-	log.Info(os.Getenv("APP_USER_PASS"))
 	err = bcrypt.CompareHashAndPassword(
 		[]byte(os.Getenv("APP_USER_PASS")),
 		[]byte(req.Password),
