@@ -101,12 +101,15 @@ func main() {
 	)
 	// Init the handlers object
 	hs := handlers.Handlers{DB: dbConn, SQL: GetSQL("queries/")}
-	// Define routes
+	// Public routes
 	e.GET("/", hs.Homepage)
-	e.GET("/api/v1/posts", hs.APIPostsIndex)
-	e.GET("/api/v1/posts/:id", hs.APIPostsGet)
-	e.POST("/api/v1/posts", hs.APIPostsCreate)
-	e.PUT("/api/v1/posts/:id", hs.APIPostsUpdate)
+	// Auth-only v1 API routes
+	v1auth := e.Group("/api/v1")
+	v1auth.Use(middleware.JWT([]byte(os.Getenv("APP_SECRET"))))
+	v1auth.GET("/posts", hs.APIPostsIndex)
+	v1auth.GET("/posts/:id", hs.APIPostsGet)
+	v1auth.POST("/posts", hs.APIPostsCreate)
+	v1auth.PUT("/posts/:id", hs.APIPostsUpdate)
 	// Define where to serve
 	port := os.Getenv("APP_PORT")
 	if port == "" {
