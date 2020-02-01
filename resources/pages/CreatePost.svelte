@@ -3,6 +3,8 @@
   import Editor from '../components/Editor.svelte';
   import Notification from '../components/Notification.svelte';
 
+  import { jwt } from '../stores';
+
   let title = '';
   let content = '';
 
@@ -13,7 +15,10 @@
     const req = { title, content, is_draft };
     const res = await fetch('/api/v1/posts', {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${$jwt}`,
+      },
       body: JSON.stringify(req),
     });
     if (res.ok) {
