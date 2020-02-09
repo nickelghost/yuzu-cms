@@ -16,11 +16,12 @@ module.exports = {
   },
   output: {
     path: path.resolve(__dirname, 'public'),
-    filename: 'index.js',
+    filename: '[name].js',
+    chunkFilename: '[name].[id].js',
   },
   plugins: [
     new MiniCssExtractPlugin({
-      filename: 'index.css',
+      filename: '[name].css',
     }),
   ],
   optimization: {
