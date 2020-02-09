@@ -2,7 +2,6 @@ package db
 
 import (
 	"database/sql"
-	"fmt"
 
 	"github.com/golang-migrate/migrate/v4"
 	"github.com/golang-migrate/migrate/v4/database/postgres"
@@ -15,23 +14,7 @@ import (
 )
 
 // Init initializes the connection to our database and tests it
-func Init(
-	host string,
-	port string,
-	user string,
-	password string,
-	name string,
-	ssl string,
-) (*sql.DB, error) {
-	connStr := fmt.Sprintf(
-		"host=%s port=%s user=%s password=%s dbname=%s sslmode=%s",
-		host,
-		port,
-		user,
-		password,
-		name,
-		ssl,
-	)
+func Init(connStr string) (*sql.DB, error) {
 	var err error
 	conn, err := sql.Open("postgres", connStr)
 	if err != nil {

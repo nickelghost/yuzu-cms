@@ -1,8 +1,11 @@
 package db
 
 import (
+	"fmt"
 	"os"
 	"testing"
+
+	"github.com/nickelghost/yuzu-cms/boot"
 
 	"github.com/golang-migrate/migrate/v4"
 
@@ -11,14 +14,7 @@ import (
 
 func TestInit(t *testing.T) {
 	godotenv.Load("../.env")
-	conn, err := Init(
-		os.Getenv("DB_HOST"),
-		os.Getenv("DB_PORT"),
-		os.Getenv("DB_USER"),
-		os.Getenv("DB_PASS"),
-		os.Getenv("DB_NAME"),
-		os.Getenv("DB_SSL"),
-	)
+	conn, err := Init(boot.GetPostgresConnString())
 	if err != nil {
 		t.Errorf("Connection to the DB failed:\n%s", err.Error())
 	}
@@ -29,32 +25,27 @@ func TestInit(t *testing.T) {
 
 func TestInitMock(t *testing.T) {
 	godotenv.Load("../.env")
-	_, err := Init(
+	connStr := fmt.Sprintf(
+		"host=%s port=%s user=%s password=%s dbname=%s sslmode=%s",
 		os.Getenv("DB_HOST"),
 		os.Getenv("DB_PORT"),
-		os.Getenv("DB_USER"),
+		"nonexistinguser",
 		os.Getenv("DB_PASS"),
-		"nonexistingdatabase",
+		os.Getenv("DB_NAME"),
 		os.Getenv("DB_SSL"),
 	)
+	_, err := Init(connStr)
 	if err == nil {
-		t.Errorf("Didn't return an error on wrong database\n%s", err)
+		t.Error("Didn't return an error on wrong database")
 	}
 }
 
 func TestMigrate(t *testing.T) {
 	// TODO: Separate cases of when the DB is migrated and when isn't migrated
 	godotenv.Load("../.env")
-	conn, _ := Init(
-		os.Getenv("DB_HOST"),
-		os.Getenv("DB_PORT"),
-		os.Getenv("DB_USER"),
-		os.Getenv("DB_PASS"),
-		os.Getenv("DB_NAME"),
-		os.Getenv("DB_SSL"),
-	)
+	conn, _ := Init(boot.GetPostgresConnString())
 	err := Migrate(conn, "../migrations")
 	if err != nil && err != migrate.ErrNoChange {
-		t.Errorf("Couldn't run migrations:\n%s", err)
+		t.Errorf("Couldn't run migrations:\n%s", err.Error())
 	}
 }
