@@ -38,19 +38,6 @@
   }
 </script>
 
-<style>
-  .title-section {
-    display: flex;
-    flex-direction: column;
-    margin-bottom: 24px;
-  }
-
-  .label {
-    font-size: 1.5rem;
-    margin-bottom: 8px;
-  }
-</style>
-
 <Notification
   bind:message="{notificationMessage}"
   color="{notificationColor}"
@@ -64,7 +51,7 @@
   </button>
 </TopBar>
 <main class="content">
-  <label class="title-section">
+  <label class="field">
     <span class="label">Title</span>
     <input class="input" name="title" bind:value="{title}" />
   </label>

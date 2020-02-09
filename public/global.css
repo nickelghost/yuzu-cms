@@ -29,7 +29,33 @@ a {
   color: inherit;
   text-align: unset;
 }
+.flex-spacer {
+  flex-grow: 1;
+}
+.form {
+  display: flex;
+  flex-direction: column;
+  padding: 24px;
+}
+.field {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 24px;
+}
+.field:last-child {
+  margin-bottom: 0;
+}
+.field-horizontal {
+  flex-direction: row;
+}
+.label {
+  font-size: 1.125rem;
+  font-weight: 200;
+  margin-bottom: 8px;
+  text-transform: uppercase;
+}
 .input {
   border: 1px solid #ececec;
+  font-family: 'Fira Code', monospace;
   padding: 8px;
 }
