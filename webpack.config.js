@@ -1,5 +1,9 @@
-const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const path = require('path');
+
+const TerserJSPlugin = require('terser-webpack-plugin');
+const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
+
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
 const mode = process.env.NODE_ENV || 'development';
 const prod = mode === 'production';
@@ -19,6 +23,9 @@ module.exports = {
       filename: 'index.css',
     }),
   ],
+  optimization: {
+    minimizer: [new TerserJSPlugin({}), new OptimizeCSSAssetsPlugin({})],
+  },
   resolve: {
     alias: {
       svelte: path.resolve('node_modules', 'svelte'),
