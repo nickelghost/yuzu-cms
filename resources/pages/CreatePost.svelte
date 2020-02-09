@@ -56,7 +56,7 @@
   color="{notificationColor}"
 ></Notification>
 
-<TopBar title="Create a new post">
+<TopBar title="New Post">
   <button class="button" on:click="{onClickDraft}">Draft</button>
   <div class="top-bar-spacer"></div>
   <button class="button button-primary" on:click="{onClickPublish}">
