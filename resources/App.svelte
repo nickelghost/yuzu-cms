@@ -12,7 +12,7 @@
   .main {
     color: #474747;
     display: flex;
-    font-family: Quicksand, sans-serif;
+    font-family: 'Fira Sans', sans-serif;
     min-height: 100vh;
   }
 
