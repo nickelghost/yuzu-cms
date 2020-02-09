@@ -4,7 +4,7 @@
     "sass": "^1.23.7"
   },
   "scripts": {
-    "build": "npx sass resources/index.scss public/index.css --style=compressed",
-    "watch": "npx sass resources/index.scss public/index.css --watch"
+    "start": "npx sass resources/index.scss public/index.css --watch",
+    "build": "npx sass resources/index.scss public/index.css --style=compressed"
   }
 }
