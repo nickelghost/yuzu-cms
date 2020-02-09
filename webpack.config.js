@@ -27,7 +27,7 @@ module.exports = {
     }),
     new HtmlWebpackPlugin({
       template: './resources/index.html',
-      minify: {
+      minify: prod && {
         collapseWhitespace: true,
         removeComments: true,
         removeRedundantAttributes: true,
