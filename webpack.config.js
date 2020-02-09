@@ -26,7 +26,7 @@ module.exports = {
       filename: '[name].[contenthash].css',
     }),
     new HtmlWebpackPlugin({
-      title: 'Yuzu CMS',
+      template: './resources/index.html',
     }),
   ],
   optimization: {
