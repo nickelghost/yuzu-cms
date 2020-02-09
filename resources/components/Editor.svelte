@@ -19,6 +19,10 @@
     flex: 1 1 0px;
   }
 
+  .markdown {
+    margin-bottom: 0;
+  }
+
   .markdown-input,
   .preview-content {
     flex-grow: 1;
