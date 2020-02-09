@@ -6,6 +6,7 @@
   "dependencies": {
     "date-fns": "^2.8.1",
     "markdown-it": "^10.0.0",
+    "normalize.css": "^8.0.1",
     "qs": "^6.9.1",
     "svelte-spa-router": "^2.0.0"
   },

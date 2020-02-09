@@ -1,3 +1,5 @@
+@import '~normalize.css';
+
 a {
   color: inherit;
   text-decoration: none;
