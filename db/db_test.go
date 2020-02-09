@@ -29,12 +29,11 @@ func TestInitMock(t *testing.T) {
 		"host=%s port=%s user=%s password=%s dbname=%s sslmode=%s",
 		os.Getenv("DB_HOST"),
 		os.Getenv("DB_PORT"),
-		os.Getenv("DB_USER"),
+		"nonexistinguser",
 		os.Getenv("DB_PASS"),
-		"nonexistingdatabase",
+		os.Getenv("DB_NAME"),
 		os.Getenv("DB_SSL"),
 	)
-	fmt.Println(connStr)
 	_, err := Init(connStr)
 	if err == nil {
 		t.Error("Didn't return an error on wrong database")
