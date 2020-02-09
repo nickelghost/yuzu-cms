@@ -4,6 +4,7 @@ const TerserJSPlugin = require('terser-webpack-plugin');
 const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 const mode = process.env.NODE_ENV || 'development';
 const prod = mode === 'production';
@@ -16,12 +17,16 @@ module.exports = {
   },
   output: {
     path: path.resolve(__dirname, 'public'),
-    filename: '[name].js',
-    chunkFilename: '[name].[id].js',
+    filename: '[name].[contenthash].js',
+    chunkFilename: '[name].[contenthash].[id].js',
+    publicPath: '/admin',
   },
   plugins: [
     new MiniCssExtractPlugin({
       filename: '[name].css',
+    }),
+    new HtmlWebpackPlugin({
+      title: 'Yuzu CMS',
     }),
   ],
   optimization: {
