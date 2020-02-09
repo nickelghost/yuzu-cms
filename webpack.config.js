@@ -39,6 +39,10 @@ module.exports = {
     extensions: ['.mjs', '.js', '.svelte'],
     mainFields: ['svelte', 'browser', 'module', 'main'],
   },
+  devServer: {
+    contentBase: path.resolve(__dirname, 'public'),
+    port: 3001,
+  },
   module: {
     rules: [
       {

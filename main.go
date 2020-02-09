@@ -3,6 +3,7 @@ package main
 import (
 	"fmt"
 	"log"
+	"net/url"
 	"os"
 
 	"github.com/nickelghost/yuzu-cms/boot"
@@ -53,6 +54,13 @@ func main() {
 	v1auth.GET("/posts/:id", hs.APIPostsGet)
 	v1auth.POST("/posts", hs.APIPostsCreate)
 	v1auth.PUT("/posts/:id", hs.APIPostsUpdate)
+	if os.Getenv("APP_WEBPACK_FORWARD") == "true" {
+		g := e.Group("/admin")
+		webpackURL, _ := url.Parse("http://localhost:3001")
+		g.Use(middleware.Proxy(middleware.NewRandomBalancer(
+			[]*middleware.ProxyTarget{{URL: webpackURL}},
+		)))
+	}
 	// Determine where to serve
 	port := boot.GetPort()
 	connStr := fmt.Sprintf(":%s", port)
