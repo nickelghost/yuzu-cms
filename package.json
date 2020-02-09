@@ -1,6 +1,7 @@
 {
   "scripts": {
-    "start": "npx webpack --watch",
+    "start": "npx webpack-dev-server",
+    "watch": "npx webpack --watch",
     "build": "npx cross-env NODE_ENV=production webpack"
   },
   "dependencies": {
