@@ -12,7 +12,7 @@
   }
 
   .title {
-    font-size: 1.75rem;
+    font-size: 1.5rem;
     font-weight: normal;
     margin: 0;
   }
