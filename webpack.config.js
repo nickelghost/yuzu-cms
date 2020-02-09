@@ -27,6 +27,14 @@ module.exports = {
     }),
     new HtmlWebpackPlugin({
       template: './resources/index.html',
+      minify: {
+        collapseWhitespace: true,
+        removeComments: true,
+        removeRedundantAttributes: true,
+        removeScriptTypeAttributes: true,
+        removeStyleLinkTypeAttributes: true,
+        useShortDoctype: true,
+      },
     }),
   ],
   optimization: {
