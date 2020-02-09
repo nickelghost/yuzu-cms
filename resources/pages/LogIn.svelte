@@ -45,6 +45,7 @@
   }
 
   .title {
+    font-family: Quicksand, sans-serif;
     font-size: 3rem;
     font-weight: normal;
     margin: 24px 0;
