@@ -37,7 +37,8 @@
     isTitleModalOpen = false;
   }
 
-  function updateTitle() {
+  function updateTitle(e) {
+    e.preventDefault();
     title = newTitle;
     isTitleModalOpen = false;
     newTitle = '';
@@ -69,52 +70,27 @@
   }
 </script>
 
-<style>
-  .title-modal {
-    display: flex;
-    flex-direction: column;
-    width: 480px;
-  }
-
-  .title-modal-field {
-    display: flex;
-    flex-direction: column;
-    margin-bottom: 16px;
-  }
-
-  .title-modal-label {
-    font-size: 1.125rem;
-    margin-bottom: 8px;
-  }
-
-  .title-modal-buttons {
-    display: flex;
-  }
-
-  .spacer {
-    flex-grow: 1;
-  }
-</style>
-
 <Notification
   bind:message="{notificationMessage}"
   color="{notificationColor}"
 ></Notification>
 
 <Modal bind:isOpen="{isTitleModalOpen}">
-  <div class="title-modal">
-    <label class="title-modal-field">
-      <span class="title-modal-label">Enter the new title:</span>
+  <form class="form" on:submit="{updateTitle}">
+    <label class="field">
+      <span class="label">Title</span>
       <input class="input" bind:value="{newTitle}" />
     </label>
-    <div class="title-modal-buttons">
-      <button class="button" on:click="{closeTitleModal}">Cancel</button>
-      <div class="spacer"></div>
-      <button class="button button-primary" on:click="{updateTitle}">
+    <div class="field field-horizontal">
+      <button class="button" type="button" on:click="{closeTitleModal}">
+        Cancel
+      </button>
+      <div class="flex-spacer"></div>
+      <button class="button button-primary" type="submit">
         Change
       </button>
     </div>
-  </div>
+  </form>
 </Modal>
 
 <TopBar title="{title + (isDraft ? ' (draft)' : '')}">

@@ -45,28 +45,11 @@
   }
 
   .title {
+    font-family: Quicksand, sans-serif;
     font-size: 3rem;
     font-weight: normal;
     margin: 24px 0;
     text-align: center;
-  }
-
-  form {
-    display: flex;
-    flex-direction: column;
-    padding: 24px;
-  }
-
-  .field {
-    display: flex;
-    flex-direction: column;
-    margin-bottom: 24px;
-  }
-
-  .label {
-    font-size: 1.125rem;
-    margin-bottom: 8px;
-    text-transform: uppercase;
   }
 </style>
 

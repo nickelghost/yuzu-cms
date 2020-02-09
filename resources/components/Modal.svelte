@@ -36,7 +36,7 @@
   .modal-inner {
     background-color: white;
     border-radius: 8px;
-    padding: 12px;
+    min-width: 480px;
     z-index: 1000;
   }
 </style>
