@@ -1,6 +1,6 @@
 import App from './App.svelte';
 
-import './global.css';
+import './index.css';
 
 // eslint-disable-next-line no-new
 new App({
