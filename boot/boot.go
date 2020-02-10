@@ -5,10 +5,13 @@ import (
 	"html/template"
 	"io/ioutil"
 	"log"
+	"net/url"
 	"os"
 	"path/filepath"
 
 	"github.com/joho/godotenv"
+	"github.com/labstack/echo"
+	"github.com/labstack/echo/middleware"
 )
 
 // LoadEnv gets our .env file or throws a fatal
@@ -86,4 +89,15 @@ func GetSQL(root string) map[string]string {
 		log.Fatalf("Reading SQL files failed:\n%s", err)
 	}
 	return sqlFiles
+}
+
+func ForwardWebpack(e *echo.Echo, targetURL string) {
+	g := e.Group("/admin")
+	webpackURL, err := url.Parse(targetURL)
+	if err != nil {
+		log.Fatal(err)
+	}
+	g.Use(middleware.Proxy(middleware.NewRandomBalancer(
+		[]*middleware.ProxyTarget{{URL: webpackURL}},
+	)))
 }
