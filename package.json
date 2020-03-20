@@ -9,6 +9,7 @@
     "markdown-it": "^10.0.0",
     "normalize.css": "^8.0.1",
     "qs": "^6.9.1",
+    "svelte": "^3.20.1",
     "svelte-spa-router": "^2.0.0"
   },
   "devDependencies": {
@@ -22,7 +23,6 @@
     "mini-css-extract-plugin": "^0.8.0",
     "optimize-css-assets-webpack-plugin": "^5.0.3",
     "serve": "^11.2.0",
-    "svelte": "^3.18.2",
     "svelte-loader": "^2.13.6",
     "terser-webpack-plugin": "^2.3.4",
     "webpack": "^4.41.2",
