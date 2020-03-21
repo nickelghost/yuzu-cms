@@ -12,6 +12,7 @@ require (
 	github.com/labstack/gommon v0.3.0 // indirect
 	github.com/lib/pq v1.1.1
 	github.com/shurcooL/sanitized_anchor_name v1.0.0 // indirect
+	github.com/writeas/go-strip-markdown v2.0.1+incompatible
 	golang.org/x/crypto v0.0.0-20190426145343-a29dc8fdc734
 	gopkg.in/russross/blackfriday.v2 v2.0.0
 )
