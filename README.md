@@ -6,7 +6,7 @@ I created this project to be an alternative to WordPress for the "simple blog pl
 
 ## Installation
 
-The RDBMS used for the project is PostgreSQL. Pull this repository, create a `.env` file and configure it according to `.env.example`. Then you'll be able to run the application with the standard `go run .` command.
+The RDBMS used for the project is PostgreSQL. Pull this repository, create a `.env` file and configure it according to `.env.example`. Then you'll be able to run the application with the `go run . -migrate` command. The `-migrate` flag is only needed once, for running database migrations.
 
 You'll need to build the assets for the admin panel with `npm run build`. If using the default theme, you also will need to build the assets for it - navigate to `themes/default` and run `npm run build`.
 
