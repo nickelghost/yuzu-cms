@@ -16,6 +16,7 @@
     color: white;
     display: flex;
     flex-direction: column;
+    flex-shrink: 0;
     font-family: Quicksand, sans-serif;
     width: 200px;
   }
