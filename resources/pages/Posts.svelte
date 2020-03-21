@@ -1,6 +1,6 @@
 <script>
   import { onMount } from 'svelte';
-  import { link } from 'svelte-spa-router';
+  import { link, push } from 'svelte-spa-router';
   import format from 'date-fns/format';
 
   import TopBar from '../components/TopBar.svelte';
