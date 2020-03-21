@@ -6,6 +6,7 @@ import (
 	"os"
 
 	"github.com/nickelghost/yuzu-cms/boot"
+	"github.com/nickelghost/yuzu-cms/seed"
 
 	"github.com/labstack/echo"
 	"github.com/labstack/echo/middleware"
@@ -32,6 +33,12 @@ func main() {
 	}
 	if contains(os.Args, "-migrate") {
 		err = db.Migrate(dbConn, "migrations")
+		if err != nil {
+			log.Fatal(err)
+		}
+	}
+	if contains(os.Args, "-seed") {
+		err := seed.Seed(dbConn)
 		if err != nil {
 			log.Fatal(err)
 		}
