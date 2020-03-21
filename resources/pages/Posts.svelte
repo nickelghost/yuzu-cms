@@ -1,6 +1,6 @@
 <script>
   import { onMount } from 'svelte';
-  import { push } from 'svelte-spa-router';
+  import { link } from 'svelte-spa-router';
   import format from 'date-fns/format';
 
   import TopBar from '../components/TopBar.svelte';
@@ -91,29 +91,27 @@
 </TopBar>
 <div class="content">
   {#each posts as post}
-  <div
-    class="post"
-    class:draft="{post.is_draft}"
-    on:click="{() => push(`/posts/${post.id}`)}"
-  >
-    <div class="title-section">
-      <h3 class="title">
-        {post.title}
-      </h3>
+  <a href="{`/posts/${post.id}`}" use:link>
+    <div class="post" class:draft="{post.is_draft}">
+      <div class="title-section">
+        <h3 class="title">
+          {post.title}
+        </h3>
+      </div>
+      <div class="preview-section">
+        <p class="preview">
+          {post.content_preview}...
+        </p>
+      </div>
+      <div class="created-section">
+        <span class="time-heading">Created at</span>
+        {displayDate(post.created_at)}
+      </div>
+      <div class="updated-section">
+        <span class="time-heading">Updated at</span>
+        {displayDate(post.updated_at)}
+      </div>
     </div>
-    <div class="preview-section">
-      <p class="preview">
-        {post.content_preview}...
-      </p>
-    </div>
-    <div class="created-section">
-      <span class="time-heading">Created at</span>
-      {displayDate(post.created_at)}
-    </div>
-    <div class="updated-section">
-      <span class="time-heading">Updated at</span>
-      {displayDate(post.updated_at)}
-    </div>
-  </div>
+  </a>
   {/each}
 </div>
