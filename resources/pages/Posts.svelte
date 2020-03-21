@@ -1,7 +1,8 @@
 <script>
-  import { onMount } from 'svelte';
-  import { link, push } from 'svelte-spa-router';
+  // import { onMount } from 'svelte';
+  import { link, push, querystring } from 'svelte-spa-router';
   import format from 'date-fns/format';
+  import { parse as parseQS } from 'qs';
 
   import TopBar from '../components/TopBar.svelte';
 
@@ -9,12 +10,14 @@
 
   let posts = [];
 
-  onMount(async () => {
-    const res = await fetch('/api/v1/posts', {
+  async function getPosts(draftOnly = false) {
+    const res = await fetch(`/api/v1/posts?draft=${draftOnly}`, {
       headers: { Authorization: `Bearer ${$jwt}` },
     });
     posts = await res.json();
-  });
+  }
+
+  $: getPosts(parseQS($querystring).draft);
 
   function displayDate(dateString) {
     const date = new Date(dateString);

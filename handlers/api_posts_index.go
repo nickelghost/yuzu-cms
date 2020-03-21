@@ -2,6 +2,7 @@ package handlers
 
 import (
 	"net/http"
+	"strconv"
 	"time"
 
 	"github.com/labstack/echo"
@@ -20,13 +21,16 @@ type APIPostsIndexResponseItem struct {
 
 // APIPostsIndex fetches all posts that were added
 func (hs Handlers) APIPostsIndex(c echo.Context) error {
-	rows, err := hs.DB.Query(hs.SQL["api_posts_index.sql"])
+	draftOnly, err := strconv.ParseBool(c.QueryParam("draft"))
+	if err != nil {
+		return err
+	}
+	rows, err := hs.DB.Query(hs.SQL["api_posts_index.sql"], draftOnly)
 	if err != nil {
 		return err
 	}
 	res := make([]APIPostsIndexResponseItem, 0)
 	for rows.Next() {
-		// TODO: Scan model instead and move preview creation to the model
 		post := models.Post{}
 		err := rows.Scan(
 			&post.ID,
