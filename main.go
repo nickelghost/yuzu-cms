@@ -7,12 +7,20 @@ import (
 
 	"github.com/nickelghost/yuzu-cms/boot"
 
-	"github.com/golang-migrate/migrate/v4"
 	"github.com/labstack/echo"
 	"github.com/labstack/echo/middleware"
 	"github.com/nickelghost/yuzu-cms/db"
 	"github.com/nickelghost/yuzu-cms/handlers"
 )
+
+func contains(arr []string, str string) bool {
+	for _, a := range arr {
+		if a == str {
+			return true
+		}
+	}
+	return false
+}
 
 func main() {
 	boot.LoadEnv()
@@ -22,9 +30,11 @@ func main() {
 	if err != nil {
 		log.Fatal(err)
 	}
-	err = db.Migrate(dbConn, "migrations")
-	if err != nil && err != migrate.ErrNoChange {
-		log.Fatal(err)
+	if contains(os.Args, "-migrate") {
+		err = db.Migrate(dbConn, "migrations")
+		if err != nil {
+			log.Fatal(err)
+		}
 	}
 	theme := boot.GetTheme()
 	// Load view templates
