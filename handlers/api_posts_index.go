@@ -5,7 +5,7 @@ import (
 	"time"
 
 	"github.com/labstack/echo"
-	stripmd "github.com/writeas/go-strip-markdown"
+	"github.com/nickelghost/yuzu-cms/models"
 )
 
 // APIPostsIndexResponseItem represents an array item for the response
@@ -27,21 +27,26 @@ func (hs Handlers) APIPostsIndex(c echo.Context) error {
 	res := make([]APIPostsIndexResponseItem, 0)
 	for rows.Next() {
 		// TODO: Scan model instead and move preview creation to the model
-		resItem := APIPostsIndexResponseItem{}
+		post := models.Post{}
 		err := rows.Scan(
-			&resItem.ID,
-			&resItem.Title,
-			&resItem.ContentPreview,
-			&resItem.IsDraft,
-			&resItem.CreatedAt,
-			&resItem.UpdatedAt,
+			&post.ID,
+			&post.Title,
+			&post.Content,
+			&post.IsDraft,
+			&post.CreatedAt,
+			&post.UpdatedAt,
 		)
 		if err != nil {
 			return err
 		}
-		resItem.ContentPreview = stripmd.Strip(resItem.ContentPreview)
-		if len(resItem.ContentPreview) > 80 {
-			resItem.ContentPreview = resItem.ContentPreview[:80]
+		post.PopulateContentPreview()
+		resItem := APIPostsIndexResponseItem{
+			ID:             post.ID,
+			Title:          post.Title,
+			ContentPreview: post.ContentPreview,
+			IsDraft:        post.IsDraft,
+			CreatedAt:      post.CreatedAt,
+			UpdatedAt:      post.UpdatedAt,
 		}
 		res = append(res, resItem)
 	}
