@@ -103,8 +103,7 @@
     </div>
     <div class="preview-section">
       <p class="preview">
-        Lorem ipsum dolor sit amet, this is some placeholding text for a preview
-        of the article
+        {post.content_preview}...
       </p>
     </div>
     <div class="created-section">
