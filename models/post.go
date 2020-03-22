@@ -20,7 +20,7 @@ type Post struct {
 	UpdatedAt      time.Time
 }
 
-func (_ Post) GetAllByIds(conn *sql.DB, ids []int) (*[]Post, error) {
+func (Post) GetAllByIds(conn *sql.DB, ids []int) (*[]Post, error) {
 	idsString := ""
 	for i, id := range ids {
 		idsString = idsString + strconv.Itoa(id)

@@ -17,7 +17,7 @@ type Page struct {
 	Post         Post
 }
 
-func (_ Page) GetAll(conn *sql.DB, withPosts bool) (*[]Page, error) {
+func (Page) GetAll(conn *sql.DB, withPosts bool) (*[]Page, error) {
 	rows, err := conn.Query("SELECT * FROM pages ORDER BY index")
 	if err != nil {
 		return nil, err
