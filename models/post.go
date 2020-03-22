@@ -20,6 +20,30 @@ type Post struct {
 	UpdatedAt      time.Time
 }
 
+func (Post) GetAll(conn *sql.DB) (*[]Post, error) {
+	rows, err := conn.Query("SELECT * FROM posts ORDER BY created_at DESC")
+	if err != nil {
+		return nil, err
+	}
+	posts := []Post{}
+	for rows.Next() {
+		post := Post{}
+		err := rows.Scan(
+			&post.ID,
+			&post.Title,
+			&post.Content,
+			&post.IsDraft,
+			&post.CreatedAt,
+			&post.UpdatedAt,
+		)
+		if err != nil {
+			return nil, err
+		}
+		posts = append(posts, post)
+	}
+	return &posts, nil
+}
+
 func (Post) GetAllByIds(conn *sql.DB, ids []int) (*[]Post, error) {
 	idsString := ""
 	for i, id := range ids {
