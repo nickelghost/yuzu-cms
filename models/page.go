@@ -80,6 +80,43 @@ func (Page) GetById(conn *sql.DB, id int) (*Page, error) {
 	return &page, nil
 }
 
+func (Page) Create(
+	conn *sql.DB,
+	postID int,
+	index int,
+	slug string,
+	inNavigation bool,
+	heading *string,
+) (*Page, error) {
+	page := Page{}
+	err := conn.QueryRow(`
+        INSERT INTO
+        pages (post_id, index, slug, in_navigation, heading, created_at, updated_at)
+        VALUES
+        ($1, $2, $3, $4, $5, NOW(), NOW())
+        RETURNING *
+        `,
+		postID,
+		index,
+		slug,
+		inNavigation,
+		heading,
+	).Scan(
+		&page.ID,
+		&page.PostID,
+		&page.Index,
+		&page.Slug,
+		&page.InNavigation,
+		&page.Heading,
+		&page.CreatedAt,
+		&page.UpdatedAt,
+	)
+	if err != nil {
+		return nil, err
+	}
+	return &page, nil
+}
+
 func (p Page) Delete(conn *sql.DB) error {
 	_, err := conn.Exec("DELETE FROM pages WHERE id = $1", p.ID)
 	if err != nil {
