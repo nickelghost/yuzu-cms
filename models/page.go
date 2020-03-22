@@ -61,3 +61,29 @@ func (Page) GetAll(conn *sql.DB, withPosts bool) (*[]Page, error) {
 	}
 	return &pages, nil
 }
+
+func (Page) GetById(conn *sql.DB, id int) (*Page, error) {
+	page := Page{}
+	err := conn.QueryRow("SELECT * FROM pages WHERE id = $1", id).Scan(
+		&page.ID,
+		&page.PostID,
+		&page.Index,
+		&page.Slug,
+		&page.InNavigation,
+		&page.Heading,
+		&page.CreatedAt,
+		&page.UpdatedAt,
+	)
+	if err != nil {
+		return nil, err
+	}
+	return &page, nil
+}
+
+func (p Page) Delete(conn *sql.DB) error {
+	_, err := conn.Exec("DELETE FROM pages WHERE id = $1", p.ID)
+	if err != nil {
+		return err
+	}
+	return nil
+}
