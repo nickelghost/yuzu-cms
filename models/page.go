@@ -18,7 +18,7 @@ type Page struct {
 }
 
 func (Page) GetAll(conn *sql.DB, withPosts bool) (*[]Page, error) {
-	rows, err := conn.Query("SELECT * FROM pages ORDER BY index")
+	rows, err := conn.Query("SELECT * FROM pages ORDER BY index DESC")
 	if err != nil {
 		return nil, err
 	}
