@@ -70,6 +70,7 @@ func main() {
 	v1auth.GET("/posts/:id", hs.APIPostsGet)
 	v1auth.POST("/posts", hs.APIPostsCreate)
 	v1auth.PUT("/posts/:id", hs.APIPostsUpdate)
+	v1auth.GET("/pages", hs.APIPagesIndex)
 	// This forwards webpack's web server for development
 	if os.Getenv("APP_WEBPACK_FORWARD") == "true" {
 		boot.ForwardWebpack(e, "http://localhost:3001")
