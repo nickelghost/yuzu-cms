@@ -17,7 +17,8 @@
     posts = await res.json();
   }
 
-  $: getPosts(parseQS($querystring).draft);
+  $: queryDraftOnly = parseQS($querystring).draft;
+  $: getPosts(queryDraftOnly);
 
   function displayDate(dateString) {
     const date = new Date(dateString);
@@ -88,6 +89,13 @@
 </style>
 
 <TopBar title="Posts">
+  <button
+    class="button"
+    on:click="{() => push(queryDraftOnly ? '/posts' : '/posts?draft=true')}"
+  >
+    {queryDraftOnly ? 'All posts' : 'Drafts'}
+  </button>
+  <div class="top-bar-spacer"></div>
   <button class="button button-primary" on:click="{redirectToNew}">
     New
   </button>
