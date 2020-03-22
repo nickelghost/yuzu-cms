@@ -61,13 +61,3 @@ func (_ Page) GetAll(conn *sql.DB, withPosts bool) (*[]Page, error) {
 	}
 	return &pages, nil
 }
-
-func (p *Page) GetPost(conn *sql.DB) error {
-	post := Post{}
-	err := post.GetById(conn, p.PostID)
-	if err != nil {
-		return err
-	}
-	p.Post = post
-	return nil
-}
