@@ -53,6 +53,18 @@
       getPages();
     }
   }
+
+  async function deletePage(id) {
+    const res = await fetch(`/api/v1/pages/${id}`, {
+      method: 'DELETE',
+      headers: {
+        Authorization: `Bearer ${$jwt}`,
+      },
+    });
+    if (res.ok) {
+      getPages();
+    }
+  }
 </script>
 
 <style>
@@ -96,7 +108,11 @@
       <td>{page.slug}</td>
       <td><input type="checkbox" disabled checked="{page.in_navigation}" /></td>
       <td>{page.post.title}</td>
-      <td><button class="button">Delete</button></td>
+      <td>
+        <button class="button" on:click="{() => deletePage(page.id)}">
+          Delete
+        </button>
+      </td>
     </tr>
     {/each}
   </table>
