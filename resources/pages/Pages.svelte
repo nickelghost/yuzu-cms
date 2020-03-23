@@ -8,6 +8,12 @@
   let pages = [];
   let posts = [];
 
+  const form = {
+    slug: '',
+    in_navigation: true,
+    post_id: 0,
+  };
+
   async function getPages() {
     const res = await fetch('/api/v1/pages', {
       headers: { Authorization: `Bearer ${$jwt}` },
@@ -26,6 +32,27 @@
     getPages();
     getPosts();
   });
+
+  async function addPage() {
+    // eslint-disable-next-line
+    const highestIndex = pages.reduce((p1, p2) => {
+      return p1.index > p2.index ? p1 : p2;
+    }).index;
+    const res = await fetch('/api/v1/pages', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${$jwt}`,
+      },
+      body: JSON.stringify({
+        ...form,
+        index: highestIndex + 1,
+      }),
+    });
+    if (res.ok) {
+      getPages();
+    }
+  }
 </script>
 
 <TopBar title="Pages"></TopBar>
@@ -41,16 +68,21 @@
     </tr>
     <tr>
       <td></td>
-      <td><input /></td>
-      <td><input type="checkbox" checked="{true}" /></td>
+      <td><input type="text" bind:value="{form.slug}" /></td>
+      <td><input type="checkbox" bind:checked="{form.in_navigation}" /></td>
       <td>
-        <select>
+        <select bind:value="{form.post_id}">
+          <option value="{0}" disabled></option>
           {#each posts as post}
-          <option>{post.title}</option>
+          <option value="{post.id}">{post.title}</option>
           {/each}
         </select>
       </td>
-      <td><button class="button button-primary">Add</button></td>
+      <td>
+        <button class="button button-primary" on:click="{addPage}">
+          Add
+        </button>
+      </td>
     </tr>
     {#each pages as page}
     <tr>
