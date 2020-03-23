@@ -55,6 +55,12 @@
   }
 </script>
 
+<style>
+  th {
+    text-align: left;
+  }
+</style>
+
 <TopBar title="Pages"></TopBar>
 
 <div class="content">
