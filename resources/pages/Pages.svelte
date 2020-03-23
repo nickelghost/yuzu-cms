@@ -18,14 +18,18 @@
     const res = await fetch('/api/v1/pages', {
       headers: { Authorization: `Bearer ${$jwt}` },
     });
-    pages = await res.json();
+    if (res.ok) {
+      pages = await res.json();
+    }
   }
 
   async function getPosts() {
     const res = await fetch('/api/v1/posts/titles', {
       headers: { Authorization: `Bearer ${$jwt}` },
     });
-    posts = await res.json();
+    if (res.ok) {
+      posts = await res.json();
+    }
   }
 
   onMount(() => {
@@ -35,9 +39,10 @@
 
   async function addPage() {
     // eslint-disable-next-line
-    const highestIndex = pages.reduce((p1, p2) => {
-      return p1.index > p2.index ? p1 : p2;
-    }).index;
+    const highestIndex =
+      pages.length === 0
+        ? 0
+        : pages.reduce((p1, p2) => (p1.index > p2.index ? p1 : p2)).index;
     const res = await fetch('/api/v1/pages', {
       method: 'POST',
       headers: {
