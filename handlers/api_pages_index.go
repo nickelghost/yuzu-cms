@@ -18,6 +18,7 @@ func (hs Handlers) APIPagesIndex(c echo.Context) error {
 	}
 	type ResponseItem struct {
 		ID           int              `json:"id"`
+		PostID       int              `json:"post_id"`
 		Index        int              `json:"index"`
 		Slug         string           `json:"slug"`
 		InNavigation bool             `json:"in_navigation"`
@@ -35,6 +36,7 @@ func (hs Handlers) APIPagesIndex(c echo.Context) error {
 		page.Post.PopulateContentPreview()
 		item := ResponseItem{
 			ID:           page.ID,
+			PostID:       page.PostID,
 			Index:        page.Index,
 			Slug:         page.Slug,
 			InNavigation: page.InNavigation,
