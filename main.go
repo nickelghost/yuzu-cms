@@ -73,6 +73,7 @@ func main() {
 	v1auth.PUT("/posts/:id", hs.APIPostsUpdate)
 	v1auth.GET("/pages", hs.APIPagesIndex)
 	v1auth.POST("/pages", hs.APIPagesCreate)
+	v1auth.PUT("/pages/:id", hs.APIPagesUpdate)
 	v1auth.DELETE("/pages/:id", hs.APIPagesDelete)
 	// This forwards webpack's web server for development
 	if os.Getenv("APP_WEBPACK_FORWARD") == "true" {
