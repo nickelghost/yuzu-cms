@@ -70,6 +70,24 @@
       getPages();
     }
   }
+
+  async function changePageIndex(page, change) {
+    const req = {
+      ...page,
+      position_change: change,
+    };
+    const res = await fetch(`/api/v1/pages/${page.id}`, {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${$jwt}`,
+      },
+      body: JSON.stringify(req),
+    });
+    if (res.ok) {
+      getPages();
+    }
+  }
 </script>
 
 <style>
@@ -109,7 +127,11 @@
     </tr>
     {#each pages as page}
     <tr>
-      <td>{page.index}</td>
+      <td>
+        {page.index}
+        <button on:click={() => changePageIndex(page, 1)}>+</button>
+        <button on:click={() => changePageIndex(page, -1)}>-</button>
+      </td>
       <td>{page.slug}</td>
       <td><input type="checkbox" disabled checked="{page.in_navigation}" /></td>
       <td>{page.post.title}</td>
