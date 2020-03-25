@@ -61,9 +61,9 @@
 <aside class="nav">
   <h1 class="heading">Yuzu</h1>
   <nav class="links">
-    <a class="link" class:link-selected="{$location === '/'}" use:link href="/">
+    <!-- <a class="link" class:link-selected="{$location === '/'}" use:link href="/">
       Home
-    </a>
+    </a> -->
     <a
       class="link"
       class:link-selected="{$location === '/posts' && parseQS($querystring).draft !== 'true'}"
