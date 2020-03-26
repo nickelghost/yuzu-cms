@@ -85,3 +85,11 @@ func (p *Post) PopulateContentPreview() {
 	}
 	p.ContentPreview = preview
 }
+
+func (p Post) GetContentPreview(max int) string {
+	preview := stripmd.Strip(p.Content)
+	if len(preview) > max {
+		preview = preview[:max]
+	}
+	return preview
+}
