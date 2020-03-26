@@ -1,31 +1,38 @@
-.container {
-  border: solid grey;
-  border-width: 0 1px;
-  margin: auto;
-  min-height: 100vh;
-  max-width: 1366px;
+body {
+  font-family: 'Fira Sans', sans-serif;
+  font-size: 1.125rem;
 }
 
 .nav {
-  border-bottom: 1px solid grey;
-  display: flex;
-  justify-content: space-between;
+  background-color: #373737;
+  color: white;
 }
 
-.nav-right {
+.nav-container {
   display: flex;
+  justify-content: space-between;
+  margin: auto;
+  max-width: 900px;
 }
 
 .nav-item {
-  padding: 6px 16px;
+  padding: 16px 16px;
 }
 
-.main {
-  padding: 6px 16px;
+.nav-spacer {
+  flex-grow: 1;
+}
+
+.container {
+  box-sizing: border-box;
+  margin: auto;
+  max-width: 900px;
+  min-height: calc(100vh - (1.125rem + 2 * 16px));
+  padding: 0 16px;
 }
 
 .post {
-  border: 1px solid grey;
-  margin-bottom: 12px;
-  padding: 8px;
+  border-bottom: 2px solid #c4c4c4;
+  overflow: auto;
+  padding-bottom: 24px;
 }

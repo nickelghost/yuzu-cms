@@ -1,39 +1,38 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
     <title>CMS</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css">
-    <link rel="stylesheet" href="/default/index.css">
-</head>
-<body>
-  <div class="container">
-    <div class="nav">
-      <div class="nav-left">
-        <div class="nav-item">CMS</div>
-      </div>
-      <div class="nav-right">
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css?family=Fira+Sans:200,400"
+    />
+    <link rel="stylesheet" href="/default/index.css" />
+  </head>
+  <body>
+    <nav class="nav">
+      <div class="nav-container">
+        <div class="nav-item">Yuzu CMS</div>
+        <div class="nav-spacer"></div>
         <div class="nav-item">Posts</div>
         <div class="nav-item">Categories</div>
       </div>
-    </div>
-    <div class="main">
-      <div class="welcome">
-        <p>This is the homepage of the CMS</p>
+    </nav>
+    <div class="container">
+      {{range $post := .posts}}
+      <div class="post">
+        <h1>{{$post.Title}}</h1>
+        <div>
+          {{$post.GetContentPreview 350}}
+        </div>
       </div>
-      <div class="posts">
-        {{range $post := .posts}}
-          <div class="post">
-            <h1>{{$post.Title}}</h1>
-            <div>
-              {{$post.GetHTMLContent}}
-            </div>
-          </div>
-        {{end}}
-      </div>
+      {{end}}
     </div>
-  </div>
-</body>
+  </body>
 </html>
