@@ -28,9 +28,13 @@ func (hs Handlers) Homepage(c echo.Context) error {
 		}
 		posts = append(posts, post)
 	}
+	pages, err := (models.Page{}).GetAll(hs.DB, true)
+	if err != nil {
+		return err
+	}
 	return c.Render(
 		http.StatusOK,
 		"homepage.html",
-		map[string]interface{}{"posts": posts},
+		map[string]interface{}{"posts": posts, "pages": pages},
 	)
 }
