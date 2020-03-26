@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>CMS</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css?family=Fira+Sans:200,400"
+    />
+    <link rel="stylesheet" href="/default/index.css" />
+  </head>
+  <body>
+    <nav class="nav">
+      <div class="nav-container">
+        <div class="nav-item">Yuzu CMS</div>
+        <div class="nav-spacer"></div>
+        <a class="nav-item" href="/">
+          Home
+        </a>
+        {{range $page := .pages }} {{if $page.InNavigation}}
+        <a class="nav-item" href="/{{$page.Slug}}">
+          {{ $page.Post.Title }}
+        </a>
+        {{end}} {{end}}
+      </div>
+    </nav>
+    <div class="container">
+      <h1>{{.post.Title}}</h1>
+      <div>
+        {{.post.GetHTMLContent}}
+      </div>
+    </div>
+  </body>
+</html>

@@ -62,6 +62,7 @@ func main() {
 	hs := handlers.Handlers{DB: dbConn, SQL: boot.GetSQL("queries/")}
 	// Public routes
 	e.GET("/", hs.Homepage)
+	e.GET("/posts/:id", hs.Post)
 	e.POST("/api/v1/login", hs.APILogin)
 	// Auth-only v1 API routes
 	v1auth := e.Group("/api/v1")

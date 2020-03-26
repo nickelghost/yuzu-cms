@@ -71,6 +71,26 @@ func (Post) GetAllByIds(conn *sql.DB, ids []int) (*[]Post, error) {
 	return &posts, nil
 }
 
+func (Post) GetByID(conn *sql.DB, id int) (*Post, error) {
+	fmt.Println(id)
+	post := Post{}
+	err := conn.QueryRow(
+		`SELECT * FROM posts WHERE id = $1 AND is_draft = false`,
+		id,
+	).Scan(
+		&post.ID,
+		&post.Title,
+		&post.Content,
+		&post.IsDraft,
+		&post.CreatedAt,
+		&post.UpdatedAt,
+	)
+	if err != nil {
+		return nil, err
+	}
+	return &post, nil
+}
+
 // GetHTMLContent returns the post's markdown content as HTML
 func (p *Post) GetHTMLContent() string {
 	return string(blackfriday.Run([]byte(p.Content)))
