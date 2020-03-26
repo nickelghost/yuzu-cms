@@ -2,7 +2,8 @@ package models
 
 import (
 	"database/sql"
-	"strconv"
+	"fmt"
+	"strings"
 	"time"
 
 	stripmd "github.com/writeas/go-strip-markdown"
@@ -45,15 +46,9 @@ func (Post) GetAll(conn *sql.DB) (*[]Post, error) {
 }
 
 func (Post) GetAllByIds(conn *sql.DB, ids []int) (*[]Post, error) {
-	idsString := ""
-	for i, id := range ids {
-		idsString = idsString + strconv.Itoa(id)
-		if i != len(ids)-1 {
-			idsString = idsString + ", "
-		}
-	}
-	// TODO: Implement a solution that doesn't involve string concat
-	rows, err := conn.Query("SELECT * FROM posts WHERE id IN (" + idsString + ")")
+	idsString := strings.Trim(strings.Replace(fmt.Sprint(ids), " ", ",", -1), "[]")
+	param := "{" + idsString + "}"
+	rows, err := conn.Query("SELECT * FROM posts WHERE id = ANY($1::int[])", param)
 	if err != nil {
 		return nil, err
 	}
