@@ -3,6 +3,7 @@ package models
 import (
 	"database/sql"
 	"fmt"
+	"html/template"
 	"strings"
 	"time"
 
@@ -92,8 +93,9 @@ func (Post) GetByID(conn *sql.DB, id int) (*Post, error) {
 }
 
 // GetHTMLContent returns the post's markdown content as HTML
-func (p *Post) GetHTMLContent() string {
-	return string(blackfriday.Run([]byte(p.Content)))
+func (p *Post) GetHTMLContent() template.HTML {
+	str := string(blackfriday.Run([]byte(p.Content)))
+	return template.HTML(str)
 }
 
 // PopulateContentPreview strips markdown from the content string, trims it
