@@ -42,3 +42,15 @@ a {
   overflow: auto;
   padding-bottom: 24px;
 }
+
+.post-link-container {
+  display: flex;
+  flex-direction: row-reverse;
+  margin-top: 16px;
+}
+
+.post-link {
+  background-color: #373737;
+  color: white;
+  padding: 12px;
+}
