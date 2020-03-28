@@ -73,10 +73,9 @@ func (Post) GetAllByIds(conn *sql.DB, ids []int) (*[]Post, error) {
 }
 
 func (Post) GetByID(conn *sql.DB, id int) (*Post, error) {
-	fmt.Println(id)
 	post := Post{}
 	err := conn.QueryRow(
-		`SELECT * FROM posts WHERE id = $1 AND is_draft = false`,
+		`SELECT * FROM posts WHERE id = $1`,
 		id,
 	).Scan(
 		&post.ID,
