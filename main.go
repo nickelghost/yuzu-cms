@@ -12,6 +12,7 @@ import (
 	"github.com/nickelghost/yuzu-cms/src/db"
 	"github.com/nickelghost/yuzu-cms/src/handlers"
 	"github.com/nickelghost/yuzu-cms/src/seed"
+	"github.com/nickelghost/yuzu-cms/src/template"
 )
 
 func contains(arr []string, str string) bool {
@@ -47,7 +48,7 @@ func main() {
 		}
 	}
 	// Load view templates
-	renderer := boot.GetRenderer("themes/%s/views/*.html", config.AppTheme)
+	renderer := template.GetRenderer("themes/%s/views/*.html", config.AppTheme)
 	// Init Echo
 	e := echo.New()
 	// Set our template renderer as the renderer for Echo

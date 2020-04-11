@@ -1,8 +1,6 @@
 package boot
 
 import (
-	"fmt"
-	"html/template"
 	"io/ioutil"
 	"log"
 	"net/url"
@@ -12,16 +10,6 @@ import (
 	"github.com/labstack/echo"
 	"github.com/labstack/echo/middleware"
 )
-
-// GetRenderer returns the complete renderer for Echo to use
-func GetRenderer(location string, theme string) *Template {
-	renderer := &Template{
-		templates: template.Must(template.ParseGlob(
-			fmt.Sprintf(location, theme),
-		)),
-	}
-	return renderer
-}
 
 // GetSQL reads SQL files in a given location and returns a map with .sql file
 // names and their content
