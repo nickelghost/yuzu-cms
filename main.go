@@ -3,6 +3,7 @@ package main
 import (
 	"fmt"
 	"log"
+	"net/url"
 	"os"
 
 	"github.com/labstack/echo"
@@ -22,6 +23,17 @@ func contains(arr []string, str string) bool {
 		}
 	}
 	return false
+}
+
+func forwardWebpack(e *echo.Echo, targetURL string) {
+	g := e.Group("/admin")
+	webpackURL, err := url.Parse(targetURL)
+	if err != nil {
+		log.Fatal(err)
+	}
+	g.Use(middleware.Proxy(middleware.NewRandomBalancer(
+		[]*middleware.ProxyTarget{{URL: webpackURL}},
+	)))
 }
 
 func main() {
@@ -86,7 +98,7 @@ func main() {
 	v1auth.DELETE("/pages/:id", hs.APIPagesDelete)
 	// This forwards webpack's web server for development
 	if config.AppForwardWebpack {
-		boot.ForwardWebpack(e, "http://localhost:3001")
+		forwardWebpack(e, "http://localhost:3001")
 	}
 	connStr := fmt.Sprintf(":%d", config.AppPort)
 	// Start the server
