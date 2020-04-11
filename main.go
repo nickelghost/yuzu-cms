@@ -6,6 +6,7 @@ import (
 	"os"
 
 	"github.com/nickelghost/yuzu-cms/boot"
+	"github.com/nickelghost/yuzu-cms/config"
 	"github.com/nickelghost/yuzu-cms/seed"
 
 	"github.com/labstack/echo"
@@ -24,9 +25,12 @@ func contains(arr []string, str string) bool {
 }
 
 func main() {
-	boot.LoadEnv()
+	config, err := config.GetFromEnv()
+	if err != nil {
+		log.Fatal(err)
+	}
 	// Get the database connection
-	dbConn, err := db.Init(boot.GetPostgresConnString())
+	dbConn, err := db.Init(config.GetDBConnString())
 	defer dbConn.Close()
 	if err != nil {
 		log.Fatal(err)
@@ -43,9 +47,8 @@ func main() {
 			log.Fatal(err)
 		}
 	}
-	theme := boot.GetTheme()
 	// Load view templates
-	renderer := boot.GetRenderer("themes/%s/views/*.html", theme)
+	renderer := boot.GetRenderer("themes/%s/views/*.html", config.AppTheme)
 	// Init Echo
 	e := echo.New()
 	// Set our template renderer as the renderer for Echo
@@ -55,11 +58,15 @@ func main() {
 	e.Use(middleware.Recover())
 	e.Static("/admin", "public")
 	e.Static(
-		fmt.Sprintf("/%s", theme),
-		fmt.Sprintf("themes/%s/public", theme),
+		fmt.Sprintf("/%s", config.AppTheme),
+		fmt.Sprintf("themes/%s/public", config.AppTheme),
 	)
 	// Init the handlers object
-	hs := handlers.Handlers{DB: dbConn, SQL: boot.GetSQL("queries/")}
+	hs := handlers.Handlers{
+		DB:     dbConn,
+		Config: config,
+		SQL:    boot.GetSQL("queries/"),
+	}
 	// Public routes
 	e.GET("/", hs.Homepage)
 	e.GET("/:slug", hs.Page)
@@ -67,7 +74,7 @@ func main() {
 	e.POST("/api/v1/login", hs.APILogin)
 	// Auth-only v1 API routes
 	v1auth := e.Group("/api/v1")
-	v1auth.Use(middleware.JWT([]byte(os.Getenv("APP_SECRET"))))
+	v1auth.Use(middleware.JWT(config.AppSecret))
 	v1auth.GET("/posts", hs.APIPostsIndex)
 	v1auth.GET("/posts/titles", hs.APIPostsTitles)
 	v1auth.GET("/posts/:id", hs.APIPostsGet)
@@ -78,12 +85,10 @@ func main() {
 	v1auth.PUT("/pages/:id", hs.APIPagesUpdate)
 	v1auth.DELETE("/pages/:id", hs.APIPagesDelete)
 	// This forwards webpack's web server for development
-	if os.Getenv("APP_WEBPACK_FORWARD") == "true" {
+	if config.AppForwardWebpack {
 		boot.ForwardWebpack(e, "http://localhost:3001")
 	}
-	// Determine where to serve
-	port := boot.GetPort()
-	connStr := fmt.Sprintf(":%s", port)
+	connStr := fmt.Sprintf(":%d", config.AppPort)
 	// Start the server
 	e.Logger.Fatal(e.Start(connStr))
 }

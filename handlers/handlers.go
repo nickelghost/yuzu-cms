@@ -1,9 +1,14 @@
 package handlers
 
-import "database/sql"
+import (
+	"database/sql"
+
+	"github.com/nickelghost/yuzu-cms/config"
+)
 
 // Handlers provides common data for our handlers
 type Handlers struct {
-	DB  *sql.DB
-	SQL map[string]string
+	DB     *sql.DB
+	Config config.Config
+	SQL    map[string]string
 }

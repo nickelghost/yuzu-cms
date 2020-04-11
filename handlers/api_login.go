@@ -2,7 +2,6 @@ package handlers
 
 import (
 	"net/http"
-	"os"
 
 	"github.com/dgrijalva/jwt-go"
 	"github.com/labstack/echo"
@@ -20,18 +19,18 @@ func (hs *Handlers) APILogin(c echo.Context) error {
 	if err != nil {
 		return nil
 	}
-	if req.User != os.Getenv("APP_USER_NAME") {
+	if req.User != hs.Config.AppUserName {
 		return c.String(http.StatusUnauthorized, "invalid credentials")
 	}
 	err = bcrypt.CompareHashAndPassword(
-		[]byte(os.Getenv("APP_USER_PASS")),
+		hs.Config.AppUserPassword,
 		[]byte(req.Password),
 	)
 	if err != nil {
 		return c.String(http.StatusUnauthorized, "invalid credentials")
 	}
 	token := jwt.New(jwt.SigningMethodHS256)
-	t, err := token.SignedString([]byte(os.Getenv("APP_SECRET")))
+	t, err := token.SignedString(hs.Config.AppSecret)
 	if err != nil {
 		return err
 	}
