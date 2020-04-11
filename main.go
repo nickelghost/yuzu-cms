@@ -2,13 +2,14 @@ package main
 
 import (
 	"fmt"
+	"io/ioutil"
 	"log"
 	"net/url"
 	"os"
+	"path/filepath"
 
 	"github.com/labstack/echo"
 	"github.com/labstack/echo/middleware"
-	"github.com/nickelghost/yuzu-cms/src/boot"
 	"github.com/nickelghost/yuzu-cms/src/config"
 	"github.com/nickelghost/yuzu-cms/src/db"
 	"github.com/nickelghost/yuzu-cms/src/handlers"
@@ -23,6 +24,27 @@ func contains(arr []string, str string) bool {
 		}
 	}
 	return false
+}
+
+// getSQL reads SQL files in a given location and returns a map with .sql file
+// names and their content
+func getSQL(root string) map[string]string {
+	sqlFiles := make(map[string]string)
+	err := filepath.Walk(root, func(path string, info os.FileInfo, err error) error {
+		if filepath.Ext(path) == ".sql" {
+			sql, err := ioutil.ReadFile(path)
+			if err != nil {
+				return err
+			}
+			sqlFiles[info.Name()] = string(sql)
+			return nil
+		}
+		return nil
+	})
+	if err != nil {
+		log.Fatalf("Reading SQL files failed:\n%s", err)
+	}
+	return sqlFiles
 }
 
 func forwardWebpack(e *echo.Echo, targetURL string) {
@@ -77,7 +99,7 @@ func main() {
 	hs := handlers.Handlers{
 		DB:     dbConn,
 		Config: config,
-		SQL:    boot.GetSQL("src/queries/"),
+		SQL:    getSQL("src/queries/"),
 	}
 	// Public routes
 	e.GET("/", hs.Homepage)
