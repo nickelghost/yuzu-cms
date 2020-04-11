@@ -5,7 +5,7 @@ import (
 	"net/http"
 
 	"github.com/labstack/echo"
-	"github.com/nickelghost/yuzu-cms/models"
+	"github.com/nickelghost/yuzu-cms/src/models"
 )
 
 func (hs Handlers) Page(c echo.Context) error {

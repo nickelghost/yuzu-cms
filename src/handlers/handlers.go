@@ -3,7 +3,7 @@ package handlers
 import (
 	"database/sql"
 
-	"github.com/nickelghost/yuzu-cms/config"
+	"github.com/nickelghost/yuzu-cms/src/config"
 )
 
 // Handlers provides common data for our handlers

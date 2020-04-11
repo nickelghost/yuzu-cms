@@ -5,14 +5,13 @@ import (
 	"log"
 	"os"
 
-	"github.com/nickelghost/yuzu-cms/boot"
-	"github.com/nickelghost/yuzu-cms/config"
-	"github.com/nickelghost/yuzu-cms/seed"
-
 	"github.com/labstack/echo"
 	"github.com/labstack/echo/middleware"
-	"github.com/nickelghost/yuzu-cms/db"
-	"github.com/nickelghost/yuzu-cms/handlers"
+	"github.com/nickelghost/yuzu-cms/src/boot"
+	"github.com/nickelghost/yuzu-cms/src/config"
+	"github.com/nickelghost/yuzu-cms/src/db"
+	"github.com/nickelghost/yuzu-cms/src/handlers"
+	"github.com/nickelghost/yuzu-cms/src/seed"
 )
 
 func contains(arr []string, str string) bool {
@@ -65,7 +64,7 @@ func main() {
 	hs := handlers.Handlers{
 		DB:     dbConn,
 		Config: config,
-		SQL:    boot.GetSQL("queries/"),
+		SQL:    boot.GetSQL("src/queries/"),
 	}
 	// Public routes
 	e.GET("/", hs.Homepage)

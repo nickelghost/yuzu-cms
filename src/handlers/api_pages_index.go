@@ -5,7 +5,7 @@ import (
 	"time"
 
 	"github.com/labstack/echo"
-	"github.com/nickelghost/yuzu-cms/models"
+	"github.com/nickelghost/yuzu-cms/src/models"
 )
 
 func (hs Handlers) APIPagesIndex(c echo.Context) error {

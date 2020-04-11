@@ -4,7 +4,7 @@ import (
 	"net/http"
 
 	"github.com/labstack/echo"
-	"github.com/nickelghost/yuzu-cms/models"
+	"github.com/nickelghost/yuzu-cms/src/models"
 )
 
 // Homepage renders the index page

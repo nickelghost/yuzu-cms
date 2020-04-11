@@ -2,14 +2,20 @@ package handlers
 
 import (
 	"net/http"
-	"strconv"
 	"time"
 
 	"github.com/labstack/echo"
-	"github.com/nickelghost/yuzu-cms/models"
+	"github.com/nickelghost/yuzu-cms/src/models"
 )
 
-func (hs Handlers) APIPagesDelete(c echo.Context) error {
+func (hs Handlers) APIPagesCreate(c echo.Context) error {
+	type Request struct {
+		PostID       int     `json:"post_id"`
+		Index        int     `json:"index"`
+		Slug         string  `json:"slug"`
+		InNavigation bool    `json:"in_navigation"`
+		Heading      *string `json:"heading"`
+	}
 	type Response struct {
 		ID           int       `json:"id"`
 		Index        int       `json:"index"`
@@ -19,18 +25,19 @@ func (hs Handlers) APIPagesDelete(c echo.Context) error {
 		CreatedAt    time.Time `json:"created_at"`
 		UpdatedAt    time.Time `json:"updated_at"`
 	}
-	id, err := strconv.Atoi(c.Param("id"))
+	req := Request{}
+	err := c.Bind(&req)
 	if err != nil {
 		return err
 	}
-	page, err := (models.Page{}).GetById(hs.DB, id)
-	if err != nil {
-		return err
-	}
-	err = page.Delete(hs.DB)
-	if err != nil {
-		return err
-	}
+	page, err := (models.Page{}).Create(
+		hs.DB,
+		req.PostID,
+		req.Index,
+		req.Slug,
+		req.InNavigation,
+		req.Heading,
+	)
 	res := Response{
 		ID:           page.ID,
 		Index:        page.Index,
@@ -40,5 +47,5 @@ func (hs Handlers) APIPagesDelete(c echo.Context) error {
 		CreatedAt:    page.CreatedAt,
 		UpdatedAt:    page.UpdatedAt,
 	}
-	return c.JSON(http.StatusOK, res)
+	return c.JSON(http.StatusOK, &res)
 }
