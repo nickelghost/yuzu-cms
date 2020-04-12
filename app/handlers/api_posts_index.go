@@ -6,7 +6,7 @@ import (
 	"time"
 
 	"github.com/labstack/echo"
-	"github.com/nickelghost/yuzu-cms/app/models"
+	postModel "github.com/nickelghost/yuzu-cms/app/models/post"
 )
 
 // APIPostsIndexResponseItem represents an array item for the response
@@ -25,24 +25,18 @@ func (hs Handlers) APIPostsIndex(c echo.Context) error {
 	if err != nil {
 		return err
 	}
-	rows, err := hs.DB.Query(hs.SQL["api_posts_index.sql"], draftOnly)
+	var drafts int
+	if draftOnly {
+		drafts = 1
+	} else {
+		drafts = 0
+	}
+	posts, err := postModel.GetAll(hs.DB, drafts)
 	if err != nil {
 		return err
 	}
 	res := make([]APIPostsIndexResponseItem, 0)
-	for rows.Next() {
-		post := models.Post{}
-		err := rows.Scan(
-			&post.ID,
-			&post.Title,
-			&post.Content,
-			&post.IsDraft,
-			&post.CreatedAt,
-			&post.UpdatedAt,
-		)
-		if err != nil {
-			return err
-		}
+	for _, post := range *posts {
 		post.PopulateContentPreview()
 		resItem := APIPostsIndexResponseItem{
 			ID:             post.ID,

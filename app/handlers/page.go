@@ -6,6 +6,7 @@ import (
 
 	"github.com/labstack/echo"
 	"github.com/nickelghost/yuzu-cms/app/models"
+	postModel "github.com/nickelghost/yuzu-cms/app/models/post"
 )
 
 func (hs Handlers) Page(c echo.Context) error {
@@ -16,7 +17,7 @@ func (hs Handlers) Page(c echo.Context) error {
 		}
 		return err
 	}
-	post, err := (models.Post{}).GetByID(hs.DB, page.PostID)
+	post, err := postModel.GetByID(hs.DB, page.PostID)
 	if err != nil {
 		return err
 	}

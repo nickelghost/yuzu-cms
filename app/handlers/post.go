@@ -7,6 +7,7 @@ import (
 
 	"github.com/labstack/echo"
 	"github.com/nickelghost/yuzu-cms/app/models"
+	postModel "github.com/nickelghost/yuzu-cms/app/models/post"
 )
 
 func (hs Handlers) Post(c echo.Context) error {
@@ -14,7 +15,7 @@ func (hs Handlers) Post(c echo.Context) error {
 	if err != nil {
 		return err
 	}
-	post, err := (models.Post{}).GetByID(hs.DB, id)
+	post, err := postModel.GetByID(hs.DB, id)
 	if err != nil {
 		if err == sql.ErrNoRows {
 			return c.String(http.StatusNotFound, "Not found")

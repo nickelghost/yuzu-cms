@@ -2,9 +2,11 @@ package handlers
 
 import (
 	"net/http"
+	"strconv"
 	"time"
 
 	"github.com/labstack/echo"
+	postsModel "github.com/nickelghost/yuzu-cms/app/models/post"
 )
 
 // APIPostsGetResponse represents a response of a requested post
@@ -19,15 +21,22 @@ type APIPostsGetResponse struct {
 
 // APIPostsGet fetches a single post by its id
 func (hs Handlers) APIPostsGet(c echo.Context) error {
-	res := APIPostsGetResponse{}
-	err := hs.DB.QueryRow(hs.SQL["api_posts_get.sql"], c.Param("id")).Scan(
-		&res.ID,
-		&res.Title,
-		&res.Content,
-		&res.IsDraft,
-		&res.CreatedAt,
-		&res.UpdatedAt,
-	)
+	id, err := strconv.Atoi(c.Param("id"))
+	if err != nil {
+		return err
+	}
+	post, err := postsModel.GetByID(hs.DB, id)
+	if err != nil {
+		return err
+	}
+	res := APIPostsGetResponse{
+		ID:        post.ID,
+		Title:     post.Title,
+		Content:   post.Content,
+		IsDraft:   post.IsDraft,
+		CreatedAt: post.CreatedAt,
+		UpdatedAt: post.UpdatedAt,
+	}
 	if err != nil {
 		return err
 	}

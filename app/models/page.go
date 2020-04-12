@@ -3,6 +3,8 @@ package models
 import (
 	"database/sql"
 	"time"
+
+	"github.com/nickelghost/yuzu-cms/app/models/post"
 )
 
 type Page struct {
@@ -14,7 +16,7 @@ type Page struct {
 	Heading      *string
 	CreatedAt    time.Time
 	UpdatedAt    time.Time
-	Post         Post
+	Post         post.Post
 }
 
 func (Page) GetAll(conn *sql.DB, withPosts bool) (*[]Page, error) {
@@ -43,7 +45,7 @@ func (Page) GetAll(conn *sql.DB, withPosts bool) (*[]Page, error) {
 		postIds = append(postIds, page.PostID)
 	}
 	if withPosts {
-		posts, err := (Post{}).GetAllByIds(conn, postIds)
+		posts, err := post.GetAllByIds(conn, postIds)
 		if err != nil {
 			return nil, err
 		}

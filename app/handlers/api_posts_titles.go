@@ -4,7 +4,7 @@ import (
 	"net/http"
 
 	"github.com/labstack/echo"
-	"github.com/nickelghost/yuzu-cms/app/models"
+	postModel "github.com/nickelghost/yuzu-cms/app/models/post"
 )
 
 func (hs Handlers) APIPostsTitles(c echo.Context) error {
@@ -12,7 +12,7 @@ func (hs Handlers) APIPostsTitles(c echo.Context) error {
 		ID    int    `json:"id"`
 		Title string `json:"title"`
 	}
-	posts, err := (models.Post{}).GetAll(hs.DB)
+	posts, err := postModel.GetAll(hs.DB, 0)
 	if err != nil {
 		return err
 	}
