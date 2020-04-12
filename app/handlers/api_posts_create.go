@@ -6,6 +6,7 @@ import (
 
 	"github.com/go-playground/validator/v10"
 	"github.com/labstack/echo"
+	postModel "github.com/nickelghost/yuzu-cms/app/models/post"
 )
 
 // APIPostsCreateRequest represents a request for creating a post
@@ -36,22 +37,17 @@ func (hs Handlers) APIPostsCreate(c echo.Context) error {
 	if err != nil {
 		return err
 	}
-	res := new(APIPostsCreateResponse)
-	err = hs.DB.QueryRow(
-		hs.SQL["api_posts_create.sql"],
-		req.Title,
-		req.Content,
-		req.IsDraft,
-	).Scan(
-		&res.ID,
-		&res.Title,
-		&res.Content,
-		&res.IsDraft,
-		&res.CreatedAt,
-		&res.UpdatedAt,
-	)
+	post, err := postModel.Create(hs.DB, req.Title, req.Content, req.IsDraft)
 	if err != nil {
 		return err
+	}
+	res := APIPostsCreateResponse{
+		ID:        post.ID,
+		Title:     post.Title,
+		Content:   post.Content,
+		IsDraft:   post.IsDraft,
+		CreatedAt: post.CreatedAt,
+		UpdatedAt: post.UpdatedAt,
 	}
 	return c.JSON(http.StatusOK, res)
 }

@@ -113,6 +113,36 @@ func GetByID(conn *sql.DB, id int) (*Post, error) {
 	return &post, nil
 }
 
+// Create inserts a new post to the database
+func Create(
+	conn *sql.DB,
+	title string,
+	content string,
+	isDraft bool,
+) (Post, error) {
+	post := Post{}
+	err := conn.QueryRow(`
+        INSERT INTO posts (title, content, is_draft, created_at, updated_at)
+        VALUES ($1, $2, $3, NOW(), NOW())
+        RETURNING *
+        `,
+		title,
+		content,
+		isDraft,
+	).Scan(
+		&post.ID,
+		&post.Title,
+		&post.Content,
+		&post.IsDraft,
+		&post.CreatedAt,
+		&post.UpdatedAt,
+	)
+	if err != nil {
+		return Post{}, err
+	}
+	return post, nil
+}
+
 // GetHTMLContent returns the post's markdown content as HTML
 func (p *Post) GetHTMLContent() template.HTML {
 	str := string(blackfriday.Run([]byte(p.Content)))
