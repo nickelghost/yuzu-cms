@@ -5,7 +5,7 @@ import (
 )
 
 func Seed(conn *sql.DB) error {
-	err := seedPosts(conn)
+	_, err := seedPosts(conn)
 	if err != nil {
 		return err
 	}

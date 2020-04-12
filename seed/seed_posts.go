@@ -3,11 +3,11 @@ package seed
 import (
 	"database/sql"
 
-	"github.com/nickelghost/yuzu-cms/app/models"
+	postModel "github.com/nickelghost/yuzu-cms/app/models/post"
 )
 
-var posts = []models.Post{
-	models.Post{
+var postBlueprints = []postModel.Post{
+	postModel.Post{
 		Title: "My vacation",
 		Content: `
 I went to Maledives, and this is my story.
@@ -22,7 +22,7 @@ I booked a five star hotel on the largest island.
         `,
 		IsDraft: false,
 	},
-	models.Post{
+	postModel.Post{
 		Title: "My draft",
 		Content: `
 This is just a test for the draft functionality.
@@ -37,7 +37,7 @@ And even more content.
         `,
 		IsDraft: true,
 	},
-	models.Post{
+	postModel.Post{
 		Title: "Some more stuff",
 		Content: `
 This is a preview of some stuff
@@ -54,21 +54,19 @@ And even more content!
 	},
 }
 
-func seedPosts(conn *sql.DB) error {
-	for _, post := range posts {
-		_, err := conn.Exec(
-			`INSERT INTO
-                posts (title, content, is_draft, created_at, updated_at)
-            VALUES
-                ($1, $2, $3, NOW(), NOW())
-            `,
-			post.Title,
-			post.Content,
-			post.IsDraft,
+func seedPosts(conn *sql.DB) (*[]postModel.Post, error) {
+	posts := []postModel.Post{}
+	for _, postBlueprint := range postBlueprints {
+		post, err := postModel.Create(
+			conn,
+			postBlueprint.Title,
+			postBlueprint.Content,
+			postBlueprint.IsDraft,
 		)
 		if err != nil {
-			return err
+			return nil, err
 		}
+		posts = append(posts, post)
 	}
-	return nil
+	return &posts, nil
 }
