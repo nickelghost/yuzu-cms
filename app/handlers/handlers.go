@@ -10,5 +10,4 @@ import (
 type Handlers struct {
 	DB     *sql.DB
 	Config config.Config
-	SQL    map[string]string
 }

@@ -2,10 +2,12 @@ package handlers
 
 import (
 	"net/http"
+	"strconv"
 	"time"
 
 	"github.com/go-playground/validator/v10"
 	"github.com/labstack/echo"
+	postModel "github.com/nickelghost/yuzu-cms/app/models/post"
 )
 
 // APIPostsUpdateRequest represents a request for updating a post
@@ -27,8 +29,12 @@ type APIPostsUpdateResponse struct {
 
 // APIPostsUpdate updates a post over JSON
 func (hs Handlers) APIPostsUpdate(c echo.Context) error {
+	id, err := strconv.Atoi(c.Param("id"))
+	if err != nil {
+		return err
+	}
 	req := new(APIPostsUpdateRequest)
-	err := c.Bind(req)
+	err = c.Bind(req)
 	if err != nil {
 		return err
 	}
@@ -36,21 +42,21 @@ func (hs Handlers) APIPostsUpdate(c echo.Context) error {
 	if err != nil {
 		return err
 	}
-	res := new(APIPostsUpdateResponse)
-	err = hs.DB.QueryRow(
-		hs.SQL["api_posts_update.sql"],
-		c.Param("id"),
+	post, err := postModel.Update(
+		hs.DB,
+		id,
 		req.Title,
 		req.Content,
 		req.IsDraft,
-	).Scan(
-		&res.ID,
-		&res.Title,
-		&res.Content,
-		&res.IsDraft,
-		&res.CreatedAt,
-		&res.UpdatedAt,
 	)
+	res := APIPostsUpdateResponse{
+		ID:        post.ID,
+		Title:     post.Title,
+		Content:   post.Content,
+		IsDraft:   post.IsDraft,
+		CreatedAt: post.CreatedAt,
+		UpdatedAt: post.UpdatedAt,
+	}
 	if err != nil {
 		return err
 	}
