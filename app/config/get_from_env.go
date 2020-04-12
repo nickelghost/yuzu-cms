@@ -6,6 +6,7 @@ import (
 	"os"
 	"strconv"
 
+	"github.com/go-playground/validator/v10"
 	"github.com/joho/godotenv"
 )
 
@@ -46,6 +47,10 @@ func GetFromEnv() (Config, error) {
 		DBPassword:        os.Getenv("DB_PASS"),
 		DBName:            os.Getenv("DB_NAME"),
 		DBRequireSSL:      dbSSL,
+	}
+	err = validator.New().Struct(config)
+	if err != nil {
+		return Config{}, err
 	}
 	return config, nil
 }
