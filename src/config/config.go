@@ -48,34 +48,19 @@ func (c *Config) GetDBConnString() string {
 
 // GetFromEnv reads environment varialbes to get configuration for the app
 func GetFromEnv() (Config, error) {
-	// TODO: Refactor all this spaghetti
 	// Load variables from .env
 	err := godotenv.Load()
 	// Check for errors and ignore if file not found
 	if err != nil && err.Error() != "open .env: no such file or directory" {
 		log.Fatal(err)
 	}
-	appPortEnv := os.Getenv("APP_PORT")
-	var appPort int
-	if appPortEnv == "" {
-		appPort = 3000
-	} else {
-		var err error
-		appPort, err = strconv.Atoi(appPortEnv)
-		if err != nil {
-			return Config{}, errors.New("Invalid app port specified")
-		}
+	appPort, err := strconv.Atoi(os.Getenv("APP_PORT"))
+	if err != nil {
+		return Config{}, errors.New("Invalid app port specified")
 	}
-	dbPortEnv := os.Getenv("DB_PORT")
-	var dbPort int
-	if dbPortEnv == "" {
-		dbPort = 5432
-	} else {
-		var err error
-		dbPort, err = strconv.Atoi(dbPortEnv)
-		if err != nil {
-			return Config{}, errors.New("Invalid db port specified")
-		}
+	dbPort, err := strconv.Atoi(os.Getenv("DB_PORT"))
+	if err != nil {
+		return Config{}, errors.New("Invalid db port specified")
 	}
 	appForwardWebpack, err := strconv.ParseBool(os.Getenv("APP_FORWARD_WEBPACK"))
 	if err != nil {
