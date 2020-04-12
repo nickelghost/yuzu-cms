@@ -3,21 +3,22 @@ package handlers
 import (
 	"database/sql"
 	"net/http"
+	"strconv"
 
 	"github.com/labstack/echo"
-	"github.com/nickelghost/yuzu-cms/src/models"
+	"github.com/nickelghost/yuzu-cms/app/models"
 )
 
-func (hs Handlers) Page(c echo.Context) error {
-	page, err := (models.Page{}).GetBySlug(hs.DB, c.Param("slug"))
+func (hs Handlers) Post(c echo.Context) error {
+	id, err := strconv.Atoi(c.Param("id"))
+	if err != nil {
+		return err
+	}
+	post, err := (models.Post{}).GetByID(hs.DB, id)
 	if err != nil {
 		if err == sql.ErrNoRows {
 			return c.String(http.StatusNotFound, "Not found")
 		}
-		return err
-	}
-	post, err := (models.Post{}).GetByID(hs.DB, page.PostID)
-	if err != nil {
 		return err
 	}
 	pages, err := (models.Page{}).GetAll(hs.DB, true)
@@ -26,7 +27,7 @@ func (hs Handlers) Page(c echo.Context) error {
 	}
 	return c.Render(
 		http.StatusOK,
-		"page.html",
+		"post.html",
 		map[string]interface{}{"post": post, "pages": pages},
 	)
 }

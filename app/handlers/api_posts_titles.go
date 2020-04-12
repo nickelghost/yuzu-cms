@@ -4,7 +4,7 @@ import (
 	"net/http"
 
 	"github.com/labstack/echo"
-	"github.com/nickelghost/yuzu-cms/src/models"
+	"github.com/nickelghost/yuzu-cms/app/models"
 )
 
 func (hs Handlers) APIPostsTitles(c echo.Context) error {

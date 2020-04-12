@@ -6,7 +6,7 @@ import (
 	"time"
 
 	"github.com/labstack/echo"
-	"github.com/nickelghost/yuzu-cms/src/models"
+	"github.com/nickelghost/yuzu-cms/app/models"
 )
 
 // APIPostsIndexResponseItem represents an array item for the response

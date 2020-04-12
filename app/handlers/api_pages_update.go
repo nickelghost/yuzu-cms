@@ -5,7 +5,7 @@ import (
 	"strconv"
 
 	"github.com/labstack/echo"
-	"github.com/nickelghost/yuzu-cms/src/models"
+	"github.com/nickelghost/yuzu-cms/app/models"
 )
 
 func (hs Handlers) APIPagesUpdate(c echo.Context) error {

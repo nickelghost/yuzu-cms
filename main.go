@@ -10,11 +10,11 @@ import (
 
 	"github.com/labstack/echo"
 	"github.com/labstack/echo/middleware"
-	"github.com/nickelghost/yuzu-cms/src/config"
-	"github.com/nickelghost/yuzu-cms/src/db"
-	"github.com/nickelghost/yuzu-cms/src/handlers"
-	"github.com/nickelghost/yuzu-cms/src/seed"
-	"github.com/nickelghost/yuzu-cms/src/template"
+	"github.com/nickelghost/yuzu-cms/app/config"
+	"github.com/nickelghost/yuzu-cms/app/db"
+	"github.com/nickelghost/yuzu-cms/app/handlers"
+	"github.com/nickelghost/yuzu-cms/app/template"
+	"github.com/nickelghost/yuzu-cms/seed"
 )
 
 func contains(arr []string, str string) bool {
@@ -99,7 +99,7 @@ func main() {
 	hs := handlers.Handlers{
 		DB:     dbConn,
 		Config: config,
-		SQL:    getSQL("src/queries/"),
+		SQL:    getSQL("app/queries/"),
 	}
 	// Public routes
 	e.GET("/", hs.Homepage)

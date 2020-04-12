@@ -3,7 +3,7 @@ package seed
 import (
 	"database/sql"
 
-	"github.com/nickelghost/yuzu-cms/src/models"
+	"github.com/nickelghost/yuzu-cms/app/models"
 )
 
 var posts = []models.Post{
