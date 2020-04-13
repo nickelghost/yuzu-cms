@@ -12,7 +12,7 @@ func (hs Handlers) APIPostsTitles(c echo.Context) error {
 		ID    int    `json:"id"`
 		Title string `json:"title"`
 	}
-	posts, err := postModel.GetAll(hs.DB, 0)
+	posts, err := postModel.GetAll(hs.DB, -1)
 	if err != nil {
 		return err
 	}

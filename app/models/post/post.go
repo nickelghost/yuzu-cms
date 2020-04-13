@@ -23,23 +23,17 @@ type Post struct {
 }
 
 // GetAll gets all posts that match a criteria
-// drafts doesn't look at is_draft criteria if set to 0, finds only drafts if
-// set to 1 and only non-drafts if set to -1
-func GetAll(conn *sql.DB, drafts int) (*[]Post, error) {
+// isDraft doesn't look at the is_draft criteria if set to -1, only finds
+// non-drafts if set to 0 and only rafts if set to 1
+func GetAll(conn *sql.DB, isDraft int) (*[]Post, error) {
 	var rows *sql.Rows
 	var err error
-	if drafts == 0 {
+	if isDraft < 0 {
 		rows, err = conn.Query(`
             SELECT * FROM posts
             ORDER BY created_at DESC
         `)
 	} else {
-		var isDraft bool
-		if drafts < 0 {
-			isDraft = false
-		} else if drafts > 0 {
-			isDraft = true
-		}
 		rows, err = conn.Query(`
             SELECT * FROM posts
             WHERE is_draft = $1

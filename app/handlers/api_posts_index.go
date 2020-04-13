@@ -29,7 +29,7 @@ func (hs Handlers) APIPostsIndex(c echo.Context) error {
 	if draftOnly {
 		drafts = 1
 	} else {
-		drafts = 0
+		drafts = -1
 	}
 	posts, err := postModel.GetAll(hs.DB, drafts)
 	if err != nil {

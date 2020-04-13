@@ -10,7 +10,7 @@ import (
 
 // Homepage renders the index page
 func (hs Handlers) Homepage(c echo.Context) error {
-	posts, err := postModel.GetAll(hs.DB, -1)
+	posts, err := postModel.GetAll(hs.DB, 0)
 	if err != nil {
 		return err
 	}
