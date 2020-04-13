@@ -33,7 +33,7 @@ func (hs Handlers) APIPagesIndex(c echo.Context) error {
 	}
 	res := []ResponseItem{}
 	for _, page := range *pages {
-		page.Post.PopulateContentPreview()
+		page.Post.ContentPreview = page.Post.GetContentPreview(80)
 		item := ResponseItem{
 			ID:           page.ID,
 			PostID:       page.PostID,

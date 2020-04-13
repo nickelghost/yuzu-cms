@@ -37,7 +37,7 @@ func (hs Handlers) APIPostsIndex(c echo.Context) error {
 	}
 	res := make([]APIPostsIndexResponseItem, 0)
 	for _, post := range *posts {
-		post.PopulateContentPreview()
+		post.ContentPreview = post.GetContentPreview(80)
 		resItem := APIPostsIndexResponseItem{
 			ID:             post.ID,
 			Title:          post.Title,

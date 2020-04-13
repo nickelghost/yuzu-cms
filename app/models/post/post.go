@@ -176,16 +176,7 @@ func (p *Post) GetHTMLContent() template.HTML {
 	return template.HTML(str)
 }
 
-// PopulateContentPreview strips markdown from the content string, trims it
-// and saves ContentPreview
-func (p *Post) PopulateContentPreview() {
-	preview := stripmd.Strip(p.Content)
-	if len(preview) > 80 {
-		preview = preview[:80]
-	}
-	p.ContentPreview = preview
-}
-
+// GetContentPreview strips markdown from the content string, trims and returns it
 func (p *Post) GetContentPreview(max int) string {
 	preview := stripmd.Strip(p.Content)
 	if len(preview) > max {
