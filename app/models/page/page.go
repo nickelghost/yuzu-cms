@@ -19,7 +19,7 @@ type Page struct {
 	Post         post.Post
 }
 
-func (Page) GetAll(conn *sql.DB, withPosts bool) (*[]Page, error) {
+func GetAll(conn *sql.DB, withPosts bool) (*[]Page, error) {
 	rows, err := conn.Query("SELECT * FROM pages ORDER BY index DESC")
 	if err != nil {
 		return nil, err
@@ -64,7 +64,7 @@ func (Page) GetAll(conn *sql.DB, withPosts bool) (*[]Page, error) {
 	return &pages, nil
 }
 
-func (Page) GetById(conn *sql.DB, id int) (*Page, error) {
+func GetById(conn *sql.DB, id int) (*Page, error) {
 	page := Page{}
 	err := conn.QueryRow("SELECT * FROM pages WHERE id = $1", id).Scan(
 		&page.ID,
@@ -82,7 +82,7 @@ func (Page) GetById(conn *sql.DB, id int) (*Page, error) {
 	return &page, nil
 }
 
-func (Page) GetBySlug(conn *sql.DB, slug string) (*Page, error) {
+func GetBySlug(conn *sql.DB, slug string) (*Page, error) {
 	page := Page{}
 	err := conn.QueryRow("SELECT * FROM pages WHERE slug = $1", slug).Scan(
 		&page.ID,
@@ -100,7 +100,7 @@ func (Page) GetBySlug(conn *sql.DB, slug string) (*Page, error) {
 	return &page, nil
 }
 
-func (Page) Create(
+func Create(
 	conn *sql.DB,
 	postID int,
 	index int,

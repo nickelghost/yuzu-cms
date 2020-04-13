@@ -5,7 +5,7 @@ import (
 	"time"
 
 	"github.com/labstack/echo"
-	"github.com/nickelghost/yuzu-cms/app/models"
+	pageModel "github.com/nickelghost/yuzu-cms/app/models/page"
 )
 
 func (hs Handlers) APIPagesCreate(c echo.Context) error {
@@ -30,7 +30,7 @@ func (hs Handlers) APIPagesCreate(c echo.Context) error {
 	if err != nil {
 		return err
 	}
-	page, err := (models.Page{}).Create(
+	page, err := pageModel.Create(
 		hs.DB,
 		req.PostID,
 		req.Index,

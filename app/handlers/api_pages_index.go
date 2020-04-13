@@ -5,7 +5,7 @@ import (
 	"time"
 
 	"github.com/labstack/echo"
-	"github.com/nickelghost/yuzu-cms/app/models"
+	pageModel "github.com/nickelghost/yuzu-cms/app/models/page"
 )
 
 func (hs Handlers) APIPagesIndex(c echo.Context) error {
@@ -27,7 +27,7 @@ func (hs Handlers) APIPagesIndex(c echo.Context) error {
 		UpdatedAt    time.Time        `json:"updated_at"`
 		Post         ResponseItemPost `json:"post"`
 	}
-	pages, err := (models.Page{}).GetAll(hs.DB, true)
+	pages, err := pageModel.GetAll(hs.DB, true)
 	if err != nil {
 		return err
 	}

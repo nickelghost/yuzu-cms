@@ -5,7 +5,7 @@ import (
 	"strconv"
 
 	"github.com/labstack/echo"
-	"github.com/nickelghost/yuzu-cms/app/models"
+	pageModel "github.com/nickelghost/yuzu-cms/app/models/page"
 )
 
 func (hs Handlers) APIPagesUpdate(c echo.Context) error {
@@ -22,7 +22,7 @@ func (hs Handlers) APIPagesUpdate(c echo.Context) error {
 	if err != nil {
 		return err
 	}
-	page, err := (models.Page{}).GetById(hs.DB, id)
+	page, err := pageModel.GetById(hs.DB, id)
 	if err != nil {
 		return err
 	}

@@ -5,12 +5,12 @@ import (
 	"net/http"
 
 	"github.com/labstack/echo"
-	"github.com/nickelghost/yuzu-cms/app/models"
+	pageModel "github.com/nickelghost/yuzu-cms/app/models/page"
 	postModel "github.com/nickelghost/yuzu-cms/app/models/post"
 )
 
 func (hs Handlers) Page(c echo.Context) error {
-	page, err := (models.Page{}).GetBySlug(hs.DB, c.Param("slug"))
+	page, err := pageModel.GetBySlug(hs.DB, c.Param("slug"))
 	if err != nil {
 		if err == sql.ErrNoRows {
 			return c.String(http.StatusNotFound, "Not found")
@@ -21,7 +21,7 @@ func (hs Handlers) Page(c echo.Context) error {
 	if err != nil {
 		return err
 	}
-	pages, err := (models.Page{}).GetAll(hs.DB, true)
+	pages, err := pageModel.GetAll(hs.DB, true)
 	if err != nil {
 		return err
 	}

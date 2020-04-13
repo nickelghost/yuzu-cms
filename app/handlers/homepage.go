@@ -4,7 +4,7 @@ import (
 	"net/http"
 
 	"github.com/labstack/echo"
-	"github.com/nickelghost/yuzu-cms/app/models"
+	pageModel "github.com/nickelghost/yuzu-cms/app/models/page"
 	postModel "github.com/nickelghost/yuzu-cms/app/models/post"
 )
 
@@ -14,7 +14,7 @@ func (hs Handlers) Homepage(c echo.Context) error {
 	if err != nil {
 		return err
 	}
-	pages, err := (models.Page{}).GetAll(hs.DB, true)
+	pages, err := pageModel.GetAll(hs.DB, true)
 	if err != nil {
 		return err
 	}

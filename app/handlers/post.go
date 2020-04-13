@@ -6,7 +6,7 @@ import (
 	"strconv"
 
 	"github.com/labstack/echo"
-	"github.com/nickelghost/yuzu-cms/app/models"
+	pageModel "github.com/nickelghost/yuzu-cms/app/models/page"
 	postModel "github.com/nickelghost/yuzu-cms/app/models/post"
 )
 
@@ -22,7 +22,7 @@ func (hs Handlers) Post(c echo.Context) error {
 		}
 		return err
 	}
-	pages, err := (models.Page{}).GetAll(hs.DB, true)
+	pages, err := pageModel.GetAll(hs.DB, true)
 	if err != nil {
 		return err
 	}
