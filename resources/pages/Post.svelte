@@ -12,10 +12,13 @@
 
   let title = '';
   let content = '';
+  let slug = '';
   let isDraft = false;
 
   let isTitleModalOpen = false;
   let newTitle = '';
+  let isSlugModalOpen = false;
+  let newSlug = '';
 
   let notificationMessage = '';
   let notificationColor = '';
@@ -27,6 +30,7 @@
     const post = await res.json();
     title = post.title;
     content = post.content;
+    slug = post.slug;
     isDraft = post.is_draft;
   });
 
@@ -44,8 +48,23 @@
     newTitle = '';
   }
 
+  function openSlugModal() {
+    isSlugModalOpen = true;
+  }
+
+  function closeSlugModal() {
+    isSlugModalOpen = false;
+  }
+
+  function updateSlug(e) {
+    e.preventDefault();
+    slug = newSlug;
+    isSlugModalOpen = false;
+    newSlug = '';
+  }
+
   async function savePost({ is_draft = false } = {}) {
-    const req = { title, content, is_draft };
+    const req = { title, content, slug, is_draft };
     const res = await fetch(`/api/v1/posts/${params.id}`, {
       method: 'PUT',
       headers: {
@@ -93,7 +112,27 @@
   </form>
 </Modal>
 
+<Modal bind:isOpen="{isSlugModalOpen}">
+  <form class="form" on:submit="{updateSlug}">
+    <label class="field">
+      <span class="label">Slug</span>
+      <input class="input" bind:value="{newSlug}" placeholder="{slug}" />
+    </label>
+    <div class="field field-horizontal">
+      <button class="button" type="button" on:click="{closeSlugModal}">
+        Cancel
+      </button>
+      <div class="flex-spacer"></div>
+      <button class="button button-primary" type="submit">
+        Change
+      </button>
+    </div>
+  </form>
+</Modal>
+
 <TopBar title="{title + (isDraft ? ' (draft)' : '')}">
+  <button class="button" on:click="{openSlugModal}">Change slug</button>
+  <div class="top-bar-spacer"></div>
   <button class="button" on:click="{openTitleModal}">Change title</button>
   <div class="top-bar-spacer"></div>
   <button class="button" on:click="{onClickDraft}">Draft</button>
