@@ -13,7 +13,6 @@ type Page struct {
 	Index        int
 	Slug         string
 	InNavigation bool
-	Heading      *string
 	CreatedAt    time.Time
 	UpdatedAt    time.Time
 	Post         post.Post
@@ -34,7 +33,6 @@ func GetAll(conn *sql.DB, withPosts bool) (*[]Page, error) {
 			&page.Index,
 			&page.Slug,
 			&page.InNavigation,
-			&page.Heading,
 			&page.CreatedAt,
 			&page.UpdatedAt,
 		)
@@ -72,7 +70,6 @@ func GetById(conn *sql.DB, id int) (*Page, error) {
 		&page.Index,
 		&page.Slug,
 		&page.InNavigation,
-		&page.Heading,
 		&page.CreatedAt,
 		&page.UpdatedAt,
 	)
@@ -90,7 +87,6 @@ func GetBySlug(conn *sql.DB, slug string) (*Page, error) {
 		&page.Index,
 		&page.Slug,
 		&page.InNavigation,
-		&page.Heading,
 		&page.CreatedAt,
 		&page.UpdatedAt,
 	)
@@ -106,28 +102,25 @@ func Create(
 	index int,
 	slug string,
 	inNavigation bool,
-	heading *string,
 ) (*Page, error) {
 	page := Page{}
 	err := conn.QueryRow(`
         INSERT INTO
-        pages (post_id, index, slug, in_navigation, heading, created_at, updated_at)
+        pages (post_id, index, slug, in_navigation, created_at, updated_at)
         VALUES
-        ($1, $2, $3, $4, $5, NOW(), NOW())
+        ($1, $2, $3, $4, NOW(), NOW())
         RETURNING *
         `,
 		postID,
 		index,
 		slug,
 		inNavigation,
-		heading,
 	).Scan(
 		&page.ID,
 		&page.PostID,
 		&page.Index,
 		&page.Slug,
 		&page.InNavigation,
-		&page.Heading,
 		&page.CreatedAt,
 		&page.UpdatedAt,
 	)
@@ -143,7 +136,6 @@ func (p *Page) Update(
 	index int,
 	slug string,
 	inNavigation bool,
-	heading *string,
 ) error {
 	if p.Index != index {
 		_, err := conn.Exec(`
@@ -162,21 +154,19 @@ func (p *Page) Update(
             index = $3,
             slug = $4,
             in_navigation = $5,
-            heading = $6,
             updated_at = NOW()
         WHERE id = $1
         RETURNING
             id, post_id, index, slug,
-            in_navigation, heading, created_at, updated_at
+            in_navigation, created_at, updated_at
         `,
-		p.ID, postID, index, slug, inNavigation, heading,
+		p.ID, postID, index, slug, inNavigation,
 	).Scan(
 		&p.ID,
 		&p.PostID,
 		&p.Index,
 		&p.Slug,
 		&p.InNavigation,
-		&p.Heading,
 		&p.CreatedAt,
 		&p.UpdatedAt,
 	)

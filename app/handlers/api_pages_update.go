@@ -10,11 +10,10 @@ import (
 
 func (hs Handlers) APIPagesUpdate(c echo.Context) error {
 	type Request struct {
-		PostID         int     `json:"post_id"`
-		PositionChange int     `json:"position_change"`
-		Slug           string  `json:"slug"`
-		InNavigation   bool    `json:"in_navigation"`
-		Heading        *string `json:"heading"`
+		PostID         int    `json:"post_id"`
+		PositionChange int    `json:"position_change"`
+		Slug           string `json:"slug"`
+		InNavigation   bool   `json:"in_navigation"`
 	}
 	req := Request{}
 	c.Bind(&req)
@@ -32,7 +31,6 @@ func (hs Handlers) APIPagesUpdate(c echo.Context) error {
 		page.Index+req.PositionChange,
 		req.Slug,
 		req.InNavigation,
-		req.Heading,
 	)
 	if err != nil {
 		return err

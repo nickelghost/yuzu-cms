@@ -22,7 +22,6 @@ func (hs Handlers) APIPagesIndex(c echo.Context) error {
 		Index        int              `json:"index"`
 		Slug         string           `json:"slug"`
 		InNavigation bool             `json:"in_navigation"`
-		Heading      *string          `json:"heading"`
 		CreatedAt    time.Time        `json:"created_at"`
 		UpdatedAt    time.Time        `json:"updated_at"`
 		Post         ResponseItemPost `json:"post"`
@@ -40,7 +39,6 @@ func (hs Handlers) APIPagesIndex(c echo.Context) error {
 			Index:        page.Index,
 			Slug:         page.Slug,
 			InNavigation: page.InNavigation,
-			Heading:      page.Heading,
 			CreatedAt:    page.CreatedAt,
 			UpdatedAt:    page.UpdatedAt,
 			Post: ResponseItemPost{
