@@ -51,7 +51,7 @@ func GetAll(conn *sql.DB, withPosts bool) (*[]Page, error) {
 		for _, page := range pages {
 			pageWithPost := page
 			for _, post := range *posts {
-				if page.PostID == int(post.ID) {
+				if page.PostID == post.ID {
 					pageWithPost.Post = post
 				}
 			}

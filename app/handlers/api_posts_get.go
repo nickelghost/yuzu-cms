@@ -11,7 +11,7 @@ import (
 
 // APIPostsGetResponse represents a response of a requested post
 type APIPostsGetResponse struct {
-	ID        uint      `json:"id"`
+	ID        int       `json:"id"`
 	Title     string    `json:"title"`
 	Content   string    `json:"content"`
 	IsDraft   bool      `json:"is_draft"`

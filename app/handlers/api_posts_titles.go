@@ -19,7 +19,7 @@ func (hs Handlers) APIPostsTitles(c echo.Context) error {
 	res := []ResponseItem{}
 	for _, post := range *posts {
 		resItem := ResponseItem{
-			ID:    int(post.ID),
+			ID:    post.ID,
 			Title: post.Title,
 		}
 		res = append(res, resItem)

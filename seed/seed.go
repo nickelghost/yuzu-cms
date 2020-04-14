@@ -11,7 +11,7 @@ func Seed(conn *sql.DB) error {
 	if err != nil {
 		return err
 	}
-	_, err = pageModel.Create(conn, int((*posts)[0].ID), 1, "about-my-vacation", true)
+	_, err = pageModel.Create(conn, (*posts)[0].ID, 1, "about-my-vacation", true)
 	if err != nil {
 		return err
 	}

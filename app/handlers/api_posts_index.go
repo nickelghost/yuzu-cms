@@ -11,7 +11,7 @@ import (
 
 // APIPostsIndexResponseItem represents an array item for the response
 type APIPostsIndexResponseItem struct {
-	ID             uint      `json:"id"`
+	ID             int       `json:"id"`
 	Title          string    `json:"title"`
 	ContentPreview string    `json:"content_preview"`
 	IsDraft        bool      `json:"is_draft"`

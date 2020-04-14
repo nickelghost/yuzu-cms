@@ -19,7 +19,7 @@ type APIPostsCreateRequest struct {
 
 // APIPostsCreateResponse represents a response of a created post
 type APIPostsCreateResponse struct {
-	ID        uint      `json:"id"`
+	ID        int       `json:"id"`
 	Title     string    `json:"title"`
 	Content   string    `json:"content"`
 	IsDraft   bool      `json:"is_draft"`

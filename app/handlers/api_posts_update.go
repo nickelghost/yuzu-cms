@@ -20,7 +20,7 @@ type APIPostsUpdateRequest struct {
 
 // APIPostsUpdateResponse represents a response of an updated post
 type APIPostsUpdateResponse struct {
-	ID        uint      `json:"id"`
+	ID        int       `json:"id"`
 	Title     string    `json:"title"`
 	Content   string    `json:"content"`
 	IsDraft   bool      `json:"is_draft"`

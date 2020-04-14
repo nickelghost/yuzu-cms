@@ -10,7 +10,7 @@ import (
 
 func (hs Handlers) APIPagesIndex(c echo.Context) error {
 	type ResponseItemPost struct {
-		ID             uint      `json:"id"`
+		ID             int       `json:"id"`
 		Title          string    `json:"title"`
 		ContentPreview string    `json:"content_preview"`
 		CreatedAt      time.Time `json:"created_at"`

@@ -13,7 +13,7 @@ import (
 
 // Post contains articles and pages used by the CMS
 type Post struct {
-	ID             uint
+	ID             int
 	Title          string
 	Content        string
 	ContentPreview string
