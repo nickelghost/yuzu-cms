@@ -2,17 +2,37 @@
   import TopBar from '../components/TopBar.svelte';
   import Editor from '../components/Editor.svelte';
   import Notification from '../components/Notification.svelte';
+  import Modal from '../components/Modal.svelte';
 
   import { jwt } from '../stores';
 
   let title = '';
   let content = '';
+  let slug = '';
 
   let notificationMessage = '';
   let notificationColor = '';
 
+  let isSlugModalOpen = false;
+
+  function openSlugModal() {
+    isSlugModalOpen = true;
+  }
+
+  function closeSlugModal() {
+    isSlugModalOpen = false;
+  }
+
+  function onTitleChange(e) {
+    const oldTitle = title;
+    title = e.target.value;
+    if (oldTitle.toLowerCase().split(' ').join('-') == slug) {
+      slug = title.toLowerCase().split(' ').join('-');
+    }
+  }
+
   async function createPost({ is_draft = false } = {}) {
-    const req = { title, content, is_draft };
+    const req = { title, content, slug, is_draft };
     const res = await fetch('/api/v1/posts', {
       method: 'POST',
       headers: {
@@ -43,7 +63,24 @@
   color="{notificationColor}"
 ></Notification>
 
+<Modal bind:isOpen="{isSlugModalOpen}">
+  <form class="form" on:submit="{(e) => e.preventDefault()}">
+    <label class="field">
+      <span class="label">Slug</span>
+      <input class="input" bind:value="{slug}" />
+    </label>
+    <div class="field field-horizontal">
+      <div class="flex-spacer"></div>
+      <button class="button" type="button" on:click="{closeSlugModal}">
+        Close
+      </button>
+    </div>
+  </form>
+</Modal>
+
 <TopBar title="New Post">
+  <button class="button" on:click="{openSlugModal}">Custom slug</button>
+  <div class="top-bar-spacer"></div>
   <button class="button" on:click="{onClickDraft}">Draft</button>
   <div class="top-bar-spacer"></div>
   <button class="button button-primary" on:click="{onClickPublish}">
@@ -53,7 +90,12 @@
 <main class="content">
   <label class="field">
     <span class="label">Title</span>
-    <input class="input" name="title" bind:value="{title}" />
+    <input
+      class="input"
+      name="title"
+      value="{title}"
+      on:change="{onTitleChange}"
+    />
   </label>
   <Editor bind:content="{content}"></Editor>
 </main>
