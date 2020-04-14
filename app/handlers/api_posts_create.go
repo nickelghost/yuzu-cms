@@ -13,6 +13,7 @@ import (
 type APIPostsCreateRequest struct {
 	Title   string `json:"title" validate:"required"`
 	Content string `json:"content" validate:"min=10"`
+	Slug    string `json:"slug" validate:"required,min=1"`
 	IsDraft bool   `json:"is_draft"`
 }
 
@@ -37,7 +38,13 @@ func (hs Handlers) APIPostsCreate(c echo.Context) error {
 	if err != nil {
 		return err
 	}
-	post, err := postModel.Create(hs.DB, req.Title, req.Content, req.IsDraft)
+	post, err := postModel.Create(
+		hs.DB,
+		req.Title,
+		req.Content,
+		req.Slug,
+		req.IsDraft,
+	)
 	if err != nil {
 		return err
 	}

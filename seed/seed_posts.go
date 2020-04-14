@@ -9,6 +9,7 @@ import (
 var postBlueprints = []postModel.Post{
 	postModel.Post{
 		Title: "My vacation",
+		Slug:  "my-vacation",
 		Content: `
 I went to Maledives, and this is my story.
 
@@ -24,6 +25,7 @@ I booked a five star hotel on the largest island.
 	},
 	postModel.Post{
 		Title: "My draft",
+		Slug:  "some-custom-slug",
 		Content: `
 This is just a test for the draft functionality.
 
@@ -39,6 +41,7 @@ And even more content.
 	},
 	postModel.Post{
 		Title: "Some more stuff",
+		Slug:  "some-more-stuff",
 		Content: `
 This is a preview of some stuff
 
@@ -61,6 +64,7 @@ func seedPosts(conn *sql.DB) (*[]postModel.Post, error) {
 			conn,
 			postBlueprint.Title,
 			postBlueprint.Content,
+			postBlueprint.Slug,
 			postBlueprint.IsDraft,
 		)
 		if err != nil {

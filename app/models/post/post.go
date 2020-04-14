@@ -17,6 +17,7 @@ type Post struct {
 	Title          string
 	Content        string
 	ContentPreview string
+	Slug           string
 	IsDraft        bool
 	CreatedAt      time.Time
 	UpdatedAt      time.Time
@@ -50,6 +51,7 @@ func GetAll(conn *sql.DB, isDraft int) (*[]Post, error) {
 			&post.ID,
 			&post.Title,
 			&post.Content,
+			&post.Slug,
 			&post.IsDraft,
 			&post.CreatedAt,
 			&post.UpdatedAt,
@@ -76,6 +78,7 @@ func GetAllByIds(conn *sql.DB, ids []int) (*[]Post, error) {
 			&post.ID,
 			&post.Title,
 			&post.Content,
+			&post.Slug,
 			&post.IsDraft,
 			&post.CreatedAt,
 			&post.UpdatedAt,
@@ -97,6 +100,28 @@ func GetByID(conn *sql.DB, id int) (*Post, error) {
 		&post.ID,
 		&post.Title,
 		&post.Content,
+		&post.Slug,
+		&post.IsDraft,
+		&post.CreatedAt,
+		&post.UpdatedAt,
+	)
+	if err != nil {
+		return nil, err
+	}
+	return &post, nil
+}
+
+// GetBySlug fetches the post from the database by its URL slug
+func GetBySlug(conn *sql.DB, slug string) (*Post, error) {
+	post := Post{}
+	err := conn.QueryRow(
+		`SELECT * FROM posts WHERE slug = $1`,
+		slug,
+	).Scan(
+		&post.ID,
+		&post.Title,
+		&post.Content,
+		&post.Slug,
 		&post.IsDraft,
 		&post.CreatedAt,
 		&post.UpdatedAt,
@@ -112,21 +137,25 @@ func Create(
 	conn *sql.DB,
 	title string,
 	content string,
+	slug string,
 	isDraft bool,
 ) (Post, error) {
 	post := Post{}
 	err := conn.QueryRow(`
-        INSERT INTO posts (title, content, is_draft, created_at, updated_at)
-        VALUES ($1, $2, $3, NOW(), NOW())
+        INSERT INTO posts
+            (title, content, slug, is_draft, created_at, updated_at)
+        VALUES ($1, $2, $3, $4, NOW(), NOW())
         RETURNING *
         `,
 		title,
 		content,
+		slug,
 		isDraft,
 	).Scan(
 		&post.ID,
 		&post.Title,
 		&post.Content,
+		&post.Slug,
 		&post.IsDraft,
 		&post.CreatedAt,
 		&post.UpdatedAt,
@@ -143,23 +172,26 @@ func Update(
 	id int,
 	title string,
 	content string,
+	slug string,
 	isDraft bool,
 ) (Post, error) {
 	post := Post{}
 	err := conn.QueryRow(`
         UPDATE posts
-        SET title = $2, content = $3, is_draft = $4, updated_at = NOW()
+        SET title = $2, content = $3, slug = $4, is_draft = $5, updated_at = NOW()
         WHERE id = $1
         RETURNING *
         `,
 		id,
 		title,
 		content,
+		slug,
 		isDraft,
 	).Scan(
 		&post.ID,
 		&post.Title,
 		&post.Content,
+		&post.Slug,
 		&post.IsDraft,
 		&post.CreatedAt,
 		&post.UpdatedAt,

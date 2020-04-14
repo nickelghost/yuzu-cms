@@ -80,7 +80,7 @@ func main() {
 	// Public routes
 	e.GET("/", hs.Homepage)
 	e.GET("/:slug", hs.Page)
-	e.GET("/posts/:id", hs.Post)
+	e.GET("/posts/:slug", hs.Post)
 	e.POST("/api/v1/login", hs.APILogin)
 	// Auth-only v1 API routes
 	v1auth := e.Group("/api/v1")

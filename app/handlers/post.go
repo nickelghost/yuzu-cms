@@ -3,7 +3,6 @@ package handlers
 import (
 	"database/sql"
 	"net/http"
-	"strconv"
 
 	"github.com/labstack/echo"
 	pageModel "github.com/nickelghost/yuzu-cms/app/models/page"
@@ -11,11 +10,7 @@ import (
 )
 
 func (hs Handlers) Post(c echo.Context) error {
-	id, err := strconv.Atoi(c.Param("id"))
-	if err != nil {
-		return err
-	}
-	post, err := postModel.GetByID(hs.DB, id)
+	post, err := postModel.GetBySlug(hs.DB, c.Param("slug"))
 	if err != nil {
 		if err == sql.ErrNoRows {
 			return c.String(http.StatusNotFound, "Not found")

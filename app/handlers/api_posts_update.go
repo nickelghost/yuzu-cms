@@ -12,8 +12,9 @@ import (
 
 // APIPostsUpdateRequest represents a request for updating a post
 type APIPostsUpdateRequest struct {
-	Title   string `json:"title" validate:"required"`
+	Title   string `json:"title" validate:"required,min=1"`
 	Content string `json:"content" validate:"min=10"`
+	Slug    string `json:"slug" validate:"required,min=1"`
 	IsDraft bool   `json:"is_draft"`
 }
 
@@ -47,6 +48,7 @@ func (hs Handlers) APIPostsUpdate(c echo.Context) error {
 		id,
 		req.Title,
 		req.Content,
+		req.Slug,
 		req.IsDraft,
 	)
 	res := APIPostsUpdateResponse{
