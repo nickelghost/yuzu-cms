@@ -4,15 +4,16 @@ import (
 	"net/http"
 	"time"
 
+	"github.com/go-playground/validator/v10"
 	"github.com/labstack/echo"
 	pageModel "github.com/nickelghost/yuzu-cms/app/models/page"
 )
 
 func (hs Handlers) APIPagesCreate(c echo.Context) error {
 	type Request struct {
-		PostID       int    `json:"post_id"`
-		Index        int    `json:"index"`
-		Slug         string `json:"slug"`
+		PostID       int    `json:"post_id" validate:"required,min=1"`
+		Index        int    `json:"index" validate:"required"`
+		Slug         string `json:"slug" validate:"required,min=1"`
 		InNavigation bool   `json:"in_navigation"`
 	}
 	type Response struct {
@@ -25,6 +26,10 @@ func (hs Handlers) APIPagesCreate(c echo.Context) error {
 	}
 	req := Request{}
 	err := c.Bind(&req)
+	if err != nil {
+		return err
+	}
+	err = validator.New().Struct(req)
 	if err != nil {
 		return err
 	}

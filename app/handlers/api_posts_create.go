@@ -11,7 +11,7 @@ import (
 
 // APIPostsCreateRequest represents a request for creating a post
 type APIPostsCreateRequest struct {
-	Title   string `json:"title" validate:"required"`
+	Title   string `json:"title" validate:"required,min=1"`
 	Content string `json:"content" validate:"min=10"`
 	Slug    string `json:"slug" validate:"required,min=1"`
 	IsDraft bool   `json:"is_draft"`

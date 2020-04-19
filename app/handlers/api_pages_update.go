@@ -4,20 +4,28 @@ import (
 	"net/http"
 	"strconv"
 
+	"github.com/go-playground/validator/v10"
 	"github.com/labstack/echo"
 	pageModel "github.com/nickelghost/yuzu-cms/app/models/page"
 )
 
 func (hs Handlers) APIPagesUpdate(c echo.Context) error {
 	type Request struct {
-		PostID         int    `json:"post_id"`
-		PositionChange int    `json:"position_change"`
-		Slug           string `json:"slug"`
+		PostID         int    `json:"post_id" validate:"required,min=1"`
+		PositionChange int    `json:"position_change" validate:"required"`
+		Slug           string `json:"slug" validate:"required,min=1"`
 		InNavigation   bool   `json:"in_navigation"`
 	}
 	req := Request{}
-	c.Bind(&req)
+	err := c.Bind(&req)
+	if err != nil {
+		return err
+	}
 	id, err := strconv.Atoi(c.Param("id"))
+	if err != nil {
+		return err
+	}
+	err = validator.New().Struct(req)
 	if err != nil {
 		return err
 	}
