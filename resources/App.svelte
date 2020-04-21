@@ -1,6 +1,7 @@
 <script>
   import Router from 'svelte-spa-router';
 
+  import Notifications from './components/Notifications.svelte';
   import Nav from './components/Nav.svelte';
   import LogIn from './pages/LogIn.svelte';
 
@@ -24,6 +25,7 @@
 </style>
 
 <div class="main">
+  <Notifications></Notifications>
   {#if $jwt}
   <Nav></Nav>
   {/if}

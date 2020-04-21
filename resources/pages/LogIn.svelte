@@ -1,13 +1,10 @@
 <script>
-  import { jwt } from '../stores';
+  import notify from '../helpers/notify';
 
-  import Notification from '../components/Notification.svelte';
+  import { jwt } from '../stores';
 
   let user = '';
   let password = '';
-
-  let notificationMessage = '';
-  let notificationColor = '';
 
   async function logIn(e) {
     e.preventDefault();
@@ -19,13 +16,11 @@
     });
     const json = await res.json();
     if (res.ok) {
-      notificationMessage = 'Logged in';
-      notificationColor = 'green';
+      notify('Logged in', 'green', 2000);
       localStorage.setItem('jwt', json.token);
       jwt.set(json.token);
     } else {
-      notificationMessage = 'Could not log in';
-      notificationColor = 'red';
+      notify('Could not log in', 'red');
     }
   }
 </script>
@@ -52,11 +47,6 @@
     text-align: center;
   }
 </style>
-
-<Notification
-  bind:message="{notificationMessage}"
-  color="{notificationColor}"
-></Notification>
 
 <main class="main">
   <div class="container">

@@ -4,7 +4,8 @@
   import TopBar from '../components/TopBar.svelte';
   import Editor from '../components/Editor.svelte';
   import Modal from '../components/Modal.svelte';
-  import Notification from '../components/Notification.svelte';
+
+  import notify from '../helpers/notify';
 
   import { jwt } from '../stores';
 
@@ -19,9 +20,6 @@
   let newTitle = '';
   let isSlugModalOpen = false;
   let newSlug = '';
-
-  let notificationMessage = '';
-  let notificationColor = '';
 
   onMount(async () => {
     const res = await fetch(`/api/v1/posts/${params.id}`, {
@@ -64,7 +62,12 @@
   }
 
   async function savePost({ is_draft = false } = {}) {
-    const req = { title, content, slug, is_draft };
+    const req = {
+      title,
+      content,
+      slug,
+      is_draft,
+    };
     const res = await fetch(`/api/v1/posts/${params.id}`, {
       method: 'PUT',
       headers: {
@@ -74,11 +77,9 @@
       body: JSON.stringify(req),
     });
     if (res.ok) {
-      notificationMessage = 'Post updated';
-      notificationColor = 'green';
+      notify('Post updated', 'green');
     } else {
-      notificationMessage = 'Could not update post';
-      notificationColor = 'red';
+      notify('Could not update the post', 'red');
     }
   }
   function onClickDraft() {
@@ -88,11 +89,6 @@
     savePost();
   }
 </script>
-
-<Notification
-  bind:message="{notificationMessage}"
-  color="{notificationColor}"
-></Notification>
 
 <Modal bind:isOpen="{isTitleModalOpen}">
   <form class="form" on:submit="{updateTitle}">

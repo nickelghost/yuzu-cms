@@ -1,17 +1,15 @@
 <script>
   import TopBar from '../components/TopBar.svelte';
   import Editor from '../components/Editor.svelte';
-  import Notification from '../components/Notification.svelte';
   import Modal from '../components/Modal.svelte';
+
+  import notify from '../helpers/notify';
 
   import { jwt } from '../stores';
 
   let title = '';
   let content = '';
   let slug = '';
-
-  let notificationMessage = '';
-  let notificationColor = '';
 
   let isSlugModalOpen = false;
 
@@ -42,11 +40,9 @@
       body: JSON.stringify(req),
     });
     if (res.ok) {
-      notificationMessage = 'Post created';
-      notificationColor = 'green';
+      notify('Post created', 'green');
     } else {
-      notificationMessage = 'Could not create post';
-      notificationColor = 'red';
+      notify('Could not create the post', 'red');
     }
   }
 
@@ -57,11 +53,6 @@
     createPost();
   }
 </script>
-
-<Notification
-  bind:message="{notificationMessage}"
-  color="{notificationColor}"
-></Notification>
 
 <Modal bind:isOpen="{isSlugModalOpen}">
   <form class="form" on:submit="{(e) => e.preventDefault()}">

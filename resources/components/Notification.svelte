@@ -3,30 +3,9 @@
 
   export let message;
   export let color;
-  export let timeout = 2000;
-
-  let visible = false;
-
-  $: if (message) {
-    visible = true;
-    const timeoutID = setTimeout(() => {
-      message = '';
-      visible = false;
-      clearTimeout(timeoutID);
-    }, timeout);
-  }
 </script>
 
 <style>
-  .notification-container {
-    display: flex;
-    left: 0;
-    justify-content: center;
-    position: fixed;
-    right: 0;
-    top: 8px;
-    z-index: 1000;
-  }
   .notification {
     align-items: center;
     background: rgba(102, 102, 102, 0.9);
@@ -44,7 +23,6 @@
   }
 </style>
 
-{#if visible}
 <div class="notification-container">
   <div
     class="notification"
@@ -55,4 +33,3 @@
     {message}
   </div>
 </div>
-{/if}
