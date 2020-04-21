@@ -3,9 +3,7 @@ module.exports = {
     browser: true,
     es6: true,
   },
-  extends: [
-    'airbnb-base',
-  ],
+  extends: ['airbnb-base'],
   globals: {
     Atomics: 'readonly',
     SharedArrayBuffer: 'readonly',
@@ -14,16 +12,15 @@ module.exports = {
     ecmaVersion: 2018,
     sourceType: 'module',
   },
-  plugins: [
-    'svelte3'
-  ],
+  plugins: ['svelte3'],
   overrides: [
     {
       files: ['**/*.svelte'],
-      processor: 'svelte3/svelte3'
-    }
+      processor: 'svelte3/svelte3',
+    },
   ],
   rules: {
+    camelcase: 0,
     'import/first': 0,
     'import/no-mutable-exports': 0,
     'import/prefer-default-export': 0,
