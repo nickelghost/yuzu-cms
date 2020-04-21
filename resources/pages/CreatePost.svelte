@@ -26,13 +26,18 @@
   function onTitleChange(e) {
     const oldTitle = title;
     title = e.target.value;
-    if (oldTitle.toLowerCase().split(' ').join('-') == slug) {
+    if (oldTitle.toLowerCase().split(' ').join('-') === slug) {
       slug = title.toLowerCase().split(' ').join('-');
     }
   }
 
   async function createPost({ is_draft = false } = {}) {
-    const req = { title, content, slug, is_draft };
+    const req = {
+      title,
+      content,
+      slug,
+      is_draft,
+    };
     const res = await fetch('/api/v1/posts', {
       method: 'POST',
       headers: {
