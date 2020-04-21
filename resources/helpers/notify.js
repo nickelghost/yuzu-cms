@@ -1,6 +1,6 @@
 import { notifications } from '../stores';
 
-function notify(message, color = null, timeout = 5000) {
+function notify(message, color = null, timeout = 2500) {
   notifications.update((ns) => [...ns, { message, color }]);
   const timeoutID = setTimeout(() => {
     // Remove the first notification in the array

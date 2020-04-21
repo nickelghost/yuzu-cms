@@ -16,7 +16,7 @@
     });
     const json = await res.json();
     if (res.ok) {
-      notify('Logged in', 'green', 2000);
+      notify('Logged in', 'green');
       localStorage.setItem('jwt', json.token);
       jwt.set(json.token);
     } else {
