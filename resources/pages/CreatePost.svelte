@@ -1,4 +1,6 @@
 <script>
+  import { push } from 'svelte-spa-router';
+
   import TopBar from '../components/TopBar.svelte';
   import Editor from '../components/Editor.svelte';
   import Modal from '../components/Modal.svelte';
@@ -41,6 +43,7 @@
     });
     if (res.ok) {
       notify('Post created', 'green');
+      push('/posts');
     } else {
       notify('Could not create the post', 'red');
     }
