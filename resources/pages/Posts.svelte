@@ -31,10 +31,13 @@
 </script>
 
 <style>
+  .post-wrapper {
+    margin-bottom: 24px;
+  }
+
   .post {
     display: flex;
     border: 1px solid #ececec;
-    margin-bottom: 24px;
     padding: 24px;
   }
 
@@ -102,7 +105,7 @@
 </TopBar>
 <div class="content">
   {#each posts as post}
-  <a href="{`/posts/${post.id}`}" use:link>
+  <a class="post-wrapper" href="{`/posts/${post.id}`}" use:link>
     <div class="post" class:draft="{post.is_draft}">
       <div class="title-section">
         <h3 class="title">
