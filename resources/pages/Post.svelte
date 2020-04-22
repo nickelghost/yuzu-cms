@@ -1,5 +1,6 @@
 <script>
   import { onMount } from 'svelte';
+  import { push } from 'svelte-spa-router';
 
   import TopBar from '../components/TopBar.svelte';
   import Editor from '../components/Editor.svelte';
@@ -20,6 +21,7 @@
   let newTitle = '';
   let isSlugModalOpen = false;
   let newSlug = '';
+  let isDeleteModalOpen = false;
 
   onMount(async () => {
     const res = await fetch(`/api/v1/posts/${params.id}`, {
@@ -59,6 +61,20 @@
     slug = newSlug;
     isSlugModalOpen = false;
     newSlug = '';
+  }
+
+  async function deletePost() {
+    const res = await fetch(`/api/v1/posts/${params.id}`, {
+      method: 'DELETE',
+      headers: { Authorization: `Bearer ${$jwt}` },
+    });
+    if (res.ok) {
+      notify(`Deleted ${title}`, 'green');
+      push('/posts');
+    } else {
+      isDeleteModalOpen = false;
+      notify('Could not delete the post', 'red');
+    }
   }
 
   async function savePost({ is_draft = false } = {}) {
@@ -126,7 +142,33 @@
   </form>
 </Modal>
 
+<Modal bind:isOpen="{isDeleteModalOpen}">
+  <form class="form" on:submit="{deletePost}">
+    <p>Are you sure that you want to delete {title}?</p>
+    <div class="field field-horizontal">
+      <button
+        class="button"
+        type="button"
+        on:click="{() => { isDeleteModalOpen = false; }}"
+      >
+        Cancel
+      </button>
+      <div class="flex-spacer"></div>
+      <button class="button button-danger" type="submit">
+        Yes, delete
+      </button>
+    </div>
+  </form>
+</Modal>
+
 <TopBar title="{title + (isDraft ? ' (draft)' : '')}">
+  <button
+    class="button button-danger"
+    on:click="{() => { isDeleteModalOpen = true; }}"
+  >
+    Delete post
+  </button>
+  <div class="top-bar-spacer"></div>
   <button class="button" on:click="{openSlugModal}">Change slug</button>
   <div class="top-bar-spacer"></div>
   <button class="button" on:click="{openTitleModal}">Change title</button>

@@ -24,6 +24,11 @@ a {
   border: none;
   background-color: rgb(90, 111, 180);
 }
+.button-danger {
+  color: white;
+  border: none;
+  background-color: #e05c5c;
+}
 /* Used for overriding default button tag styles */
 .button-reset {
   background: transparent;

@@ -90,6 +90,7 @@ func main() {
 	v1auth.GET("/posts/:id", hs.APIPostsGet)
 	v1auth.POST("/posts", hs.APIPostsCreate)
 	v1auth.PUT("/posts/:id", hs.APIPostsUpdate)
+	v1auth.DELETE("/posts/:id", hs.APIPostsDelete)
 	v1auth.GET("/pages", hs.APIPagesIndex)
 	v1auth.POST("/pages", hs.APIPagesCreate)
 	v1auth.PUT("/pages/:id", hs.APIPagesUpdate)
