@@ -57,7 +57,7 @@
   }
 
   .title {
-    font-weight: bold;
+    font-weight: 500;
     font-size: 1.25rem;
     margin: 0;
   }
@@ -86,7 +86,7 @@
   .time-heading {
     display: block;
     font-size: 0.875rem;
-    font-weight: bold;
+    font-weight: 500;
     text-transform: uppercase;
   }
 </style>

@@ -52,7 +52,7 @@ a {
 }
 .label {
   font-size: 0.875rem;
-  font-weight: bold;
+  font-weight: 500;
   margin-bottom: 8px;
   text-transform: uppercase;
 }
