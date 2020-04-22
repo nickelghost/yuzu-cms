@@ -12,7 +12,7 @@ import (
 func (hs Handlers) APIPagesUpdate(c echo.Context) error {
 	type Request struct {
 		PostID         int    `json:"post_id" validate:"required,min=1"`
-		PositionChange int    `json:"position_change" validate:"required"`
+		PositionChange int    `json:"position_change"`
 		Slug           string `json:"slug" validate:"required,min=1"`
 		InNavigation   bool   `json:"in_navigation"`
 	}
