@@ -29,6 +29,9 @@ a {
   border: none;
   background-color: #e05c5c;
 }
+.button-small {
+  padding: 4px 8px;
+}
 /* Used for overriding default button tag styles */
 .button-reset {
   background: transparent;
