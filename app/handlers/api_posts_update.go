@@ -51,6 +51,9 @@ func (hs Handlers) APIPostsUpdate(c echo.Context) error {
 		req.Slug,
 		req.IsDraft,
 	)
+	if err != nil {
+		return err
+	}
 	res := APIPostsUpdateResponse{
 		ID:        post.ID,
 		Title:     post.Title,
@@ -58,9 +61,6 @@ func (hs Handlers) APIPostsUpdate(c echo.Context) error {
 		IsDraft:   post.IsDraft,
 		CreatedAt: post.CreatedAt,
 		UpdatedAt: post.UpdatedAt,
-	}
-	if err != nil {
-		return err
 	}
 	return c.JSON(http.StatusOK, res)
 }
