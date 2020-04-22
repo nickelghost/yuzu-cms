@@ -22,12 +22,18 @@
     flex-direction: column;
     flex-grow: 1;
   }
+
+  .nav-placeholder {
+    flex-shrink: 0;
+    width: 200px;
+  }
 </style>
 
 <div class="main">
   <Notifications></Notifications>
   {#if $jwt}
   <Nav></Nav>
+  <div class="nav-placeholder"></div>
   {/if}
   <div class="container">
     {#if $jwt}

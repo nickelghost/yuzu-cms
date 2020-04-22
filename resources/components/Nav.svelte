@@ -13,11 +13,14 @@
   .nav {
     background: linear-gradient(90deg, #515093 0%, rgb(90, 111, 180) 100%);
     background-color: #515093;
+    bottom: 0;
     color: white;
     display: flex;
     flex-direction: column;
-    flex-shrink: 0;
     font-family: Quicksand, sans-serif;
+    left: 0;
+    position: fixed;
+    top: 0;
     width: 200px;
   }
 
