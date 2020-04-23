@@ -14,32 +14,32 @@ jobs:
     container:
       image: node:12-alpine
     steps:
-      - name: checkout
+      - name: Checkout
         uses: actions/checkout@v2
-      - name: install dependencies
+      - name: Install dependencies
         run: npm ci
-      - name: run tests
+      - name: Run tests
         run: npm run test
   unit_test_app:
     runs-on: ubuntu-18.04
     container:
       image: golang:1.13-alpine
     steps:
-      - name: checkout
+      - name: Checkout
         uses: actions/checkout@v2
-      - name: run go tests
+      - name: Run go tests
         run: sh scripts/test.sh
   build:
     if: github.event_name == 'push'
     needs: [unit_test_admin, unit_test_app]
     runs-on: ubuntu-18.04
     steps:
-      - name: checkout
+      - name: Checkout
         uses: actions/checkout@v2
-      - name: build and push docker image
+      - name: Build and push docker image
         uses: mr-smithers-excellent/docker-build-push@v3
         with:
-          image: ${{ github.repository }}
+          image: yuzu-cms/yuzu-cms
           registry: docker.pkg.github.com
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
