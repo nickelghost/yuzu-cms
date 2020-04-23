@@ -8,7 +8,7 @@ type Config struct {
 	AppForwardWebpack bool
 	AppUserName       string `validate:"required"`
 	AppUserPassword   []byte `validate:"required"`
-	DBHost            string `validate:"required,ip_addr|hostname"`
+	DBHost            string `validate:"required"`
 	DBPort            int    `validate:"required,gte=1,lte=49151"`
 	DBUser            string `validate:"required"`
 	DBPassword        string

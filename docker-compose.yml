@@ -1,0 +1,19 @@
+version: "3"
+
+services:
+  app:
+    build: .
+    ports:
+      - 3000:3000
+    env_file: .env.docker
+    command: ash -c "
+      apk add wait4ports &&
+      wait4ports tcp://db:5432 &&
+      /app/bin"
+  db:
+    image: postgres:12-alpine
+    ports:
+      - 5432:5432
+    environment:
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: yuzu
