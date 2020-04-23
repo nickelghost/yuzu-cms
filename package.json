@@ -2,7 +2,8 @@
   "scripts": {
     "start": "npx webpack-dev-server",
     "watch": "npx webpack --watch",
-    "build": "npx cross-env NODE_ENV=production webpack"
+    "build": "npx cross-env NODE_ENV=production webpack",
+    "test": ""
   },
   "dependencies": {
     "date-fns": "^2.8.1",
