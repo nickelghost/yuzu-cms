@@ -30,7 +30,7 @@ jobs:
       - name: run go tests
         run: sh test.sh
   build:
-    if: github.event_name == "push"
+    if: github.event_name == push
     needs: [unit_test_admin, unit_test_app]
     runs-on: ubuntu-18.04
     steps:
