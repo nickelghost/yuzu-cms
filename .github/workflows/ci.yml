@@ -28,7 +28,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2
       - name: Run go tests
-        run: sh scripts/test.sh
+        run: go test ./... -v
   build:
     if: github.event_name == 'push'
     needs: [unit_test_admin, unit_test_app]
