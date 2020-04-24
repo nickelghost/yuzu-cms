@@ -14,9 +14,9 @@
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(req),
     });
-    const json = await res.json();
     if (res.ok) {
       notify('Logged in', 'green');
+      const json = await res.json();
       localStorage.setItem('jwt', json.token);
       jwt.set(json.token);
     } else {
