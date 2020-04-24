@@ -26,7 +26,7 @@ jobs:
       image: golang:1.13-alpine
     steps:
       - name: Install dependencies
-        run: apk update --no-cache && apk add --no-cache gcc
+        run: apk update --no-cache && apk add --no-cache gcc libc-dev
       - name: Checkout
         uses: actions/checkout@v2
       - name: Run go tests
