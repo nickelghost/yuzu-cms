@@ -1,5 +1,5 @@
 <script>
-  import MarkdownIt from 'markdown-it';
+  import * as MarkdownIt from 'markdown-it';
 
   export let content = '';
 

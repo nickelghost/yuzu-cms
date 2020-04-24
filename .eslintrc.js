@@ -2,6 +2,7 @@ module.exports = {
   env: {
     browser: true,
     es6: true,
+    'jest/globals': true,
   },
   extends: ['airbnb-base'],
   globals: {
@@ -12,7 +13,7 @@ module.exports = {
     ecmaVersion: 2018,
     sourceType: 'module',
   },
-  plugins: ['svelte3'],
+  plugins: ['svelte3', 'jest'],
   overrides: [
     {
       files: ['**/*.svelte'],
