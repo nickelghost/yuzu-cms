@@ -9,6 +9,7 @@ import (
 	postModel "github.com/nickelghost/yuzu-cms/app/models/post"
 )
 
+// Page renders a navigable page that's not just a post
 func (hs Handlers) Page(c echo.Context) error {
 	page, err := pageModel.GetBySlug(hs.DB, c.Param("slug"))
 	if err != nil {

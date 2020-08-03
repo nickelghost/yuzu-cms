@@ -9,6 +9,7 @@ import (
 	postModel "github.com/nickelghost/yuzu-cms/app/models/post"
 )
 
+// Post renders a page with a post
 func (hs Handlers) Post(c echo.Context) error {
 	post, err := postModel.GetBySlug(hs.DB, c.Param("slug"))
 	if err != nil {

@@ -7,6 +7,7 @@ import (
 	postModel "github.com/nickelghost/yuzu-cms/app/models/post"
 )
 
+// APIPostsTitles gets titles of posts for select elements
 func (hs Handlers) APIPostsTitles(c echo.Context) error {
 	type ResponseItem struct {
 		ID    int    `json:"id"`

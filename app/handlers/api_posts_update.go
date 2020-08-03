@@ -10,31 +10,27 @@ import (
 	postModel "github.com/nickelghost/yuzu-cms/app/models/post"
 )
 
-// APIPostsUpdateRequest represents a request for updating a post
-type APIPostsUpdateRequest struct {
-	Title   string `json:"title" validate:"required,min=1"`
-	Content string `json:"content" validate:"min=10"`
-	Slug    string `json:"slug" validate:"required,min=1"`
-	IsDraft bool   `json:"is_draft"`
-}
-
-// APIPostsUpdateResponse represents a response of an updated post
-type APIPostsUpdateResponse struct {
-	ID        int       `json:"id"`
-	Title     string    `json:"title"`
-	Content   string    `json:"content"`
-	IsDraft   bool      `json:"is_draft"`
-	CreatedAt time.Time `json:"created_at"`
-	UpdatedAt time.Time `json:"updated_at"`
-}
-
 // APIPostsUpdate updates a post over JSON
 func (hs Handlers) APIPostsUpdate(c echo.Context) error {
+	type Request struct {
+		Title   string `json:"title" validate:"required,min=1"`
+		Content string `json:"content" validate:"min=10"`
+		Slug    string `json:"slug" validate:"required,min=1"`
+		IsDraft bool   `json:"is_draft"`
+	}
+	type Response struct {
+		ID        int       `json:"id"`
+		Title     string    `json:"title"`
+		Content   string    `json:"content"`
+		IsDraft   bool      `json:"is_draft"`
+		CreatedAt time.Time `json:"created_at"`
+		UpdatedAt time.Time `json:"updated_at"`
+	}
 	id, err := strconv.Atoi(c.Param("id"))
 	if err != nil {
 		return err
 	}
-	req := new(APIPostsUpdateRequest)
+	req := new(Request)
 	err = c.Bind(req)
 	if err != nil {
 		return err
@@ -54,7 +50,7 @@ func (hs Handlers) APIPostsUpdate(c echo.Context) error {
 	if err != nil {
 		return err
 	}
-	res := APIPostsUpdateResponse{
+	res := Response{
 		ID:        post.ID,
 		Title:     post.Title,
 		Content:   post.Content,

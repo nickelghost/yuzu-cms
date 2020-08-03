@@ -8,13 +8,13 @@ import (
 	"golang.org/x/crypto/bcrypt"
 )
 
-type APILoginRequest struct {
-	User     string `json:"user"`
-	Password string `json:"password"`
-}
-
+// APILogin logs in a user to the admin panel
 func (hs *Handlers) APILogin(c echo.Context) error {
-	req := new(APILoginRequest)
+	type Request struct {
+		User     string `json:"user"`
+		Password string `json:"password"`
+	}
+	req := new(Request)
 	err := c.Bind(req)
 	if err != nil {
 		return nil
