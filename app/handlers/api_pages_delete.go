@@ -23,7 +23,7 @@ func (hs Handlers) APIPagesDelete(c echo.Context) error {
 	if err != nil {
 		return err
 	}
-	page, err := pageModel.GetById(hs.DB, id)
+	page, err := pageModel.GetByID(hs.DB, id)
 	if err != nil {
 		return err
 	}
