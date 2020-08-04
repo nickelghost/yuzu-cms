@@ -3,6 +3,7 @@ package handlers
 import (
 	"net/http"
 	"strconv"
+	"time"
 
 	"github.com/go-playground/validator/v10"
 	"github.com/labstack/echo"
@@ -16,6 +17,14 @@ func (hs Handlers) APIPagesUpdate(c echo.Context) error {
 		PositionChange int    `json:"position_change"`
 		Slug           string `json:"slug" validate:"required,min=1"`
 		InNavigation   bool   `json:"in_navigation"`
+	}
+	type Response struct {
+		ID           int       `json:"id"`
+		Index        int       `json:"index"`
+		Slug         string    `json:"slug"`
+		InNavigation bool      `json:"in_navigation"`
+		CreatedAt    time.Time `json:"created_at"`
+		UpdatedAt    time.Time `json:"updated_at"`
 	}
 	req := Request{}
 	err := c.Bind(&req)
@@ -44,5 +53,13 @@ func (hs Handlers) APIPagesUpdate(c echo.Context) error {
 	if err != nil {
 		return err
 	}
-	return c.JSON(http.StatusOK, &page)
+	res := Response{
+		ID:           page.ID,
+		Index:        page.Index,
+		Slug:         page.Slug,
+		InNavigation: page.InNavigation,
+		CreatedAt:    page.CreatedAt,
+		UpdatedAt:    page.UpdatedAt,
+	}
+	return c.JSON(http.StatusOK, &res)
 }
