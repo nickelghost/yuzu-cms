@@ -1,9 +1,5 @@
 <script>
   export let isOpen;
-
-  function closeModal() {
-    isOpen = false;
-  }
 </script>
 
 <style>
@@ -42,7 +38,7 @@
 </style>
 
 <div class="modal" class:modal-open="{isOpen}">
-  <div class="modal-background" on:click="{closeModal}"></div>
+  <div class="modal-background" on:click="{() => { isOpen = false; }}"></div>
   <div class="modal-inner">
     <slot></slot>
   </div>
