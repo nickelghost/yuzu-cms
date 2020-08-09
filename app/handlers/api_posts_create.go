@@ -21,6 +21,7 @@ func (hs Handlers) APIPostsCreate(c echo.Context) error {
 		ID        int       `json:"id"`
 		Title     string    `json:"title"`
 		Content   string    `json:"content"`
+		Slug      string    `json:"slug"`
 		IsDraft   bool      `json:"is_draft"`
 		CreatedAt time.Time `json:"created_at"`
 		UpdatedAt time.Time `json:"updated_at"`
@@ -48,6 +49,7 @@ func (hs Handlers) APIPostsCreate(c echo.Context) error {
 		ID:        post.ID,
 		Title:     post.Title,
 		Content:   post.Content,
+		Slug:      post.Slug,
 		IsDraft:   post.IsDraft,
 		CreatedAt: post.CreatedAt,
 		UpdatedAt: post.UpdatedAt,
