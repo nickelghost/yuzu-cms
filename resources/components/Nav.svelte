@@ -81,9 +81,7 @@
       use:link
       href="/posts/new"
     >
-      <div class="link-sub">
-        New
-      </div>
+      <div class="link-sub">New</div>
     </a>
     <a
       class="link"
@@ -91,9 +89,7 @@
       use:link
       href="/posts?draft=true"
     >
-      <div class="link-sub">
-        Drafts
-      </div>
+      <div class="link-sub">Drafts</div>
     </a>
     <a
       class="link"
@@ -103,11 +99,15 @@
     >
       Pages
     </a>
-    <button class="button-reset link" on:click="{logOut}">
-      Log out
-    </button>
-    <a class="link link-bottom" href="/">
-      Website
+    <a
+      class="link"
+      class:link-selected="{$location === '/images'}"
+      use:link
+      href="/images"
+    >
+      Images
     </a>
+    <button class="button-reset link" on:click="{logOut}">Log out</button>
+    <a class="link link-bottom" href="/">Website</a>
   </nav>
 </aside>
