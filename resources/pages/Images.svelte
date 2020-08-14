@@ -47,7 +47,6 @@
   <!-- TODO: Only allow image file formats -->
   <input
     bind:this="{fileInput}"
-    id="file-input"
     multiple="true"
     style="display:none;"
     type="file"
