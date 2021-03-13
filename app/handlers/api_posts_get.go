@@ -9,19 +9,17 @@ import (
 	postsModel "github.com/nickelghost/yuzu-cms/app/models/post"
 )
 
-// APIPostsGetResponse represents a response of a requested post
-type APIPostsGetResponse struct {
-	ID        int       `json:"id"`
-	Title     string    `json:"title"`
-	Content   string    `json:"content"`
-	IsDraft   bool      `json:"is_draft"`
-	Slug      string    `json:"slug"`
-	CreatedAt time.Time `json:"created_at"`
-	UpdatedAt time.Time `json:"updated_at"`
-}
-
 // APIPostsGet fetches a single post by its id
 func (hs Handlers) APIPostsGet(c echo.Context) error {
+	type Response struct {
+		ID        int       `json:"id"`
+		Title     string    `json:"title"`
+		Content   string    `json:"content"`
+		IsDraft   bool      `json:"is_draft"`
+		Slug      string    `json:"slug"`
+		CreatedAt time.Time `json:"created_at"`
+		UpdatedAt time.Time `json:"updated_at"`
+	}
 	id, err := strconv.Atoi(c.Param("id"))
 	if err != nil {
 		return err
@@ -30,7 +28,7 @@ func (hs Handlers) APIPostsGet(c echo.Context) error {
 	if err != nil {
 		return err
 	}
-	res := APIPostsGetResponse{
+	res := Response{
 		ID:        post.ID,
 		Title:     post.Title,
 		Content:   post.Content,

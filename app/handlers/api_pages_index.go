@@ -8,6 +8,7 @@ import (
 	pageModel "github.com/nickelghost/yuzu-cms/app/models/page"
 )
 
+// APIPagesIndex shows all pages
 func (hs Handlers) APIPagesIndex(c echo.Context) error {
 	type ResponseItemPost struct {
 		ID             int       `json:"id"`

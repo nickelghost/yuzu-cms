@@ -9,6 +9,7 @@ import (
 	pageModel "github.com/nickelghost/yuzu-cms/app/models/page"
 )
 
+// APIPagesDelete deletes a page binding
 func (hs Handlers) APIPagesDelete(c echo.Context) error {
 	type Response struct {
 		ID           int       `json:"id"`
@@ -22,7 +23,7 @@ func (hs Handlers) APIPagesDelete(c echo.Context) error {
 	if err != nil {
 		return err
 	}
-	page, err := pageModel.GetById(hs.DB, id)
+	page, err := pageModel.GetByID(hs.DB, id)
 	if err != nil {
 		return err
 	}

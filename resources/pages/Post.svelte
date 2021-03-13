@@ -34,26 +34,11 @@
     isDraft = post.is_draft;
   });
 
-  function openTitleModal() {
-    isTitleModalOpen = true;
-  }
-  function closeTitleModal() {
-    isTitleModalOpen = false;
-  }
-
   function updateTitle(e) {
     e.preventDefault();
     title = newTitle;
     isTitleModalOpen = false;
     newTitle = '';
-  }
-
-  function openSlugModal() {
-    isSlugModalOpen = true;
-  }
-
-  function closeSlugModal() {
-    isSlugModalOpen = false;
   }
 
   function updateSlug(e) {
@@ -98,12 +83,6 @@
       notify('Could not update the post', 'red');
     }
   }
-  function onClickDraft() {
-    savePost({ is_draft: true });
-  }
-  function onClickPublish() {
-    savePost();
-  }
 </script>
 
 <Modal bind:isOpen="{isTitleModalOpen}">
@@ -113,7 +92,11 @@
       <input class="input" bind:value="{newTitle}" />
     </label>
     <div class="field field-horizontal">
-      <button class="button" type="button" on:click="{closeTitleModal}">
+      <button
+        class="button"
+        type="button"
+        on:click="{() => { isTitleModalOpen = false; }}"
+      >
         Cancel
       </button>
       <div class="flex-spacer"></div>
@@ -131,7 +114,11 @@
       <input class="input" bind:value="{newSlug}" placeholder="{slug}" />
     </label>
     <div class="field field-horizontal">
-      <button class="button" type="button" on:click="{closeSlugModal}">
+      <button
+        class="button"
+        type="button"
+        on:click="{() => { isSlugModalOpen = false; }}"
+      >
         Cancel
       </button>
       <div class="flex-spacer"></div>
@@ -169,13 +156,19 @@
     Delete post
   </button>
   <div class="top-bar-spacer"></div>
-  <button class="button" on:click="{openSlugModal}">Change slug</button>
+  <button class="button" on:click="{() => { isSlugModalOpen = true; }}">
+    Change slug
+  </button>
   <div class="top-bar-spacer"></div>
-  <button class="button" on:click="{openTitleModal}">Change title</button>
+  <button class="button" on:click="{() => { isTitleModalOpen = true; }}">
+    Change title
+  </button>
   <div class="top-bar-spacer"></div>
-  <button class="button" on:click="{onClickDraft}">Draft</button>
+  <button class="button" on:click="{() => { savePost({ is_draft: true }); }}">
+    Draft
+  </button>
   <div class="top-bar-spacer"></div>
-  <button class="button button-primary" on:click="{onClickPublish}">
+  <button class="button button-primary" on:click="{savePost}">
     Publish
   </button>
 </TopBar>

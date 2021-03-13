@@ -9,27 +9,24 @@ import (
 	postModel "github.com/nickelghost/yuzu-cms/app/models/post"
 )
 
-// APIPostsCreateRequest represents a request for creating a post
-type APIPostsCreateRequest struct {
-	Title   string `json:"title" validate:"required,min=1"`
-	Content string `json:"content" validate:"min=10"`
-	Slug    string `json:"slug" validate:"required,min=1"`
-	IsDraft bool   `json:"is_draft"`
-}
-
-// APIPostsCreateResponse represents a response of a created post
-type APIPostsCreateResponse struct {
-	ID        int       `json:"id"`
-	Title     string    `json:"title"`
-	Content   string    `json:"content"`
-	IsDraft   bool      `json:"is_draft"`
-	CreatedAt time.Time `json:"created_at"`
-	UpdatedAt time.Time `json:"updated_at"`
-}
-
 // APIPostsCreate adds a new post for the website
 func (hs Handlers) APIPostsCreate(c echo.Context) error {
-	req := new(APIPostsCreateRequest)
+	type Request struct {
+		Title   string `json:"title" validate:"required,min=1"`
+		Content string `json:"content" validate:"min=10"`
+		Slug    string `json:"slug" validate:"required,min=1"`
+		IsDraft bool   `json:"is_draft"`
+	}
+	type Response struct {
+		ID        int       `json:"id"`
+		Title     string    `json:"title"`
+		Content   string    `json:"content"`
+		Slug      string    `json:"slug"`
+		IsDraft   bool      `json:"is_draft"`
+		CreatedAt time.Time `json:"created_at"`
+		UpdatedAt time.Time `json:"updated_at"`
+	}
+	req := new(Request)
 	err := c.Bind(req)
 	if err != nil {
 		return err
@@ -48,10 +45,11 @@ func (hs Handlers) APIPostsCreate(c echo.Context) error {
 	if err != nil {
 		return err
 	}
-	res := APIPostsCreateResponse{
+	res := Response{
 		ID:        post.ID,
 		Title:     post.Title,
 		Content:   post.Content,
+		Slug:      post.Slug,
 		IsDraft:   post.IsDraft,
 		CreatedAt: post.CreatedAt,
 		UpdatedAt: post.UpdatedAt,

@@ -15,14 +15,6 @@
 
   let isSlugModalOpen = false;
 
-  function openSlugModal() {
-    isSlugModalOpen = true;
-  }
-
-  function closeSlugModal() {
-    isSlugModalOpen = false;
-  }
-
   function onTitleChange(e) {
     const oldTitle = title;
     title = e.target.value;
@@ -53,13 +45,6 @@
       notify('Could not create the post', 'red');
     }
   }
-
-  function onClickDraft() {
-    createPost({ is_draft: true });
-  }
-  function onClickPublish() {
-    createPost();
-  }
 </script>
 
 <Modal bind:isOpen="{isSlugModalOpen}">
@@ -70,7 +55,11 @@
     </label>
     <div class="field field-horizontal">
       <div class="flex-spacer"></div>
-      <button class="button" type="button" on:click="{closeSlugModal}">
+      <button
+        class="button"
+        type="button"
+        on:click="{() => { isSlugModalOpen = false; }}"
+      >
         Close
       </button>
     </div>
@@ -78,11 +67,15 @@
 </Modal>
 
 <TopBar title="New Post">
-  <button class="button" on:click="{openSlugModal}">Custom slug</button>
+  <button class="button" on:click="{() => { isSlugModalOpen = true; }}">
+    Custom slug
+  </button>
   <div class="top-bar-spacer"></div>
-  <button class="button" on:click="{onClickDraft}">Draft</button>
+  <button class="button" on:click="{() => { createPost({ is_draft: true }); }}">
+    Draft
+  </button>
   <div class="top-bar-spacer"></div>
-  <button class="button button-primary" on:click="{onClickPublish}">
+  <button class="button button-primary" on:click="{createPost}">
     Publish
   </button>
 </TopBar>

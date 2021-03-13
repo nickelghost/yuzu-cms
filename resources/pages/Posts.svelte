@@ -24,10 +24,6 @@
     const date = new Date(dateString);
     return format(date, 'do MMM yyyy HH:mm');
   }
-
-  function redirectToNew() {
-    push('/posts/new');
-  }
 </script>
 
 <style>
@@ -99,7 +95,10 @@
     {queryDraftOnly ? 'All posts' : 'Drafts'}
   </button>
   <div class="top-bar-spacer"></div>
-  <button class="button button-primary" on:click="{redirectToNew}">
+  <button
+    class="button button-primary"
+    on:click="{() => { push('/posts/new'); }}"
+  >
     New
   </button>
 </TopBar>

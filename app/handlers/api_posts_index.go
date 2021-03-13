@@ -9,18 +9,16 @@ import (
 	postModel "github.com/nickelghost/yuzu-cms/app/models/post"
 )
 
-// APIPostsIndexResponseItem represents an array item for the response
-type APIPostsIndexResponseItem struct {
-	ID             int       `json:"id"`
-	Title          string    `json:"title"`
-	ContentPreview string    `json:"content_preview"`
-	IsDraft        bool      `json:"is_draft"`
-	CreatedAt      time.Time `json:"created_at"`
-	UpdatedAt      time.Time `json:"updated_at"`
-}
-
 // APIPostsIndex fetches all posts that were added
 func (hs Handlers) APIPostsIndex(c echo.Context) error {
+	type ResponseItem struct {
+		ID             int       `json:"id"`
+		Title          string    `json:"title"`
+		ContentPreview string    `json:"content_preview"`
+		IsDraft        bool      `json:"is_draft"`
+		CreatedAt      time.Time `json:"created_at"`
+		UpdatedAt      time.Time `json:"updated_at"`
+	}
 	draftOnly, err := strconv.ParseBool(c.QueryParam("draft"))
 	if err != nil {
 		return err
@@ -35,10 +33,10 @@ func (hs Handlers) APIPostsIndex(c echo.Context) error {
 	if err != nil {
 		return err
 	}
-	res := make([]APIPostsIndexResponseItem, 0)
+	res := []ResponseItem{}
 	for _, post := range *posts {
 		post.ContentPreview = post.GetContentPreview(80)
-		resItem := APIPostsIndexResponseItem{
+		resItem := ResponseItem{
 			ID:             post.ID,
 			Title:          post.Title,
 			ContentPreview: post.ContentPreview,

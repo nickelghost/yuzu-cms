@@ -9,6 +9,7 @@ import (
 	pageModel "github.com/nickelghost/yuzu-cms/app/models/page"
 )
 
+// APIPagesCreate creates a new page binding
 func (hs Handlers) APIPagesCreate(c echo.Context) error {
 	type Request struct {
 		PostID       int    `json:"post_id" validate:"required,min=1"`

@@ -9,6 +9,7 @@ import (
 	postModel "github.com/nickelghost/yuzu-cms/app/models/post"
 )
 
+// APIPostsDelete deletes a post
 func (hs Handlers) APIPostsDelete(c echo.Context) error {
 	type Response struct {
 		ID        int       `json:"id"`
