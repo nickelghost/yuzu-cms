@@ -12,7 +12,7 @@
     "markdown-it": "^10.0.0",
     "normalize.css": "^8.0.1",
     "qs": "^6.9.4",
-    "svelte": "^3.21.0",
+    "svelte": "^3.32.3",
     "svelte-spa-router": "^2.2.0"
   },
   "devDependencies": {
