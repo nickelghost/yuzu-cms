@@ -11,7 +11,7 @@
     "date-fns": "^2.17.0",
     "markdown-it": "^10.0.0",
     "normalize.css": "^8.0.1",
-    "qs": "^6.9.4",
+    "qs": "^6.9.6",
     "svelte": "^3.21.0",
     "svelte-spa-router": "^2.2.0"
   },
